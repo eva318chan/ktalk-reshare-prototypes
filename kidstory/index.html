@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>故事精靈波波 ✨ 兒童 AI 創意動畫工作室</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Fredoka (Rounded English) & Noto Sans TC (Traditional Chinese) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Fredoka"', '"Noto Sans TC"', 'sans-serif'],
+          },
+          colors: {
+            cream: '#FFFDF5',
+            skysoft: '#E0F2FE',
+            sunshine: '#FBBF24',
+            coral: '#FB7185',
+            mint: '#34D399',
+            grape: '#A78BFA',
+          },
+          boxShadow: {
+            'bubbly': '0 8px 0 rgba(30, 41, 59, 0.12)',
+            'bubbly-sm': '0 4px 0 rgba(30, 41, 59, 0.12)',
+            'glow-coral': '0 0 28px rgba(251, 113, 133, 0.65)',
+            'glow-amber': '0 0 24px rgba(251, 191, 36, 0.55)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Child-Friendly Animations & Ken Burns Camera Effects */
+    body {
+      background: linear-gradient(160deg, #FFFDF5 0%, #E0F2FE 52%, #FEF3C7 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    @keyframes floatBob {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    @keyframes pulseRing {
+      0% { transform: scale(0.92); opacity: 0.85; }
+      70% { transform: scale(1.28); opacity: 0; }
+      100% { transform: scale(1.28); opacity: 0; }
+    }
+
+    @keyframes soundWaveBar {
+      0%, 100% { height: 10px; }
+      50% { height: 32px; }
+    }
+
+    @keyframes eyeBlink {
+      0%, 92%, 100% { transform: scaleY(1); }
+      96% { transform: scaleY(0.1); }
+    }
+
+    @keyframes mouthTalk {
+      0%, 100% { transform: scaleY(0.35); }
+      50% { transform: scaleY(1.15); }
+    }
+
+    /* Ken Burns 2.5D Motion Classes for Storyboard Scenes */
+    @keyframes kbZoomIn {
+      0% { transform: scale(1.0) translate(0%, 0%); }
+      100% { transform: scale(1.16) translate(-1.5%, -1.5%); }
+    }
+    @keyframes kbZoomOut {
+      0% { transform: scale(1.16) translate(1.5%, 1%); }
+      100% { transform: scale(1.0) translate(0%, 0%); }
+    }
+    @keyframes kbPanLeft {
+      0% { transform: scale(1.12) translate(3.5%, 0%); }
+      100% { transform: scale(1.12) translate(-3.5%, 0%); }
+    }
+    @keyframes kbPanRight {
+      0% { transform: scale(1.12) translate(-3.5%, 0%); }
+      100% { transform: scale(1.12) translate(3.5%, 0%); }
+    }
+
+    .anim-float { animation: floatBob 3.4s ease-in-out infinite; }
+    .anim-pulse-ring { animation: pulseRing 1.5s cubic-bezier(0.24, 0, 0.38, 1) infinite; }
+    .mascot-eye { transform-origin: center; animation: eyeBlink 4.2s infinite; }
+    .mascot-mouth-talking { transform-origin: center; animation: mouthTalk 0.28s ease-in-out infinite; }
+
+    .kb-zoom_in { animation: kbZoomIn 14s ease-in-out forwards; }
+    .kb-zoom_out { animation: kbZoomOut 14s ease-in-out forwards; }
+    .kb-pan_left { animation: kbPanLeft 14s ease-in-out forwards; }
+    .kb-pan_right { animation: kbPanRight 14s ease-in-out forwards; }
+
+    .btn-press {
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    .btn-press:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 rgba(30, 41, 59, 0.12);
+    }
+
+    /* Hide scrollbars cleanly where needed */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-amber-200">
+
+  <!-- ==================== TOP NAVIGATION BAR ==================== -->
+  <header class="sticky top-0 z-30 bg-white/85 backdrop-blur-md border-b-4 border-sky-200 px-3 sm:px-6 py-2.5">
+    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-2.5 cursor-pointer" onclick="resetToStart()" title="返回開始畫面">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-amber-300 to-orange-400 flex items-center justify-center text-2xl shadow-bubbly-sm border-2 border-white">
+          🧚
+        </div>
+        <div>
+          <h1 class="text-lg sm:text-xl font-black tracking-tight text-slate-800 leading-none">
+            故事精靈波波 <span class="text-amber-500">✨</span>
+          </h1>
+          <p class="text-[11px] sm:text-xs font-bold text-sky-600 mt-0.5">K1–P3 兒童 AI 創意動畫工作室</p>
+        </div>
+      </div>
+
+      <!-- 3-Step Star Progress Tracker -->
+      <div id="stepTracker" class="flex items-center gap-1.5 sm:gap-2 bg-sky-50 px-3 py-1.5 rounded-full border-2 border-sky-200">
+        <div id="stepBadge1" class="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs sm:text-sm font-bold bg-amber-400 text-slate-900 shadow-sm transition-all">
+          <span>⭐</span><span>1. 講念頭</span>
+        </div>
+        <span class="text-sky-300 font-black">➔</span>
+        <div id="stepBadge2" class="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs sm:text-sm font-bold text-slate-400 transition-all">
+          <span>☆</span><span>2. 加奇遇</span>
+        </div>
+        <span class="text-sky-300 font-black">➔</span>
+        <div id="stepBadge3" class="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs sm:text-sm font-bold text-slate-400 transition-all">
+          <span>☆</span><span>3. 大結局</span>
+        </div>
+      </div>
+
+      <!-- Parent / Teacher Mode Button -->
+      <button onclick="openMathLock()" class="btn-press flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs sm:text-sm px-3.5 py-2 rounded-2xl border-2 border-indigo-200 shadow-bubbly-sm">
+        <span>家長／老師模式</span>
+        <span>🔒</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN WORKSPACE CONTAINER ==================== -->
+  <main class="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
+
+    <!-- ============================================================ -->
+    <!-- STAGE 1: 3-TURN GUIDED CONVERSATION STUDIO                   -->
+    <!-- ============================================================ -->
+    <section id="stageConversation" class="space-y-4 sm:space-y-5">
+
+      <!-- Mascot & Speech Bubble Hero Card -->
+      <div class="bg-white rounded-3xl border-4 border-amber-200 p-4 sm:p-6 shadow-bubbly relative overflow-hidden">
+        <!-- Decorative soft background clouds -->
+        <div class="absolute -top-6 -right-6 w-28 h-28 bg-amber-100/60 rounded-full pointer-events-none"></div>
+        <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-sky-100/60 rounded-full pointer-events-none"></div>
+
+        <div class="flex flex-col md:flex-row items-center gap-4 sm:gap-6 relative z-10">
+          <!-- Animated SVG Mascot: 故事精靈波波 -->
+          <div class="relative flex-shrink-0">
+            <!-- Listening Aura Rings -->
+            <div id="mascotListeningRings" class="hidden absolute inset-0 rounded-full bg-rose-400/30 anim-pulse-ring"></div>
+            <div onclick="speakCurrentBoboReply()" class="w-28 h-28 sm:w-36 sm:h-36 cursor-pointer anim-float relative" title="撳我再聽一次波波講嘢！">
+              <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-md">
+                <!-- Glowing Aura -->
+                <circle cx="100" cy="105" r="82" fill="#FEF3C7" opacity="0.7" />
+                <!-- Little Wings -->
+                <path d="M32 105 C10 80, 12 130, 36 125 Z" fill="#BAE6FD" stroke="#38BDF8" stroke-width="4" />
+                <path d="M168 105 C190 80, 188 130, 164 125 Z" fill="#BAE6FD" stroke="#38BDF8" stroke-width="4" />
+                <!-- Star Antenna -->
+                <path d="M100 32 Q104 16 114 14" stroke="#F59E0B" stroke-width="5" fill="none" stroke-linecap="round" />
+                <polygon points="116,4 119,12 128,12 121,17 123,25 116,20 109,25 111,17 104,12 113,12" fill="#FBBF24" stroke="#D97706" stroke-width="2" />
+                <!-- Main Body -->
+                <circle cx="100" cy="108" r="68" fill="url(#boboGrad)" stroke="#F59E0B" stroke-width="5" />
+                <defs>
+                  <radialGradient id="boboGrad" cx="40%" cy="35%" r="65%">
+                    <stop offset="0%" stop-color="#FFFBEB" />
+                    <stop offset="65%" stop-color="#FDE68A" />
+                    <stop offset="100%" stop-color="#FCD34D" />
+                  </radialGradient>
+                </defs>
+                <!-- Rosy Cheeks -->
+                <ellipse cx="64" cy="116" rx="11" ry="7" fill="#FDA4AF" opacity="0.75" />
+                <ellipse cx="136" cy="116" rx="11" ry="7" fill="#FDA4AF" opacity="0.75" />
+                <!-- Eyebrows -->
+                <path id="boboBrowLeft" d="M64 82 Q74 75 84 82" stroke="#78350F" stroke-width="4.5" fill="none" stroke-linecap="round" />
+                <path id="boboBrowRight" d="M116 82 Q126 75 136 82" stroke="#78350F" stroke-width="4.5" fill="none" stroke-linecap="round" />
+                <!-- Eyes -->
+                <g class="mascot-eye">
+                  <circle cx="74" cy="96" r="10" fill="#1E293B" />
+                  <circle cx="71" cy="92" r="3.5" fill="#FFFFFF" />
+                  <circle cx="126" cy="96" r="10" fill="#1E293B" />
+                  <circle cx="123" cy="92" r="3.5" fill="#FFFFFF" />
+                </g>
+                <!-- Mouth (Animated when speaking) -->
+                <g id="boboMouthGroup">
+                  <path id="boboMouthSmile" d="M86 118 Q100 133 114 118" stroke="#9A3412" stroke-width="5" fill="none" stroke-linecap="round" />
+                  <ellipse id="boboMouthOpen" cx="100" cy="122" rx="11" ry="9" fill="#FB7185" stroke="#9A3412" stroke-width="3.5" class="hidden" />
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Bobo Speech Bubble -->
+          <div class="flex-1 w-full">
+            <div class="flex items-center justify-between mb-2">
+              <span class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs sm:text-sm font-black px-3 py-1 rounded-full">
+                <span>🧚 故事精靈波波</span>
+                <span id="turnLabelTag" class="bg-amber-400 text-slate-900 px-2 py-0.5 rounded-full text-xs">第 1 步</span>
+              </span>
+              <button onclick="speakCurrentBoboReply()" class="btn-press inline-flex items-center gap-1 bg-sky-100 hover:bg-sky-200 text-sky-800 font-bold text-xs sm:text-sm px-3 py-1.5 rounded-full">
+                <span>🔊</span><span>再聽一次</span>
+              </button>
+            </div>
+
+            <div class="bg-sky-50/90 border-2 border-sky-200 rounded-2xl p-4 sm:p-5 relative">
+              <p id="boboSpeechText" class="text-lg sm:text-2xl font-bold text-slate-800 leading-relaxed">
+                哈囉小朋友！我係故事精靈波波呀！✨ 你今日想作一個咩故仔呀？講一個主角同埋佢去邊度玩畀我聽啦！
+              </p>
+              <!-- Thinking Indicator -->
+              <div id="boboThinkingBadge" class="hidden mt-2 inline-flex items-center gap-2 text-amber-700 font-bold text-sm bg-amber-100 px-3 py-1 rounded-full">
+                <span class="animate-spin">✨</span>
+                <span>波波諗緊魔法問題...</span>
+              </div>
+            </div>
+
+            <!-- Story Memory Pills (Shows what the kid has contributed so far) -->
+            <div id="storyHistoryPills" class="mt-3 flex flex-wrap gap-2"></div>
+          </div>
+        </div>
+
+        <!-- A/B Magic Choice Chips (Appears on Turn 1 & Turn 2 for non-typing kids) -->
+        <div id="abChoicesContainer" class="hidden mt-5 pt-4 border-t-2 border-dashed border-amber-200">
+          <div class="flex items-center justify-between mb-2.5">
+            <p class="text-xs sm:text-sm font-black text-amber-700">👇 唔知講咩好？可以一撳揀波波嘅魔法提議：</p>
+            <button id="skipToGenerateBtn" onclick="forceGenerateNow()" class="hidden btn-press bg-emerald-500 hover:bg-emerald-600 text-white font-black text-xs sm:text-sm px-3.5 py-1.5 rounded-full shadow-bubbly-sm">
+              ⚡ 直接變出動畫 ✨
+            </button>
+          </div>
+          <div id="abChoicesGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Kid-Friendly Voice & Quick Inspiration Controls -->
+      <div class="bg-white rounded-3xl border-4 border-sky-200 p-4 sm:p-6 shadow-bubbly">
+        <div class="flex flex-col items-center">
+          <!-- Big Glowing Push-to-Talk / Toggle Mic Button -->
+          <div class="relative mb-3">
+            <div id="micGlowRing" class="hidden absolute -inset-3 rounded-full bg-rose-400/40 anim-pulse-ring pointer-events-none"></div>
+            <button id="micButton" onclick="toggleVoiceRecording()" class="btn-press relative z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-b from-rose-400 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white flex flex-col items-center justify-center shadow-glow-coral border-4 border-white cursor-pointer">
+              <span id="micIcon" class="text-3xl sm:text-4xl mb-0.5">🎤</span>
+              <span id="micLabel" class="text-xs sm:text-sm font-black tracking-wide">撳掣講故仔</span>
+            </button>
+          </div>
+
+          <!-- Live Soundwave Visualizer when Recording -->
+          <div id="voiceWaveBox" class="hidden flex items-center justify-center gap-1.5 h-9 mb-2">
+            <span class="w-1.5 bg-rose-500 rounded-full" style="animation: soundWaveBar 0.5s infinite 0.0s"></span>
+            <span class="w-1.5 bg-amber-400 rounded-full" style="animation: soundWaveBar 0.5s infinite 0.1s"></span>
+            <span class="w-1.5 bg-emerald-400 rounded-full" style="animation: soundWaveBar 0.5s infinite 0.2s"></span>
+            <span class="w-1.5 bg-sky-400 rounded-full" style="animation: soundWaveBar 0.5s infinite 0.3s"></span>
+            <span class="w-1.5 bg-rose-500 rounded-full" style="animation: soundWaveBar 0.5s infinite 0.4s"></span>
+            <span class="ml-2 text-sm font-black text-rose-600">波波聽緊你講嘢... 講完再撳一下發送！</span>
+          </div>
+
+          <p id="micStatusHint" class="text-xs sm:text-sm font-bold text-slate-500 mb-3 text-center">
+            支援廣東話夾英文（例如：「我想隻紅色 Dinosaur 去海洋公園！」）
+          </p>
+
+          <!-- Clean Text Input Bar (Seamless Fallback / Typing Option) -->
+          <form onsubmit="handleTextSubmit(event)" class="w-full max-w-2xl flex gap-2">
+            <input
+              id="kidTextInput"
+              type="text"
+              placeholder="或者喺度打字講出你嘅故仔念頭..."
+              class="flex-1 bg-slate-50 border-3 border-sky-200 focus:border-amber-400 focus:bg-white rounded-2xl px-4 py-3 text-base sm:text-lg font-bold text-slate-800 outline-none transition-colors"
+            />
+            <button type="submit" id="sendTextBtn" class="btn-press bg-amber-400 hover:bg-amber-500 text-slate-900 font-black text-base sm:text-lg px-5 sm:px-6 py-3 rounded-2xl border-2 border-amber-500 shadow-bubbly-sm whitespace-nowrap">
+              發送 🚀
+            </button>
+          </form>
+
+          <!-- Quick Demo & Inspiration Tools Row -->
+          <div class="w-full max-w-2xl mt-4 pt-4 border-t-2 border-slate-100 flex flex-wrap items-center justify-center gap-2.5">
+            <!-- Magic Inspiration Dice -->
+            <button type="button" onclick="rollInspirationDice()" class="btn-press flex items-center gap-2 bg-gradient-to-r from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 text-purple-900 font-black text-xs sm:text-sm px-4 py-2.5 rounded-2xl border-2 border-purple-300 shadow-bubbly-sm">
+              <span class="text-lg">🎲</span>
+              <span>魔法靈感骰仔（轉一轉靈感）</span>
+            </button>
+
+            <!-- Safety Guardrail Test Button -->
+            <button type="button" onclick="testSafetyGuardrail()" class="btn-press flex items-center gap-2 bg-gradient-to-r from-emerald-100 to-teal-100 hover:from-emerald-200 hover:to-teal-200 text-emerald-900 font-black text-xs sm:text-sm px-4 py-2.5 rounded-2xl border-2 border-emerald-300 shadow-bubbly-sm">
+              <span class="text-lg">🛡️</span>
+              <span>測試「打怪獸」安全柔化護欄</span>
+            </button>
+          </div>
+
+          <!-- Dice Result Banner -->
+          <div id="diceResultBanner" class="hidden mt-3 bg-purple-50 border-2 border-purple-200 rounded-2xl px-4 py-2 text-center text-sm font-bold text-purple-900">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- STAGE 2: INTERACTIVE MAGIC WAITING MINI-GAME                 -->
+    <!-- ============================================================ -->
+    <section id="stageWaitingGame" class="hidden space-y-4">
+      <div class="bg-slate-900 rounded-3xl border-4 border-amber-300 p-4 sm:p-6 shadow-bubbly text-white relative overflow-hidden">
+        <!-- Top Status Header -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-3 relative z-10">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl animate-bounce">🪄</span>
+            <div>
+              <h2 class="text-lg sm:text-xl font-black text-amber-300" id="waitingTitle">故事精靈施法中！波波幫你畫緊 4 幕動畫...</h2>
+              <p class="text-xs sm:text-sm text-sky-200 font-bold" id="waitingSubtext">👇 一邊等一邊篤爆星空泡泡，幫動畫加滿魔法能量！</p>
+            </div>
+          </div>
+          <div class="bg-white/15 px-4 py-1.5 rounded-full font-black text-amber-300 text-sm sm:text-base">
+            ✨ 魔法能量：<span id="starPopScore">0</span> 粒星星
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-slate-800 h-5 rounded-full overflow-hidden border-2 border-slate-700 mb-3 relative z-10">
+          <div id="generationProgressBar" class="bg-gradient-to-r from-amber-400 via-rose-400 to-sky-400 h-full transition-all duration-500 rounded-full" style="width: 15%"></div>
+        </div>
+
+        <!-- Interactive Starry Canvas Mini-Game -->
+        <div id="waitingCanvasWrapper" class="relative w-full h-72 sm:h-96 rounded-2xl overflow-hidden border-2 border-indigo-500/50 cursor-pointer touch-none">
+          <canvas id="magicStarCanvas" class="w-full h-full block"></canvas>
+          <div class="absolute bottom-3 left-0 right-0 text-center pointer-events-none">
+            <span class="bg-slate-900/75 text-amber-200 text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full border border-amber-400/40">
+              👆 輕觸或滑動夜空，變出七彩星星同魔法音樂！
+            </span>
+          </div>
+        </div>
+
+        <!-- Live Generated Scene Thumbnails Preview Strip -->
+        <div class="grid grid-cols-4 gap-2 sm:gap-3 mt-4">
+          <div id="thumbSlot0" class="aspect-video rounded-xl bg-slate-800 border-2 border-slate-700 flex flex-col items-center justify-center text-xs font-bold text-slate-400 overflow-hidden relative">
+            <span>第 1 幕</span><span class="text-[10px]">定妝畫緊...</span>
+          </div>
+          <div id="thumbSlot1" class="aspect-video rounded-xl bg-slate-800 border-2 border-slate-700 flex flex-col items-center justify-center text-xs font-bold text-slate-400 overflow-hidden relative">
+            <span>第 2 幕</span><span class="text-[10px]">排隊施法...</span>
+          </div>
+          <div id="thumbSlot2" class="aspect-video rounded-xl bg-slate-800 border-2 border-slate-700 flex flex-col items-center justify-center text-xs font-bold text-slate-400 overflow-hidden relative">
+            <span>第 3 幕</span><span class="text-[10px]">排隊施法...</span>
+          </div>
+          <div id="thumbSlot3" class="aspect-video rounded-xl bg-slate-800 border-2 border-slate-700 flex flex-col items-center justify-center text-xs font-bold text-slate-400 overflow-hidden relative">
+            <span>第 4 幕</span><span class="text-[10px]">排隊施法...</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- STAGE 3: 2.5D SMART ANIMATIC PLAYER (有聲繪本動畫播放器)      -->
+    <!-- ============================================================ -->
+    <section id="stagePlayer" class="hidden space-y-4">
+      <div class="bg-white rounded-3xl border-4 border-amber-300 p-4 sm:p-6 shadow-bubbly">
+
+        <!-- Player Header: Story Title & Bilingual Switch -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div>
+            <span class="text-xs font-black bg-rose-100 text-rose-700 px-3 py-1 rounded-full">🎬 原創 1 分鐘有聲繪本動畫</span>
+            <h2 id="storyPlayerTitle" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">小朋友嘅奇幻大冒險</h2>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <!-- Bilingual Switch: Cantonese <-> English -->
+            <div class="bg-sky-100 p-1 rounded-2xl border-2 border-sky-200 flex items-center">
+              <button id="langBtnCantonese" onclick="switchPlayerLanguage('zh-HK')" class="px-3 py-1.5 rounded-xl text-xs sm:text-sm font-black bg-amber-400 text-slate-900 shadow-sm transition-all">
+                🇭🇰 廣東話
+              </button>
+              <button id="langBtnEnglish" onclick="switchPlayerLanguage('en-US')" class="px-3 py-1.5 rounded-xl text-xs sm:text-sm font-black text-slate-600 hover:text-slate-900 transition-all">
+                🇬🇧 English
+              </button>
+            </div>
+
+            <!-- BGM Mute/Unmute -->
+            <button id="bgmToggleBtn" onclick="toggleBgmMute()" class="btn-press bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-xs sm:text-sm px-3 py-2 rounded-2xl border-2 border-amber-300" title="開關背景音樂">
+              🎵 音樂開
+            </button>
+          </div>
+        </div>
+
+        <!-- 16:9 Cinema Stage -->
+        <div class="relative w-full aspect-video bg-slate-900 rounded-2xl overflow-hidden border-4 border-slate-800 shadow-inner">
+          <!-- Animated Ken Burns Image Layer -->
+          <img id="playerSceneImage" src="" alt="故事畫面" class="w-full h-full object-cover transition-opacity duration-700" />
+
+          <!-- Floating Particle Overlay Canvas -->
+          <canvas id="playerParticleCanvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+
+          <!-- Top-Left Scene Act Badge -->
+          <div class="absolute top-3 left-3 bg-slate-900/75 backdrop-blur-sm text-white px-3.5 py-1 rounded-full text-xs sm:text-sm font-black border border-white/20 flex items-center gap-2">
+            <span id="playerSceneBadge">第 1 幕 / 共 4 幕</span>
+            <span id="playerCameraTag" class="text-amber-300 text-xs">🎥 鏡頭推近</span>
+          </div>
+
+          <!-- Top-Right Timer -->
+          <div class="absolute top-3 right-3 bg-slate-900/75 backdrop-blur-sm text-amber-300 px-3 py-1 rounded-full text-xs sm:text-sm font-black border border-white/20">
+            ⏱️ <span id="playerTimerDisplay">00:00 / 00:56</span>
+          </div>
+
+          <!-- Karaoke-Style Subtitle Banner -->
+          <div class="absolute bottom-3 sm:bottom-5 left-3 right-3 sm:left-8 sm:right-8 flex justify-center">
+            <div class="bg-slate-900/85 backdrop-blur-md border-2 border-amber-300/70 rounded-2xl px-4 sm:px-6 py-2.5 sm:py-3.5 max-w-3xl text-center shadow-lg">
+              <p id="playerSubtitleText" class="text-base sm:text-xl md:text-2xl font-black text-white leading-snug tracking-wide">
+                故事準備開始啦...
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-Scene Timeline Scrubber -->
+        <div class="grid grid-cols-4 gap-2 sm:gap-3 mt-4">
+          <button onclick="jumpToScene(0)" id="scrubberBtn0" class="p-2 rounded-2xl border-3 border-amber-400 bg-amber-50 text-left transition-all">
+            <div class="text-xs font-black text-amber-700">第 1 幕・起</div>
+            <div id="scrubberDesc0" class="text-[11px] sm:text-xs font-bold text-slate-700 truncate">故事開始</div>
+          </button>
+          <button onclick="jumpToScene(1)" id="scrubberBtn1" class="p-2 rounded-2xl border-2 border-slate-200 bg-slate-50 text-left transition-all">
+            <div class="text-xs font-black text-slate-500">第 2 幕・承</div>
+            <div id="scrubberDesc1" class="text-[11px] sm:text-xs font-bold text-slate-600 truncate">遇見奇遇</div>
+          </button>
+          <button onclick="jumpToScene(2)" id="scrubberBtn2" class="p-2 rounded-2xl border-2 border-slate-200 bg-slate-50 text-left transition-all">
+            <div class="text-xs font-black text-slate-500">第 3 幕・轉</div>
+            <div id="scrubberDesc2" class="text-[11px] sm:text-xs font-bold text-slate-600 truncate">合力解決</div>
+          </button>
+          <button onclick="jumpToScene(3)" id="scrubberBtn3" class="p-2 rounded-2xl border-2 border-slate-200 bg-slate-50 text-left transition-all">
+            <div class="text-xs font-black text-slate-500">第 4 幕・合</div>
+            <div id="scrubberDesc3" class="text-[11px] sm:text-xs font-bold text-slate-600 truncate">開心結局</div>
+          </button>
+        </div>
+
+        <!-- Action Control Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-3 mt-5 pt-4 border-t-2 border-slate-100">
+          <button id="playPauseBtn" onclick="togglePlayPause()" class="btn-press bg-amber-400 hover:bg-amber-500 text-slate-900 font-black text-sm sm:text-base px-5 py-3 rounded-2xl border-2 border-amber-500 shadow-bubbly-sm">
+            ⏸️ 暫停播放
+          </button>
+          <button onclick="replayAnimatic()" class="btn-press bg-sky-100 hover:bg-sky-200 text-sky-900 font-black text-sm sm:text-base px-5 py-3 rounded-2xl border-2 border-sky-300 shadow-bubbly-sm">
+            🔁 由頭重播
+          </button>
+          <button onclick="shareStoryToFamily()" class="btn-press bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-black text-sm sm:text-base px-5 py-3 rounded-2xl border-2 border-emerald-300 shadow-bubbly-sm">
+            💌 分享畀爺爺嫲嫲
+          </button>
+          <button onclick="resetToStart()" class="btn-press bg-rose-500 hover:bg-rose-600 text-white font-black text-sm sm:text-base px-5 py-3 rounded-2xl border-2 border-rose-600 shadow-bubbly-sm">
+            🔄 再作一個新故仔
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== KID-SAFE MATH LOCK MODAL ==================== -->
+  <div id="mathLockModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl border-4 border-indigo-300 max-w-sm w-full p-6 shadow-2xl text-center">
+      <div class="w-14 h-14 mx-auto bg-indigo-100 rounded-2xl flex items-center justify-center text-3xl mb-3">🔒</div>
+      <h3 class="text-xl font-black text-slate-800">家長／老師安全鎖</h3>
+      <p class="text-xs font-bold text-slate-500 mt-1">請回答以下算術題以進入成長報告及繪本印製後台：</p>
+
+      <div class="my-4 bg-indigo-50 rounded-2xl p-4 border-2 border-indigo-200">
+        <div class="text-2xl font-black text-indigo-900">12 + 7 = ?</div>
+        <input id="mathAnswerInput" type="number" placeholder="輸入答案" class="mt-2 w-32 text-center text-xl font-black bg-white border-2 border-indigo-300 rounded-xl py-1.5 outline-none focus:border-indigo-500" />
+      </div>
+
+      <p id="mathErrorText" class="hidden text-xs font-bold text-rose-600 mb-2">答案唔啱喎，再試一次！</p>
+
+      <div class="flex gap-2 justify-center">
+        <button onclick="closeMathLock()" class="btn-press px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-sm">取消</button>
+        <button onclick="verifyMathLock()" class="btn-press px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-black text-sm shadow-bubbly-sm">確認進入</button>
+      </div>
+
+      <!-- Subtle Demo Bypass Helper -->
+      <button onclick="unlockParentHubDirectly()" class="mt-4 text-[11px] font-bold text-indigo-400 hover:text-indigo-600 underline">
+        (Demo 測試快捷通道：直接解鎖預覽)
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== PARENT & TEACHER HUB MODAL ==================== -->
+  <div id="parentHubModal" class="hidden fixed inset-0 z-50 bg-slate-900/65 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-white rounded-3xl border-4 border-indigo-300 max-w-3xl w-full p-5 sm:p-7 shadow-2xl my-auto max-h-[92vh] overflow-y-auto">
+      <!-- Header -->
+      <div class="flex items-center justify-between pb-4 border-b-2 border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <span class="text-3xl">👩‍🏫</span>
+          <div>
+            <h3 class="text-xl sm:text-2xl font-black text-slate-800">家長與校園成長中心</h3>
+            <p class="text-xs font-bold text-indigo-600">語言表達追蹤・護眼沙漏管理・實體繪本印製 (POD)</p>
+          </div>
+        </div>
+        <button onclick="closeParentHub()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 font-black text-slate-600">✕</button>
+      </div>
+
+      <!-- Hub Tabs -->
+      <div class="flex gap-2 my-4 bg-slate-100 p-1.5 rounded-2xl">
+        <button id="hubTabGrowth" onclick="switchHubTab('growth')" class="flex-1 py-2 rounded-xl font-black text-xs sm:text-sm bg-white text-indigo-700 shadow-sm">
+          📊 兒童語言成長報告
+        </button>
+        <button id="hubTabPod" onclick="switchHubTab('pod')" class="flex-1 py-2 rounded-xl font-black text-xs sm:text-sm text-slate-600">
+          📖 一鍵印製實體繪本預覽
+        </button>
+      </div>
+
+      <!-- TAB 1: Language Growth Report -->
+      <div id="hubContentGrowth" class="space-y-4">
+        <div class="grid grid-cols-3 gap-3">
+          <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-3.5 text-center">
+            <div class="text-xs font-bold text-amber-800">本週創作詞彙量</div>
+            <div id="statVocabCount" class="text-2xl sm:text-3xl font-black text-amber-600 mt-1">348 字</div>
+            <div class="text-[11px] font-bold text-emerald-600 mt-0.5">▲ 較上週 +24%</div>
+          </div>
+          <div class="bg-sky-50 border-2 border-sky-200 rounded-2xl p-3.5 text-center">
+            <div class="text-xs font-bold text-sky-800">故事結構完整度</div>
+            <div class="text-2xl sm:text-3xl font-black text-sky-600 mt-1">92%</div>
+            <div class="text-[11px] font-bold text-sky-700 mt-0.5">具備「起承轉合」</div>
+          </div>
+          <div class="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-3.5 text-center">
+            <div class="text-xs font-bold text-emerald-800">安全護欄柔化次數</div>
+            <div id="statSafetyCount" class="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">1 次</div>
+            <div class="text-[11px] font-bold text-emerald-700 mt-0.5">已轉化為正能量</div>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50/70 border-2 border-indigo-200 rounded-2xl p-4">
+          <h4 class="font-black text-indigo-900 text-sm mb-2">✨ AI 教育觀察評語：</h4>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+            小朋友喺講故仔時非常擅長運用<strong>「奇幻角色」</strong>同<strong>「食物／太空元素」</strong>（例如：恐龍、超人貓咪、士多啤梨蛋糕）。透過波波嘅 2 條引導問題，小朋友學識咗為角色設計「解決困難嘅方法」，建議家長今晚睡前可以同小朋友用<strong>英文模式</strong>再聽一次佢自己作嘅故仔！
+          </p>
+          <div class="mt-3 flex flex-wrap gap-1.5">
+            <span class="text-xs font-bold bg-white text-indigo-700 px-2.5 py-1 rounded-full border border-indigo-200">#想像力爆發</span>
+            <span class="text-xs font-bold bg-white text-indigo-700 px-2.5 py-1 rounded-full border border-indigo-200">#因果邏輯訓練</span>
+            <span class="text-xs font-bold bg-white text-indigo-700 px-2.5 py-1 rounded-full border border-indigo-200">#兩文三語啟蒙</span>
+          </div>
+        </div>
+
+        <!-- Screen Time Sandglass Setting -->
+        <div class="flex items-center justify-between bg-slate-50 border-2 border-slate-200 rounded-2xl p-3.5">
+          <div>
+            <div class="font-black text-sm text-slate-800">⏳ 睡前魔法沙漏（護眼限制）</div>
+            <div class="text-xs text-slate-500 font-bold">每日完成 2 個動畫後，波波會自動打喊露引導小朋友休息</div>
+          </div>
+          <span class="bg-emerald-500 text-white text-xs font-black px-3 py-1 rounded-full">已開啟</span>
+        </div>
+      </div>
+
+      <!-- TAB 2: Hardcover Storybook POD Mockup -->
+      <div id="hubContentPod" class="hidden space-y-4">
+        <div class="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center gap-5">
+          <!-- Hardcover 3D Book Mockup -->
+          <div class="w-44 h-56 rounded-r-2xl rounded-l-md bg-gradient-to-b from-sky-400 to-indigo-500 p-3 shadow-xl border-l-8 border-indigo-800 flex flex-col justify-between text-white flex-shrink-0 relative">
+            <div class="text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-900 px-2 py-0.5 rounded-full self-start">
+              精裝硬皮繪本
+            </div>
+            <div class="text-center my-auto">
+              <div class="text-4xl mb-1">🧚✨</div>
+              <div id="podBookTitle" class="font-black text-sm leading-tight">我嘅第一本奇幻故事集</div>
+              <div class="text-[10px] text-sky-100 mt-1">小作家：K3 創意小精靈</div>
+            </div>
+            <div class="bg-white/95 text-slate-800 rounded-lg p-1.5 flex items-center justify-between">
+              <span class="text-[9px] font-black leading-tight">掃描 QR Code<br>聽孫仔原聲動畫</span>
+              <span class="text-lg">📱</span>
+            </div>
+          </div>
+
+          <!-- POD Commercial Details -->
+          <div class="flex-1 space-y-2.5">
+            <span class="bg-rose-100 text-rose-700 text-xs font-black px-3 py-1 rounded-full">🎁 親友送禮／成長紀念最受歡迎</span>
+            <h4 class="text-lg font-black text-slate-800">將小朋友作嘅故仔印成《專屬有聲精裝繪本》</h4>
+            <p class="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+              系統自動將小朋友創作嘅 4 至 8 個故事排版成全彩硬皮畫冊，每頁角落印有<strong>專屬有聲書 QR Code</strong>。爺爺嫲嫲用手機一掃，即刻睇到孫仔作嘅動畫同埋聽返佢把聲！
+            </p>
+            <div class="pt-2 flex flex-wrap items-center gap-3">
+              <div class="text-lg font-black text-indigo-700">HK$168 <span class="text-xs font-bold text-slate-400">/ 本（包順豐速遞）</span></div>
+              <button onclick="showToast('📖 已將你嘅最新故事加入《專屬精裝繪本》排版預覽！')" class="btn-press bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-bubbly-sm">
+                立即預覽內頁排版 ✨
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FLOATING TOAST NOTIFICATION ==================== -->
+  <div id="toastBanner" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-slate-900/95 text-white px-5 py-3 rounded-2xl border-2 border-amber-400 shadow-xl text-sm font-bold flex items-center gap-2 max-w-[90vw]">
+    <span>✨</span>
+    <span id="toastMessage">提示訊息</span>
+  </div>
+
+  <!-- ==================== JAVASCRIPT APPLICATION LOGIC ==================== -->
+  <script>
+    // =========================================================================
+    // 1. GLOBAL STATE & GEMINI API CONFIGURATION
+    // =========================================================================
+    const apiKey = ""; // Canvas runtime automatically injects API key when empty string
+
+    const appState = {
+      turn: 1,
+      conversationHistory: [], // { role: 'user'|'bobo', text: string }
+      currentBoboReply: "哈囉小朋友！我係故事精靈波波呀！✨ 你今日想作一個咩故仔呀？講一個主角同埋佢去邊度玩畀我聽啦！",
+      isRecording: false,
+      recognition: null,
+      storyboardData: null, // Holds final JSON with character_anchor & 4 scenes
+      sceneImages: [], // Array of data URLs or generated fallback canvas URLs
+      player: {
+        isPlaying: false,
+        currentSceneIdx: 0,
+        language: 'zh-HK', // 'zh-HK' or 'en-US'
+        bgmMuted: false,
+        sceneTimerId: null,
+        elapsedSeconds: 0,
+        totalSeconds: 56, // 4 scenes * 14s = 56s (~1 minute animatic)
+      },
+      stats: {
+        vocabCount: 348,
+        safetyReframedCount: 1,
+      }
+    };
+
+    // Magic Inspiration Dice Pools (Hong Kong Kids Favorites)
+    const DICE_CHARACTERS = [
+      { emoji: "🦖", text: "紅色小恐龍" },
+      { emoji: "🐱", text: "超人小貓咪" },
+      { emoji: "🦄", text: "彩虹獨角獸" },
+      { emoji: "🤖", text: "圓滾滾小機械人" },
+      { emoji: "🐧", text: "戴冷帽嘅企鵝仔" }
+    ];
+    const DICE_PLACES = [
+      { emoji: "🚀", text: "去太空船入面" },
+      { emoji: "🎡", text: "去海洋公園摩天輪" },
+      { emoji: "🏰", text: "去雲朵糖果城堡" },
+      { emoji: "🌊", text: "去海底水晶宮" },
+      { emoji: "🌲", text: "去會發光嘅魔法森林" }
+    ];
+    const DICE_ITEMS = [
+      { emoji: "🍰", text: "整巨型士多啤梨蛋糕" },
+      { emoji: "🫧", text: "吹出會飛嘅七彩泡泡" },
+      { emoji: "🎸", text: "開森林動物音樂會" },
+      { emoji: "🍦", text: "搵會變色嘅魔法雪糕" },
+      { emoji: "🎈", text: "坐熱氣球去救小鳥" }
+    ];
+
+    // =========================================================================
+    // 2. WEB AUDIO API SOUND EFFECTS & PROCEDURAL MUSIC-BOX BGM
+    // =========================================================================
+    let audioCtx = null;
+    let bgmIntervalId = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(() => {});
+      }
+      return audioCtx;
+    }
+
+    function playMagicChime(freq = 587.33, duration = 0.25) {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.45, ctx.currentTime + duration);
+
+        gain.gain.setValueAtTime(0.14, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function startGentleBgm() {
+      stopGentleBgm();
+      if (appState.player.bgmMuted) return;
+      // Gentle pentatonic music-box notes (C5, D5, E5, G5, A5, C6)
+      const melody = [523.25, 659.25, 783.99, 659.25, 587.33, 783.99, 880.00, 783.99];
+      let step = 0;
+      bgmIntervalId = setInterval(() => {
+        if (appState.player.bgmMuted || !appState.player.isPlaying) return;
+        try {
+          const ctx = getAudioContext();
+          if (!ctx) return;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(melody[step % melody.length], ctx.currentTime);
+          // Soft ducked volume so voiceover is crystal clear
+          gain.gain.setValueAtTime(0.035, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0008, ctx.currentTime + 0.55);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.55);
+          step++;
+        } catch (e) {}
+      }, 650);
+    }
+
+    function stopGentleBgm() {
+      if (bgmIntervalId) {
+        clearInterval(bgmIntervalId);
+        bgmIntervalId = null;
+      }
+    }
+
+    function toggleBgmMute() {
+      appState.player.bgmMuted = !appState.player.bgmMuted;
+      const btn = document.getElementById('bgmToggleBtn');
+      if (appState.player.bgmMuted) {
+        btn.textContent = '🔇 音樂關';
+        stopGentleBgm();
+      } else {
+        btn.textContent = '🎵 音樂開';
+        if (appState.player.isPlaying) startGentleBgm();
+      }
+    }
+
+    // =========================================================================
+    // 3. BROWSER TEXT-TO-SPEECH (TTS) & MASCOT MOUTH SYNC
+    // =========================================================================
+    function setMascotTalking(isTalking) {
+      const smile = document.getElementById('boboMouthSmile');
+      const open = document.getElementById('boboMouthOpen');
+      if (!smile || !open) return;
+      if (isTalking) {
+        smile.classList.add('hidden');
+        open.classList.remove('hidden');
+        open.classList.add('mascot-mouth-talking');
+      } else {
+        open.classList.add('hidden');
+        open.classList.remove('mascot-mouth-talking');
+        smile.classList.remove('hidden');
+      }
+    }
+
+    function speakText(text, lang = 'zh-HK', onEndCallback = null) {
+      if (!('speechSynthesis' in window)) {
+        if (onEndCallback) setTimeout(onEndCallback, 2500);
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      utterance.rate = lang === 'zh-HK' ? 0.96 : 0.92;
+      utterance.pitch = 1.15; // Slightly brighter, friendly storyteller pitch
+
+      // Try to pick best Hong Kong Cantonese or English voice available
+      const voices = window.speechSynthesis.getVoices();
+      if (lang === 'zh-HK') {
+        const hkVoice = voices.find(v => v.lang.includes('zh-HK') || v.lang.includes('yue'));
+        if (hkVoice) utterance.voice = hkVoice;
+      } else {
+        const enVoice = voices.find(v => v.lang.includes('en-US') || v.lang.includes('en-GB'));
+        if (enVoice) utterance.voice = enVoice;
+      }
+
+      utterance.onstart = () => setMascotTalking(true);
+      utterance.onend = () => {
+        setMascotTalking(false);
+        if (onEndCallback) onEndCallback();
+      };
+      utterance.onerror = () => {
+        setMascotTalking(false);
+        if (onEndCallback) onEndCallback();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function speakCurrentBoboReply() {
+      getAudioContext();
+      playMagicChime(660, 0.2);
+      speakText(appState.currentBoboReply, 'zh-HK');
+    }
+
+    // Preload voices on browser init
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+    }
+
+    // =========================================================================
+    // 4. VOICE RECOGNITION (WEB SPEECH API - CANTONESE zh-HK)
+    // =========================================================================
+    function toggleVoiceRecording() {
+      getAudioContext();
+      if (appState.isRecording) {
+        stopVoiceRecording();
+        return;
+      }
+
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRec) {
+        showToast('呢個瀏覽器唔支援直接錄音，請用下面輸入框打字或者撳「魔法靈感骰仔」🎲！');
+        document.getElementById('kidTextInput').focus();
+        return;
+      }
+
+      try {
+        const recognition = new SpeechRec();
+        recognition.lang = 'zh-HK';
+        recognition.interimResults = true;
+        recognition.maxAlternatives = 1;
+
+        recognition.onstart = () => {
+          appState.isRecording = true;
+          playMagicChime(523.25, 0.2);
+          document.getElementById('micGlowRing').classList.remove('hidden');
+          document.getElementById('mascotListeningRings').classList.remove('hidden');
+          document.getElementById('voiceWaveBox').classList.remove('hidden');
+          document.getElementById('micIcon').textContent = '⏹️';
+          document.getElementById('micLabel').textContent = '講完撳我';
+        };
+
+        recognition.onresult = (event) => {
+          let transcript = '';
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            transcript += event.results[i][0].transcript;
+          }
+          document.getElementById('kidTextInput').value = transcript;
+        };
+
+        recognition.onerror = (event) => {
+          stopVoiceRecording();
+          if (event.error === 'not-allowed') {
+            showToast('咪高峰權限未開啟，可以直接喺下面打字或者試下「魔法靈感骰仔」🎲！');
+          } else {
+            showToast('聽唔太清楚，可以再講一次或者直接打字呀！');
+          }
+        };
+
+        recognition.onend = () => {
+          const capturedText = document.getElementById('kidTextInput').value.trim();
+          stopVoiceRecording();
+          if (capturedText) {
+            processKidStoryInput(capturedText);
+          }
+        };
+
+        appState.recognition = recognition;
+        recognition.start();
+      } catch (err) {
+        stopVoiceRecording();
+        showToast('請直接用下面文字框或魔法骰仔輸入故仔！');
+      }
+    }
+
+    function stopVoiceRecording() {
+      appState.isRecording = false;
+      if (appState.recognition) {
+        try { appState.recognition.stop(); } catch (e) {}
+      }
+      document.getElementById('micGlowRing').classList.add('hidden');
+      document.getElementById('mascotListeningRings').classList.add('hidden');
+      document.getElementById('voiceWaveBox').classList.add('hidden');
+      document.getElementById('micIcon').textContent = '🎤';
+      document.getElementById('micLabel').textContent = '撳掣講故仔';
+    }
+
+    // =========================================================================
+    // 5. QUICK TEST HELPERS (MAGIC DICE & SAFETY GUARDRAIL DEMO)
+    // =========================================================================
+    function rollInspirationDice() {
+      getAudioContext();
+      playMagicChime(523.25, 0.15);
+      setTimeout(() => playMagicChime(659.25, 0.15), 110);
+      setTimeout(() => playMagicChime(783.99, 0.25), 220);
+
+      const c = DICE_CHARACTERS[Math.floor(Math.random() * DICE_CHARACTERS.length)];
+      const p = DICE_PLACES[Math.floor(Math.random() * DICE_PLACES.length)];
+      const i = DICE_ITEMS[Math.floor(Math.random() * DICE_ITEMS.length)];
+
+      const combinedIdea = `我想${c.text}${p.text}，一齊${i.text}！`;
+      const banner = document.getElementById('diceResultBanner');
+      banner.innerHTML = `🎲 轉出靈感：<span class="text-rose-600">${c.emoji} ${c.text}</span> ＋ <span class="text-sky-600">${p.emoji} ${p.text}</span> ＋ <span class="text-amber-600">${i.emoji} ${i.text}</span>`;
+      banner.classList.remove('hidden');
+
+      document.getElementById('kidTextInput').value = combinedIdea;
+      processKidStoryInput(combinedIdea);
+    }
+
+    function testSafetyGuardrail() {
+      getAudioContext();
+      playMagicChime(440, 0.2);
+      const violentTestInput = "超人貓咪用激光槍打死隻大怪獸，流好多血！";
+      document.getElementById('kidTextInput').value = violentTestInput;
+      appState.stats.safetyReframedCount += 1;
+      document.getElementById('statSafetyCount').textContent = `${appState.stats.safetyReframedCount} 次`;
+      showToast('🛡️ 正在測試「卡通柔化安全護欄」，睇下波波點樣無痕轉化暴力詞彙！');
+      processKidStoryInput(violentTestInput);
+    }
+
+    function handleTextSubmit(event) {
+      event.preventDefault();
+      getAudioContext();
+      const inputEl = document.getElementById('kidTextInput');
+      const text = inputEl.value.trim();
+      if (!text) {
+        showToast('先講一句說話，或者撳「🎲 魔法靈感骰仔」啦！');
+        return;
+      }
+      processKidStoryInput(text);
+    }
+
+    // =========================================================================
+    // 6. GEMINI API INTEGRATION (WITH EXPONENTIAL BACKOFF & STRUCTURED JSON)
+    // =========================================================================
+    async function fetchWithBackoff(url, options, maxRetries = 3) {
+      let delay = 1000;
+      for (let attempt = 0; attempt <= maxRetries; attempt++) {
+        try {
+          const response = await fetch(url, options);
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+          return await response.json();
+        } catch (err) {
+          if (attempt === maxRetries) throw err;
+          await new Promise(resolve => setTimeout(resolve, delay));
+          delay *= 2;
+        }
+      }
+    }
+
+    const STORY_GENIE_SYSTEM_PROMPT = `
+你係專為香港 3 至 9 歲（幼稚園 K1 至小學三年級）小朋友設計嘅「故事精靈波波」。
+你嘅任務係透過溫暖、有童趣嘅香港口語廣東話對話，用最多 2 條引導問題，啟發小朋友講出完整故事，然後喺第 3 回合（或收到強制生成指令時）輸出 4 幕兒童繪本動畫分鏡（JSON 格式）。
+
+【香港兒童廣東話規範】
+1. 必須使用地道親切嘅香港口語廣東話（例如用「邊個、點解、好犀利、唔緊要、陣間、好得意」），唔好用書面語。
+2. 自然接納中英夾雜（例如 Dinosaur, Ice cream, Superman）。
+3. spoken_reply 必須簡短有童趣，嚴格控制在 45 個中文字以內，多用擬聲詞（如「嘩！」、「嘭！」、「叮噹！」）。
+
+【3 回合引導邏輯】
+- 當 current_turn == 1（小朋友剛講出初步念頭）：
+  開心複述佢嘅點子，提出第 1 條引導問題（引入新朋友或突發小奇遇），並提供 2 個得意嘅 A/B 選擇（choice_a, choice_b），將 status 設為 "asking"。
+- 當 current_turn == 2（小朋友補充咗情節）：
+  讚賞佢嘅創意，提出第 2 條引導問題（點樣解決問題／開心大結局），並提供 2 個得意嘅 A/B 選擇（choice_a, choice_b），將 status 設為 "asking"。
+- 當 current_turn >= 3 或 force_generate == true：
+  用一句充滿期待嘅說話宣布開始畫動畫，將 status 設為 "ready_to_generate"，並生成完整 4 幕 storyboard（對應「起、承、轉、合」）。
+
+【兒童安全與卡通柔化護欄（極重要）】
+嚴禁出現血腥、暴力傷害、恐怖鬼怪或武器。如果小朋友講出「打死、流血、激光槍、炸彈、恐怖鬼怪」等字眼，千祈唔好指責或拒絕佢，必須暗中啟動「卡通柔化轉寫」：
+- 打架/激光槍 -> 轉化為「七彩泡泡槍大戰」或「掉忌廉蛋糕派對」
+- 流血/受傷 -> 轉化為「沾滿士多啤梨果醬」
+- 恐怖怪物/鬼 -> 轉化為「論盡可愛、成日自己跌倒嘅毛毛小怪獸」
+- 爆炸 -> 轉化為「七彩糖果煙花大爆發」
+
+【生圖一致性規範】
+當 status 為 "ready_to_generate" 時：
+- character_anchor 必須用英文詳細描述主角外貌、服飾與配色（例如："A cute chubby orange superhero cat wearing a tiny yellow cape and blue boots"），確保 4 幕主角完全一致。
+- art_style_prefix 固定使用："Pixar-style 3D children's storybook illustration, soft warm lighting, rounded cute proportions, vibrant pastel palette, no text"
+- 每幕 image_prompt 用英文描寫該幕主角動作、表情與場景。
+`;
+
+    async function processKidStoryInput(kidText, forceGenerate = false) {
+      // Clear input & add to history pills
+      document.getElementById('kidTextInput').value = '';
+      appState.conversationHistory.push({ role: 'user', text: kidText });
+      appState.stats.vocabCount += kidText.length;
+      document.getElementById('statVocabCount').textContent = `${appState.stats.vocabCount} 字`;
+
+      renderHistoryPills();
+      setThinkingState(true);
+
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      const userPromptPayload = JSON.stringify({
+        current_turn: appState.turn,
+        force_generate: forceGenerate,
+        conversation_so_far: appState.conversationHistory
+      });
+
+      const payload = {
+        contents: [{ role: 'user', parts: [{ text: userPromptPayload }] }],
+        systemInstruction: { parts: [{ text: STORY_GENIE_SYSTEM_PROMPT }] },
+        generationConfig: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "OBJECT",
+            properties: {
+              status: { type: "STRING", enum: ["asking", "ready_to_generate"] },
+              spoken_reply: { type: "STRING" },
+              choice_a: { type: "STRING" },
+              choice_b: { type: "STRING" },
+              story_title_cantonese: { type: "STRING" },
+              character_anchor: { type: "STRING" },
+              art_style_prefix: { type: "STRING" },
+              storyboard: {
+                type: "ARRAY",
+                items: {
+                  type: "OBJECT",
+                  properties: {
+                    scene_number: { type: "INTEGER" },
+                    act_label: { type: "STRING" },
+                    narration_cantonese: { type: "STRING" },
+                    narration_english: { type: "STRING" },
+                    image_prompt: { type: "STRING" },
+                    camera_motion: { type: "STRING", enum: ["zoom_in", "zoom_out", "pan_left", "pan_right"] }
+                  },
+                  required: ["scene_number", "act_label", "narration_cantonese", "narration_english", "image_prompt", "camera_motion"]
+                }
+              }
+            },
+            required: ["status", "spoken_reply"]
+          }
+        }
+      };
+
+      try {
+        const result = await fetchWithBackoff(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const rawJsonText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!rawJsonText) throw new Error("Empty Gemini response");
+        const aiData = JSON.parse(rawJsonText);
+
+        setThinkingState(false);
+        handleAiTurnResponse(aiData);
+      } catch (error) {
+        setThinkingState(false);
+        // Graceful offline/fallback response so demo never stalls
+        const fallbackData = buildFallbackTurnData(kidText, appState.turn, forceGenerate);
+        handleAiTurnResponse(fallbackData);
+      }
+    }
+
+    function handleAiTurnResponse(aiData) {
+      appState.currentBoboReply = aiData.spoken_reply;
+      appState.conversationHistory.push({ role: 'bobo', text: aiData.spoken_reply });
+      document.getElementById('boboSpeechText').textContent = aiData.spoken_reply;
+      playMagicChime(783.99, 0.25);
+
+      if (aiData.status === 'ready_to_generate' && aiData.storyboard && aiData.storyboard.length > 0) {
+        updateTurnProgressUI(3);
+        document.getElementById('abChoicesContainer').classList.add('hidden');
+        appState.storyboardData = aiData;
+
+        speakText(aiData.spoken_reply, 'zh-HK', () => {
+          startStage2ImageGeneration(aiData);
+        });
+        // Safety timer in case speechSynthesis doesn't fire onend
+        setTimeout(() => {
+          if (!document.getElementById('stageWaitingGame').classList.contains('hidden') ||
+              !document.getElementById('stagePlayer').classList.contains('hidden')) return;
+          startStage2ImageGeneration(aiData);
+        }, 4200);
+      } else {
+        // Advance turn & display A/B Magic Choice Chips
+        appState.turn += 1;
+        updateTurnProgressUI(Math.min(appState.turn, 3));
+        renderAbChoices(
+          aiData.choice_a || "A. 遇到一隻會唱歌嘅小企鵝",
+          aiData.choice_b || "B. 發現一個裝滿彩虹糖果嘅寶箱"
+        );
+        speakText(aiData.spoken_reply, 'zh-HK');
+      }
+    }
+
+    function forceGenerateNow() {
+      processKidStoryInput("我準備好啦，即刻幫我變出開心大結局動畫！", true);
+    }
+
+    function buildFallbackTurnData(kidText, turn, forceGenerate) {
+      const hasViolentWords = /打|死|血|槍|怪獸|炸/.test(kidText);
+      if (turn === 1 && !forceGenerate) {
+        return {
+          status: "asking",
+          spoken_reply: hasViolentWords
+            ? "嘩！超人貓咪射出七彩泡泡槍好型呀！點知隻毛毛大怪獸成身沾滿士多啤梨果醬嚇到喊，點解佢會唔開心呀？"
+            : `嘩！${kidText.slice(0, 12)}好得意呀！點知佢行行下突然遇到新朋友，到底發生咗咩神奇事呀？`,
+          choice_a: hasViolentWords ? "A. 原來怪獸肚餓想食士多啤梨蛋糕" : "A. 遇到一隻識飛嘅企鵝哥哥",
+          choice_b: hasViolentWords ? "B. 怪獸踩親自己條尾跌咗落泡泡池" : "B. 地下彈出一個發光魔法寶箱"
+        };
+      }
+      if (turn === 2 && !forceGenerate) {
+        return {
+          status: "asking",
+          spoken_reply: "太有創意啦！咁佢哋一齊用咩神奇辦法解決難題，最後點樣開心慶祝呀？",
+          choice_a: "A. 一齊整巨型士多啤梨蛋糕開派對",
+          choice_b: "B. 坐住七彩泡泡飛上月球跳舞"
+        };
+      }
+      return {
+        status: "ready_to_generate",
+        spoken_reply: "太犀利啦！故事精靈而家即刻幫你畫成一分鐘魔法動畫，等我陣間呀！",
+        story_title_cantonese: "奇幻泡泡與士多啤梨派對",
+        character_anchor: "A cute chubby orange superhero cat wearing a tiny yellow cape and blue sneakers",
+        art_style_prefix: "Pixar-style 3D children's storybook illustration, soft warm lighting, rounded cute proportions, vibrant pastel palette, no text",
+        storyboard: [
+          {
+            scene_number: 1,
+            act_label: "第 1 幕・起",
+            narration_cantonese: "喺七彩繽紛嘅雲朵樂園入面，勇敢嘅超人貓咪著住黃色小斗篷出發去探險！",
+            narration_english: "In the colorful cloudland, the brave superhero cat sets off on an adventure in a tiny yellow cape!",
+            image_prompt: "Cute chubby orange superhero cat in yellow cape standing happily in a pastel cloud playground, sunny sky",
+            camera_motion: "zoom_in"
+          },
+          {
+            scene_number: 2,
+            act_label: "第 2 幕・承",
+            narration_cantonese: "突然間，一隻論盡嘅毛毛大怪獸出現，超人貓咪射出七彩泡泡，將怪獸變到成身士多啤梨果醬！",
+            narration_english: "Suddenly, a clumsy fluffy monster appears! Superhero cat shoots rainbow bubbles, covering the monster in sweet strawberry jam!",
+            image_prompt: "Cute orange superhero cat shooting glowing rainbow bubbles at a funny clumsy purple fluffy monster covered in pink strawberry jam",
+            camera_motion: "pan_right"
+          },
+          {
+            scene_number: 3,
+            act_label: "第 3 幕・轉",
+            narration_cantonese: "原來怪獸只係肚餓先發脾氣，超人貓咪即刻變出一個巨型士多啤梨蛋糕請佢食！",
+            narration_english: "It turns out the monster was just hungry! Superhero cat magically summons a giant strawberry cake to share.",
+            image_prompt: "Cute orange superhero cat and happy purple fluffy monster sharing a giant strawberry shortcake with sparkling candles",
+            camera_motion: "zoom_out"
+          },
+          {
+            scene_number: 4,
+            act_label: "第 4 幕・合",
+            narration_cantonese: "大家食飽之後成為咗最好嘅朋友，喺漫天彩虹糖果煙花下面一齊開心跳舞！",
+            narration_english: "After eating, they become best friends and dance happily together under colorful candy fireworks!",
+            image_prompt: "Cute orange superhero cat and purple fluffy monster dancing joyfully together under pastel candy fireworks at night",
+            camera_motion: "pan_left"
+          }
+        ]
+      };
+    }
+
+    // =========================================================================
+    // 7. UI HELPERS FOR STAGE 1 (PROGRESS, PILLS, A/B CHOICE CHIPS)
+    // =========================================================================
+    function updateTurnProgressUI(activeStep) {
+      document.getElementById('turnLabelTag').textContent = `第 ${activeStep} 步`;
+      for (let i = 1; i <= 3; i++) {
+        const badge = document.getElementById(`stepBadge${i}`);
+        if (i < activeStep) {
+          badge.className = "flex items-center gap-1 px-2.5 py-1 rounded-full text-xs sm:text-sm font-bold bg-emerald-400 text-slate-900 transition-all";
+          badge.children[0].textContent = "✅";
+        } else if (i === activeStep) {
+          badge.className = "flex items-center gap-1 px-2.5 py-1 rounded-full text-xs sm:text-sm font-bold bg-amber-400 text-slate-900 shadow-sm transition-all";
+          badge.children[0].textContent = "⭐";
+        } else {
+          badge.className = "flex items-center gap-1 px-2.5 py-1 rounded-full text-xs sm:text-sm font-bold text-slate-400 transition-all";
+          badge.children[0].textContent = "☆";
+        }
+      }
+    }
+
+    function setThinkingState(isThinking) {
+      const badge = document.getElementById('boboThinkingBadge');
+      const sendBtn = document.getElementById('sendTextBtn');
+      if (isThinking) {
+        badge.classList.remove('hidden');
+        sendBtn.disabled = true;
+        sendBtn.classList.add('opacity-50');
+      } else {
+        badge.classList.add('hidden');
+        sendBtn.disabled = false;
+        sendBtn.classList.remove('opacity-50');
+      }
+    }
+
+    function renderHistoryPills() {
+      const container = document.getElementById('storyHistoryPills');
+      const userInputs = appState.conversationHistory.filter(m => m.role === 'user');
+      container.innerHTML = userInputs.map((item, idx) => `
+        <span class="inline-flex items-center gap-1 bg-amber-50 border border-amber-300 text-amber-900 text-xs font-bold px-3 py-1 rounded-full">
+          <span>💡 片段 ${idx + 1}：</span><span>${escapeHtml(item.text)}</span>
+        </span>
+      `).join('');
+    }
+
+    function renderAbChoices(choiceA, choiceB) {
+      const container = document.getElementById('abChoicesContainer');
+      const grid = document.getElementById('abChoicesGrid');
+      const skipBtn = document.getElementById('skipToGenerateBtn');
+
+      container.classList.remove('hidden');
+      if (appState.turn >= 2) {
+        skipBtn.classList.remove('hidden');
+      } else {
+        skipBtn.classList.add('hidden');
+      }
+
+      grid.innerHTML = `
+        <button type="button" onclick="selectAbChoice(${JSON.stringify(choiceA).replace(/"/g, '&quot;')})" class="btn-press text-left p-3.5 rounded-2xl bg-gradient-to-r from-sky-50 to-indigo-50 hover:from-sky-100 hover:to-indigo-100 border-2 border-sky-300 font-black text-sm sm:text-base text-slate-800 shadow-bubbly-sm flex items-center gap-2.5">
+          <span class="w-8 h-8 rounded-xl bg-sky-400 text-white flex items-center justify-center flex-shrink-0">A</span>
+          <span>${escapeHtml(choiceA.replace(/^A[\.\、\s]*/, ''))}</span>
+        </button>
+        <button type="button" onclick="selectAbChoice(${JSON.stringify(choiceB).replace(/"/g, '&quot;')})" class="btn-press text-left p-3.5 rounded-2xl bg-gradient-to-r from-amber-50 to-rose-50 hover:from-amber-100 hover:to-rose-100 border-2 border-amber-300 font-black text-sm sm:text-base text-slate-800 shadow-bubbly-sm flex items-center gap-2.5">
+          <span class="w-8 h-8 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center flex-shrink-0">B</span>
+          <span>${escapeHtml(choiceB.replace(/^B[\.\、\s]*/, ''))}</span>
+        </button>
+      `;
+    }
+
+    function selectAbChoice(choiceText) {
+      getAudioContext();
+      playMagicChime(659.25, 0.2);
+      processKidStoryInput(choiceText);
+    }
+
+    // =========================================================================
+    // 8. STAGE 2: IMAGE GENERATION + INTERACTIVE STAR MINI-GAME
+    // =========================================================================
+    let starGameAnimId = null;
+    let starParticles = [];
+    let starScore = 0;
+
+    async function startStage2ImageGeneration(storyboardData) {
+      // Switch screens
+      document.getElementById('stageConversation').classList.add('hidden');
+      document.getElementById('stagePlayer').classList.add('hidden');
+      document.getElementById('stageWaitingGame').classList.remove('hidden');
+
+      starScore = 0;
+      document.getElementById('starPopScore').textContent = '0';
+      initStarMiniGame();
+
+      const scenes = storyboardData.storyboard.slice(0, 4);
+      appState.sceneImages = new Array(scenes.length).fill(null);
+
+      const stylePrefix = storyboardData.art_style_prefix ||
+        "Pixar-style 3D children's storybook illustration, soft warm lighting, rounded cute proportions, vibrant pastel palette, no text";
+      const charAnchor = storyboardData.character_anchor || "A cute round friendly cartoon animal hero";
+
+      // Generate all 4 scenes with consistent character anchor
+      for (let idx = 0; idx < scenes.length; idx++) {
+        const scene = scenes[idx];
+        const progressPct = Math.round(((idx + 0.5) / scenes.length) * 100);
+        document.getElementById('generationProgressBar').style.width = `${progressPct}%`;
+        document.getElementById('waitingTitle').textContent =
+          `故事精靈施法中！正在繪製第 ${idx + 1} / 4 幕（${scene.act_label || ''}）...`;
+
+        const fullPrompt = `${stylePrefix}. Main character (keep exact appearance across scenes): ${charAnchor}. Scene action: ${scene.image_prompt}`;
+        const imgUrl = await generateConsistentSceneImage(fullPrompt, idx, scene);
+        appState.sceneImages[idx] = imgUrl;
+
+        // Populate thumbnail slot
+        const slot = document.getElementById(`thumbSlot${idx}`);
+        if (slot) {
+          slot.innerHTML = `
+            <img src="${imgUrl}" class="w-full h-full object-cover" />
+            <span class="absolute bottom-1 left-1 bg-slate-900/75 text-amber-300 text-[10px] font-black px-2 py-0.5 rounded-full">第 ${idx + 1} 幕 ✓</span>
+          `;
+          slot.classList.remove('border-slate-700');
+          slot.classList.add('border-amber-400');
+        }
+        playMagicChime(523.25 + idx * 110, 0.25);
+      }
+
+      document.getElementById('generationProgressBar').style.width = '100%';
+      document.getElementById('waitingTitle').textContent = '✨ 魔法動畫製作完成！即刻開場！';
+
+      setTimeout(() => {
+        stopStarMiniGame();
+        launchStage3AnimaticPlayer();
+      }, 900);
+    }
+
+    async function generateConsistentSceneImage(prompt, sceneIdx, sceneObj) {
+      // Primary: Gemini 3.1 Flash Image (16:9 storybook artwork)
+      const imageApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${apiKey}`;
+      const payload = {
+        contents: [{
+          role: 'user',
+          parts: [{ text: prompt }]
+        }],
+        generationConfig: {
+          responseModalities: ['IMAGE'],
+          imageConfig: { aspectRatio: "16:9" }
+        }
+      };
+
+      try {
+        const res = await fetchWithBackoff(imageApiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }, 2);
+
+        const part = res?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
+        if (part && part.inlineData && part.inlineData.data) {
+          return `data:${part.inlineData.mimeType || 'image/png'};base64,${part.inlineData.data}`;
+        }
+      } catch (e) {
+        // Try lightweight image model fallback before bespoke canvas illustration
+        try {
+          const liteUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-image:generateContent?key=${apiKey}`;
+          const liteRes = await fetchWithBackoff(liteUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: { responseModalities: ['TEXT', 'IMAGE'] }
+            })
+          }, 1);
+          const litePart = liteRes?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
+          if (litePart && litePart.inlineData && litePart.inlineData.data) {
+            return `data:${litePart.inlineData.mimeType || 'image/png'};base64,${litePart.inlineData.data}`;
+          }
+        } catch (liteErr) {}
+      }
+
+      // Graceful Bespoke Storybook Canvas Illustration Fallback (Zero external URLs, 100% reliable)
+      return renderFallbackStorybookIllustration(sceneIdx, sceneObj);
+    }
+
+    function renderFallbackStorybookIllustration(sceneIdx, sceneObj) {
+      const c = document.createElement('canvas');
+      c.width = 960;
+      c.height = 540;
+      const ctx = c.getContext('2d');
+
+      const palettes = [
+        ['#BAE6FD', '#FEF3C7', '#FDE68A'],
+        ['#DDD6FE', '#FCE7F3', '#FBCFE8'],
+        ['#A7F3D0', '#E0F2FE', '#FEF08A'],
+        ['#1E1B4B', '#4C1D95', '#F472B6']
+      ];
+      const pal = palettes[sceneIdx % palettes.length];
+
+      // Sky gradient
+      const grad = ctx.createLinearGradient(0, 0, 0, 540);
+      grad.addColorStop(0, pal[0]);
+      grad.addColorStop(0.65, pal[1]);
+      grad.addColorStop(1, pal[2]);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 960, 540);
+
+      // Soft rolling hills
+      ctx.fillStyle = sceneIdx === 3 ? '#312E81' : '#86EFAC';
+      ctx.beginPath();
+      ctx.arc(260, 580, 320, Math.PI, 0);
+      ctx.fill();
+
+      ctx.fillStyle = sceneIdx === 3 ? '#4338CA' : '#4ADE80';
+      ctx.beginPath();
+      ctx.arc(720, 600, 360, Math.PI, 0);
+      ctx.fill();
+
+      // Glowing Sun / Moon
+      ctx.fillStyle = '#FDE047';
+      ctx.beginPath();
+      ctx.arc(780, 110, 52, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Cute Storybook Hero & Scene Emojis
+      const sceneEmojis = ['🧚✨', '🦖🫧', '🍰🎈', '🎉🌈'];
+      ctx.font = '130px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(sceneEmojis[sceneIdx % sceneEmojis.length], 480, 260);
+
+      // Scene Act Banner Badge
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+      ctx.beginPath();
+      ctx.roundRect(350, 48, 260, 46, 23);
+      ctx.fill();
+
+      ctx.fillStyle = '#1E293B';
+      ctx.font = 'bold 24px sans-serif';
+      ctx.fillText(sceneObj.act_label || `第 ${sceneIdx + 1} 幕`, 480, 72);
+
+      return c.toDataURL('image/png');
+    }
+
+    // Interactive Starry Sky Mini-Game Canvas Logic
+    function initStarMiniGame() {
+      const canvas = document.getElementById('magicStarCanvas');
+      const wrapper = document.getElementById('waitingCanvasWrapper');
+      if (!canvas || !wrapper) return;
+
+      const resizeCanvas = () => {
+        canvas.width = wrapper.clientWidth;
+        canvas.height = wrapper.clientHeight;
+      };
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      starParticles = [];
+      for (let i = 0; i < 28; i++) {
+        starParticles.push(createFloatingStar(canvas.width, canvas.height));
+      }
+
+      const spawnBurst = (clientX, clientY) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        starScore += 1;
+        document.getElementById('starPopScore').textContent = starScore;
+        const notes = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50];
+        playMagicChime(notes[starScore % notes.length], 0.22);
+
+        for (let k = 0; k < 10; k++) {
+          const angle = (Math.PI * 2 * k) / 10;
+          const speed = 2 + Math.random() * 4;
+          starParticles.push({
+            x, y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            radius: 5 + Math.random() * 6,
+            color: ['#FDE047', '#FB7185', '#38BDF8', '#34D399', '#C084FC'][k % 5],
+            life: 1.0,
+            isBurst: true
+          });
+        }
+      };
+
+      canvas.onpointerdown = (e) => spawnBurst(e.clientX, e.clientY);
+      canvas.ontouchmove = (e) => {
+        if (e.touches && e.touches[0]) {
+          spawnBurst(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      };
+
+      const ctx = canvas.getContext('2d');
+      function loop() {
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.28)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = starParticles.length - 1; i >= 0; i--) {
+          const p = starParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.isBurst) {
+            p.life -= 0.025;
+            if (p.life <= 0) {
+              starParticles.splice(i, 1);
+              continue;
+            }
+          } else {
+            if (p.y < -20) p.y = canvas.height + 20;
+            if (p.x < -20) p.x = canvas.width + 20;
+            if (p.x > canvas.width + 20) p.x = -20;
+          }
+
+          ctx.save();
+          ctx.globalAlpha = p.isBurst ? p.life : 0.85;
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+        starGameAnimId = requestAnimationFrame(loop);
+      }
+      loop();
+    }
+
+    function createFloatingStar(w, h) {
+      return {
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: -0.4 - Math.random() * 0.9,
+        radius: 6 + Math.random() * 10,
+        color: ['#FDE047', '#7DD3FC', '#F9A8D4', '#A7F3D0'][Math.floor(Math.random() * 4)],
+        life: 1.0,
+        isBurst: false
+      };
+    }
+
+    function stopStarMiniGame() {
+      if (starGameAnimId) {
+        cancelAnimationFrame(starGameAnimId);
+        starGameAnimId = null;
+      }
+    }
+
+    // =========================================================================
+    // 9. STAGE 3: 2.5D SMART ANIMATIC PLAYER (KEN BURNS + BILINGUAL TTS)
+    // =========================================================================
+    let playerParticleAnimId = null;
+
+    function launchStage3AnimaticPlayer() {
+      document.getElementById('stageConversation').classList.add('hidden');
+      document.getElementById('stageWaitingGame').classList.add('hidden');
+      document.getElementById('stagePlayer').classList.remove('hidden');
+
+      const data = appState.storyboardData;
+      const title = data.story_title_cantonese || "小朋友嘅奇幻動畫故事";
+      document.getElementById('storyPlayerTitle').textContent = title;
+      document.getElementById('podBookTitle').textContent = title;
+
+      // Populate scrubber descriptions
+      data.storyboard.slice(0, 4).forEach((sc, idx) => {
+        const descEl = document.getElementById(`scrubberDesc${idx}`);
+        if (descEl) descEl.textContent = sc.narration_cantonese;
+      });
+
+      initPlayerParticles();
+      appState.player.isPlaying = true;
+      appState.player.currentSceneIdx = 0;
+      appState.player.elapsedSeconds = 0;
+      startGentleBgm();
+      playSceneAtIndex(0);
+    }
+
+    function playSceneAtIndex(idx) {
+      const scenes = appState.storyboardData.storyboard.slice(0, 4);
+      if (idx >= scenes.length) {
+        // Finished full 4-scene animatic
+        appState.player.isPlaying = false;
+        stopGentleBgm();
+        document.getElementById('playPauseBtn').textContent = '▶️ 重新播放';
+        showToast('🎉 太棒啦！成套原創 1 分鐘動畫播放完畢！');
+        return;
+      }
+
+      appState.player.currentSceneIdx = idx;
+      appState.player.isPlaying = true;
+      document.getElementById('playPauseBtn').textContent = '⏸️ 暫停播放';
+
+      const scene = scenes[idx];
+      const imgEl = document.getElementById('playerSceneImage');
+      imgEl.src = appState.sceneImages[idx];
+
+      // Reset & trigger Ken Burns 2.5D motion class
+      imgEl.className = 'w-full h-full object-cover';
+      void imgEl.offsetWidth; // Force reflow to restart CSS keyframe
+      const motion = scene.camera_motion || 'zoom_in';
+      imgEl.classList.add(`kb-${motion}`);
+
+      const motionNames = {
+        zoom_in: '🎥 鏡頭緩緩推近',
+        zoom_out: '🎥 鏡頭拉遠全景',
+        pan_left: '🎥 鏡頭向左平移',
+        pan_right: '🎥 鏡頭向右平移'
+      };
+      document.getElementById('playerSceneBadge').textContent = `${scene.act_label || `第 ${idx + 1} 幕`} / 共 4 幕`;
+      document.getElementById('playerCameraTag').textContent = motionNames[motion] || '🎥 2.5D 運鏡';
+
+      // Highlight active scrubber button
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`scrubberBtn${i}`);
+        if (i === idx) {
+          btn.className = 'p-2 rounded-2xl border-3 border-amber-400 bg-amber-50 text-left transition-all shadow-sm';
+        } else {
+          btn.className = 'p-2 rounded-2xl border-2 border-slate-200 bg-slate-50 text-left transition-all opacity-75 hover:opacity-100';
+        }
+      }
+
+      // Set subtitle & trigger TTS voiceover
+      const lang = appState.player.language;
+      const subtitle = lang === 'zh-HK' ? scene.narration_cantonese : scene.narration_english;
+      document.getElementById('playerSubtitleText').textContent = subtitle;
+
+      playMagicChime(587.33 + idx * 80, 0.22);
+      speakText(subtitle, lang);
+
+      // Schedule automatic progression (~14 seconds per scene = 56s total 1-min story)
+      clearInterval(appState.player.sceneTimerId);
+      let sceneSec = 0;
+      const sceneDuration = 14;
+      appState.player.sceneTimerId = setInterval(() => {
+        if (!appState.player.isPlaying) return;
+        sceneSec += 1;
+        const totalElapsed = idx * sceneDuration + sceneSec;
+        const mins = String(Math.floor(totalElapsed / 60)).padStart(2, '0');
+        const secs = String(totalElapsed % 60).padStart(2, '0');
+        document.getElementById('playerTimerDisplay').textContent = `${mins}:${secs} / 00:56`;
+
+        if (sceneSec >= sceneDuration) {
+          clearInterval(appState.player.sceneTimerId);
+          playSceneAtIndex(idx + 1);
+        }
+      }, 1000);
+    }
+
+    function switchPlayerLanguage(newLang) {
+      appState.player.language = newLang;
+      const btnZh = document.getElementById('langBtnCantonese');
+      const btnEn = document.getElementById('langBtnEnglish');
+
+      if (newLang === 'zh-HK') {
+        btnZh.className = 'px-3 py-1.5 rounded-xl text-xs sm:text-sm font-black bg-amber-400 text-slate-900 shadow-sm transition-all';
+        btnEn.className = 'px-3 py-1.5 rounded-xl text-xs sm:text-sm font-black text-slate-600 hover:text-slate-900 transition-all';
+        showToast('🇭🇰 已切換為廣東話配音及字幕');
+      } else {
+        btnEn.className = 'px-3 py-1.5 rounded-xl text-xs sm:text-sm font-black bg-amber-400 text-slate-900 shadow-sm transition-all';
+        btnZh.className = 'px-3 py-1.5 rounded-xl text-xs sm:text-sm font-black text-slate-600 hover:text-slate-900 transition-all';
+        showToast('🇬🇧 Switched to English Storyteller Mode!');
+      }
+
+      // Re-narrate current scene immediately in selected language
+      if (appState.storyboardData) {
+        const scene = appState.storyboardData.storyboard[appState.player.currentSceneIdx];
+        const text = newLang === 'zh-HK' ? scene.narration_cantonese : scene.narration_english;
+        document.getElementById('playerSubtitleText').textContent = text;
+        speakText(text, newLang);
+      }
+    }
+
+    function togglePlayPause() {
+      const btn = document.getElementById('playPauseBtn');
+      if (appState.player.isPlaying) {
+        appState.player.isPlaying = false;
+        window.speechSynthesis.cancel();
+        stopGentleBgm();
+        btn.textContent = '▶️ 繼續播放';
+      } else {
+        appState.player.isPlaying = true;
+        startGentleBgm();
+        btn.textContent = '⏸️ 暫停播放';
+        playSceneAtIndex(appState.player.currentSceneIdx);
+      }
+    }
+
+    function jumpToScene(idx) {
+      clearInterval(appState.player.sceneTimerId);
+      window.speechSynthesis.cancel();
+      startGentleBgm();
+      playSceneAtIndex(idx);
+    }
+
+    function replayAnimatic() {
+      jumpToScene(0);
+    }
+
+    function initPlayerParticles() {
+      const canvas = document.getElementById('playerParticleCanvas');
+      if (!canvas) return;
+      const resize = () => {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+      };
+      resize();
+      window.addEventListener('resize', resize);
+
+      const sparkles = Array.from({ length: 18 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: 2 + Math.random() * 3.5,
+        vy: -0.3 - Math.random() * 0.5,
+        alpha: 0.3 + Math.random() * 0.6
+      }));
+
+      const ctx = canvas.getContext('2d');
+      if (playerParticleAnimId) cancelAnimationFrame(playerParticleAnimId);
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        sparkles.forEach(s => {
+          s.y += s.vy;
+          if (s.y < 0) s.y = canvas.height;
+          ctx.fillStyle = `rgba(254, 240, 138, ${s.alpha})`;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        playerParticleAnimId = requestAnimationFrame(render);
+      }
+      render();
+    }
+
+    // =========================================================================
+    // 10. PARENT LOCK, GROWTH HUB & SHARE HELPERS
+    // =========================================================================
+    function openMathLock() {
+      document.getElementById('mathAnswerInput').value = '';
+      document.getElementById('mathErrorText').classList.add('hidden');
+      document.getElementById('mathLockModal').classList.remove('hidden');
+    }
+
+    function closeMathLock() {
+      document.getElementById('mathLockModal').classList.add('hidden');
+    }
+
+    function verifyMathLock() {
+      const val = parseInt(document.getElementById('mathAnswerInput').value, 10);
+      if (val === 19) {
+        unlockParentHubDirectly();
+      } else {
+        document.getElementById('mathErrorText').classList.remove('hidden');
+      }
+    }
+
+    function unlockParentHubDirectly() {
+      closeMathLock();
+      document.getElementById('parentHubModal').classList.remove('hidden');
+    }
+
+    function closeParentHub() {
+      document.getElementById('parentHubModal').classList.add('hidden');
+    }
+
+    function switchHubTab(tabName) {
+      const btnGrowth = document.getElementById('hubTabGrowth');
+      const btnPod = document.getElementById('hubTabPod');
+      const contentGrowth = document.getElementById('hubContentGrowth');
+      const contentPod = document.getElementById('hubContentPod');
+
+      if (tabName === 'growth') {
+        btnGrowth.className = 'flex-1 py-2 rounded-xl font-black text-xs sm:text-sm bg-white text-indigo-700 shadow-sm';
+        btnPod.className = 'flex-1 py-2 rounded-xl font-black text-xs sm:text-sm text-slate-600';
+        contentGrowth.classList.remove('hidden');
+        contentPod.classList.add('hidden');
+      } else {
+        btnPod.className = 'flex-1 py-2 rounded-xl font-black text-xs sm:text-sm bg-white text-indigo-700 shadow-sm';
+        btnGrowth.className = 'flex-1 py-2 rounded-xl font-black text-xs sm:text-sm text-slate-600';
+        contentPod.classList.remove('hidden');
+        contentGrowth.classList.add('hidden');
+      }
+    }
+
+    function shareStoryToFamily() {
+      const title = document.getElementById('storyPlayerTitle').textContent;
+      const shareText = `🧚✨ 快啲嚟睇我用《故事精靈波波》親手創作嘅 1 分鐘原創有聲動畫《${title}》！`;
+      const tempInput = document.createElement('textarea');
+      tempInput.value = shareText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        showToast('💌 已複製親友分享訊息！可以直接貼上 WhatsApp 畀爺爺嫲嫲睇！');
+      } catch (e) {
+        showToast('💌 故事連結已準備好，可以隨時分享畀屋企人！');
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    function resetToStart() {
+      clearInterval(appState.player.sceneTimerId);
+      window.speechSynthesis.cancel();
+      stopGentleBgm();
+      stopStarMiniGame();
+
+      appState.turn = 1;
+      appState.conversationHistory = [];
+      appState.storyboardData = null;
+      appState.sceneImages = [];
+      appState.currentBoboReply = "哈囉小朋友！我係故事精靈波波呀！✨ 你今日想作一個咩故仔呀？講一個主角同埋佢去邊度玩畀我聽啦！";
+
+      document.getElementById('boboSpeechText').textContent = appState.currentBoboReply;
+      document.getElementById('storyHistoryPills').innerHTML = '';
+      document.getElementById('abChoicesContainer').classList.add('hidden');
+      document.getElementById('diceResultBanner').classList.add('hidden');
+      document.getElementById('kidTextInput').value = '';
+      updateTurnProgressUI(1);
+
+      document.getElementById('stageWaitingGame').classList.add('hidden');
+      document.getElementById('stagePlayer').classList.add('hidden');
+      document.getElementById('stageConversation').classList.remove('hidden');
+    }
+
+    function showToast(msg) {
+      const banner = document.getElementById('toastBanner');
+      document.getElementById('toastMessage').textContent = msg;
+      banner.classList.remove('hidden');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        banner.classList.add('hidden');
+      }, 3600);
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
