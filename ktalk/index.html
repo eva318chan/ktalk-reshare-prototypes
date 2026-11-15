@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Ktalk.hk 講圈｜朋友之間嘅潮流影片與好物推介</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Vector Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Noto Sans TC & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"PingFang HK"', '"Noto Sans TC"', 'sans-serif'],
+          },
+          colors: {
+            obsidian: '#070709',
+            charcoal: '#0D0D0F',
+            lime: '#CCFF00',
+            cyan: '#00F0FF',
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'slide-up': 'slideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            'fade-in': 'fadeIn 0.22s ease-out forwards',
+          },
+          keyframes: {
+            slideUp: {
+              '0%': { transform: 'translateY(100%)', opacity: '0.4' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'scale(0.97)' },
+              '100%': { opacity: '1', transform: 'scale(1)' },
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* 全局字體與滾動條隱藏 */
+    body {
+      font-family: "Plus Jakarta Sans", "PingFang HK", "Noto Sans TC", -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #070709;
+      color: #F5F5F7;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+
+    /* 隱藏橫向與縱向滾動條但保留滾動功能 */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* 潮流漸變幾何頭像 (Mesh Gradient Avatars) */
+    .mesh-1 {
+      background: radial-gradient(at 15% 15%, #CCFF00 0px, transparent 55%),
+                  radial-gradient(at 85% 20%, #00F0FF 0px, transparent 55%),
+                  radial-gradient(at 50% 85%, #7000FF 0px, transparent 60%),
+                  #18181B;
+    }
+    .mesh-2 {
+      background: radial-gradient(at 20% 25%, #FF3366 0px, transparent 55%),
+                  radial-gradient(at 80% 30%, #FF9900 0px, transparent 55%),
+                  radial-gradient(at 45% 85%, #CCFF00 0px, transparent 60%),
+                  #18181B;
+    }
+    .mesh-3 {
+      background: radial-gradient(at 15% 20%, #00F0FF 0px, transparent 55%),
+                  radial-gradient(at 85% 75%, #FF00AA 0px, transparent 55%),
+                  radial-gradient(at 30% 80%, #3B82F6 0px, transparent 60%),
+                  #18181B;
+    }
+    .mesh-4 {
+      background: radial-gradient(at 25% 15%, #A855F7 0px, transparent 55%),
+                  radial-gradient(at 80% 40%, #CCFF00 0px, transparent 55%),
+                  radial-gradient(at 20% 85%, #EC4899 0px, transparent 60%),
+                  #18181B;
+    }
+    .mesh-5 {
+      background: radial-gradient(at 80% 15%, #00F0FF 0px, transparent 55%),
+                  radial-gradient(at 15% 65%, #10B981 0px, transparent 55%),
+                  radial-gradient(at 70% 85%, #6366F1 0px, transparent 60%),
+                  #18181B;
+    }
+    .mesh-6 {
+      background: radial-gradient(at 20% 20%, #F59E0B 0px, transparent 55%),
+                  radial-gradient(at 85% 25%, #EF4444 0px, transparent 55%),
+                  radial-gradient(at 50% 85%, #8B5CF6 0px, transparent 60%),
+                  #18181B;
+    }
+
+    /* 雙欄瀑布流防斷開 */
+    .masonry-item {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: 0.75rem;
+    }
+
+    /* 音頻波形動畫 */
+    @keyframes waveBar {
+      0%, 100% { height: 4px; }
+      50% { height: 13px; }
+    }
+    .wave-1 { animation: waveBar 0.9s ease-in-out infinite; }
+    .wave-2 { animation: waveBar 0.65s ease-in-out infinite 0.15s; }
+    .wave-3 { animation: waveBar 0.8s ease-in-out infinite 0.3s; }
+  </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center relative selection:bg-lime selection:text-charcoal">
+
+  <!-- 桌面端環境光暈背景 (Desktop Ambient Radial Glow) -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden hidden sm:block">
+    <div class="absolute -top-32 left-1/4 w-[520px] h-[520px] rounded-full bg-[#CCFF00]/[0.07] blur-[140px]"></div>
+    <div class="absolute -bottom-32 right-1/4 w-[520px] h-[520px] rounded-full bg-[#00F0FF]/[0.07] blur-[140px]"></div>
+  </div>
+
+  <!-- 手機旗艦主容器 (Mobile-First Flagship Shell: max-w-[440px]) -->
+  <div id="app-shell" class="w-full max-w-[440px] h-[100dvh] sm:h-[860px] sm:my-4 bg-[#0D0D0F] sm:rounded-[42px] sm:border sm:border-white/15 sm:shadow-[0_30px_90px_rgba(0,0,0,0.95)] relative flex flex-col overflow-hidden">
+
+    <!-- 頂部玻璃導航欄 (Sticky Glass Top Header) -->
+    <header class="sticky top-0 z-30 bg-[#0D0D0F]/80 backdrop-blur-xl border-b border-white/[0.08] px-4 pt-3 pb-2.5 shrink-0">
+      <div class="flex items-center justify-between mb-3">
+        <!-- Ktalk 講圈品牌標誌 -->
+        <div class="flex items-center gap-2 cursor-pointer" onclick="resetToExplore()">
+          <span class="text-[22px] font-extrabold tracking-tight text-white">Ktalk</span>
+          <span class="px-2 py-0.5 rounded-full bg-[#CCFF00] text-[#0D0D0F] text-[11px] font-black tracking-wider shadow-[0_0_15px_rgba(204,255,0,0.35)]">講圈</span>
+        </div>
+
+        <!-- 搜尋與通知快捷鍵 -->
+        <div class="flex items-center gap-2">
+          <button onclick="toggleSearchBar()" aria-label="搜尋" class="w-9 h-9 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 flex items-center justify-center text-white/80 transition active:scale-95">
+            <i data-lucide="search" class="w-4 h-4"></i>
+          </button>
+          <button onclick="showToast('你嘅波友 @Eddie_HK 剛剛推介咗新拉麵店！')" aria-label="通知" class="w-9 h-9 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 flex items-center justify-center text-white/80 transition relative active:scale-95">
+            <i data-lucide="bell" class="w-4 h-4"></i>
+            <span class="w-2 h-2 rounded-full bg-[#CCFF00] absolute top-2 right-2.5 ring-2 ring-[#0D0D0F]"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 可展開快速搜尋列 -->
+      <div id="search-drawer" class="hidden mb-2.5 animate-fade-in">
+        <div class="relative flex items-center">
+          <i data-lucide="search" class="w-4 h-4 text-white/40 absolute left-3.5"></i>
+          <input id="search-input" type="text" oninput="handleSearch(this.value)" placeholder="搜尋朋友點評、深水埗美食、電影..." class="w-full bg-white/[0.07] border border-white/15 rounded-2xl pl-9 pr-8 py-2 text-xs text-white placeholder-white/40 focus:outline-none focus:border-[#CCFF00]/60" />
+          <button onclick="clearSearch()" class="absolute right-2.5 text-white/40 hover:text-white">
+            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 講圈分類篩選橫向膠囊列 (Circle Filter Pills) -->
+      <div id="circle-filter-bar" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5">
+        <!-- 由 JS 動態渲染 -->
+      </div>
+    </header>
+
+    <!-- 主內容滾動區 (Main Scrollable Viewport) -->
+    <main id="main-scroll" class="flex-1 overflow-y-auto no-scrollbar px-3.5 pt-3 pb-28">
+
+      <!-- 視圖 1：雙欄探索流 (Dual-Column Masonry Discovery Feed) -->
+      <section id="view-explore" class="block">
+        <!-- 頂部好友動態快報列 (Friends Activity Strip) -->
+        <div class="mb-3.5 p-2.5 rounded-2xl bg-gradient-to-r from-white/[0.06] via-white/[0.04] to-[#00F0FF]/[0.06] border border-white/10 flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="flex -space-x-2 shrink-0">
+              <div class="w-7 h-7 rounded-full mesh-1 ring-2 ring-[#0D0D0F] flex items-center justify-center">
+                <i data-lucide="sparkles" class="w-3 h-3 text-white/90"></i>
+              </div>
+              <div class="w-7 h-7 rounded-full mesh-2 ring-2 ring-[#0D0D0F] flex items-center justify-center">
+                <i data-lucide="play" class="w-3 h-3 text-white/90 fill-white/80"></i>
+              </div>
+              <div class="w-7 h-7 rounded-full mesh-3 ring-2 ring-[#0D0D0F] flex items-center justify-center">
+                <i data-lucide="link-2" class="w-3 h-3 text-white/90"></i>
+              </div>
+            </div>
+            <p class="text-[11.5px] text-white/80 truncate">
+              <span class="text-[#CCFF00] font-bold">3 位老友</span> 今日分享咗新片同好文推介
+            </p>
+          </div>
+          <button onclick="openComposerModal('link')" class="shrink-0 px-2.5 py-1 rounded-xl bg-white/10 hover:bg-white/15 text-[11px] font-bold text-white flex items-center gap-1 transition">
+            <i data-lucide="plus" class="w-3 h-3 text-[#CCFF00]"></i>
+            <span>貼連結</span>
+          </button>
+        </div>
+
+        <!-- 雙欄瀑布流容器 (columns-2 gap-3) -->
+        <div id="masonry-feed" class="columns-2 gap-3">
+          <!-- 卡片由 JS 動態渲染 -->
+        </div>
+
+        <!-- 空狀態提示 -->
+        <div id="empty-state" class="hidden py-16 text-center">
+          <div class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center mx-auto mb-3 text-white/50">
+            <i data-lucide="compass" class="w-6 h-6"></i>
+          </div>
+          <p class="text-sm font-bold text-white/80">暫時未有相關推介內容</p>
+          <p class="text-xs text-white/40 mt-1">撳下方「+」做第一個分享好嘢畀朋友嘅人！</p>
+        </div>
+      </section>
+
+      <!-- 視圖 2：私密圈子與好友共同片單 (Circles & Shared Boards) -->
+      <section id="view-circles" class="hidden space-y-3.5 animate-fade-in">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-base font-extrabold text-white">我嘅講圈 (Circles)</h2>
+            <p class="text-xs text-white/50">只限受邀老友可見嘅私密片單與好文簿</p>
+          </div>
+          <button onclick="openComposerModal('link')" class="px-3 py-1.5 rounded-full bg-[#CCFF00] text-[#0D0D0F] text-xs font-extrabold flex items-center gap-1">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>投稿入圈</span>
+          </button>
+        </div>
+
+        <!-- 圈子卡片 1 -->
+        <div onclick="filterByCircleFromTab('hoops')" class="p-4 rounded-3xl bg-white/[0.06] border border-white/10 hover:border-[#CCFF00]/40 transition cursor-pointer">
+          <div class="flex items-center justify-between mb-2.5">
+            <div class="flex items-center gap-2.5">
+              <div class="w-10 h-10 rounded-2xl mesh-2 flex items-center justify-center border border-white/20">
+                <i data-lucide="trophy" class="w-5 h-5 text-white"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <h3 class="text-sm font-bold text-white">波友私密圈</h3>
+                  <span class="px-2 py-0.5 rounded-full bg-white/10 text-[10px] text-[#CCFF00] font-bold flex items-center gap-1">
+                    <i data-lucide="lock" class="w-2.5 h-2.5"></i> 僅限 8 位成員
+                  </span>
+                </div>
+                <p class="text-[11px] text-white/50 mt-0.5">修頓街場精華、波鞋評測、賽後宵夜</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-white/40"></i>
+          </div>
+          <div class="flex items-center justify-between pt-2.5 border-t border-white/[0.07] text-[11px] text-white/60">
+            <span>最新：@阿軒Ho 上傳咗「修頓街場絕殺三分球」</span>
+            <span class="text-[#00F0FF] font-semibold">進入圈子</span>
+          </div>
+        </div>
+
+        <!-- 圈子卡片 2 -->
+        <div onclick="filterByCircleFromTab('food')" class="p-4 rounded-3xl bg-white/[0.06] border border-white/10 hover:border-[#CCFF00]/40 transition cursor-pointer">
+          <div class="flex items-center justify-between mb-2.5">
+            <div class="flex items-center gap-2.5">
+              <div class="w-10 h-10 rounded-2xl mesh-1 flex items-center justify-center border border-white/20">
+                <i data-lucide="utensils" class="w-5 h-5 text-white"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <h3 class="text-sm font-bold text-white">港九搵食共同地圖</h3>
+                  <span class="px-2 py-0.5 rounded-full bg-white/10 text-[10px] text-[#00F0FF] font-bold">共同清單</span>
+                </div>
+                <p class="text-[11px] text-white/50 mt-0.5">無伏拉麵、隱世 Cafe、深夜大排檔</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-white/40"></i>
+          </div>
+          <div class="flex items-center justify-between pt-2.5 border-t border-white/[0.07] text-[11px] text-white/60">
+            <span>最新：@Eddie_HK 推介「深水埗濃厚豚骨沾麵」</span>
+            <span class="text-[#00F0FF] font-semibold">睇全部</span>
+          </div>
+        </div>
+
+        <!-- 圈子卡片 3 -->
+        <div onclick="filterByCircleFromTab('cinema')" class="p-4 rounded-3xl bg-white/[0.06] border border-white/10 hover:border-[#CCFF00]/40 transition cursor-pointer">
+          <div class="flex items-center justify-between mb-2.5">
+            <div class="flex items-center gap-2.5">
+              <div class="w-10 h-10 rounded-2xl mesh-3 flex items-center justify-center border border-white/20">
+                <i data-lucide="film" class="w-5 h-5 text-white"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <h3 class="text-sm font-bold text-white">週末戲單 & 展覽</h3>
+                  <span class="px-2 py-0.5 rounded-full bg-white/10 text-[10px] text-white/70 font-bold">公開講圈</span>
+                </div>
+                <p class="text-[11px] text-white/50 mt-0.5">HKIFF 選片、西九好去處、獨立音樂</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-white/40"></i>
+          </div>
+          <div class="flex items-center justify-between pt-2.5 border-t border-white/[0.07] text-[11px] text-white/60">
+            <span>最新：@Chloe.C 分享「獨立電影節閉幕片單」</span>
+            <span class="text-[#00F0FF] font-semibold">睇全部</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 視圖 3：個人主頁 (Profile View) -->
+      <section id="view-profile" class="hidden space-y-4 animate-fade-in">
+        <div class="p-5 rounded-3xl bg-white/[0.06] border border-white/10 relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-[#CCFF00]/10 blur-2xl"></div>
+          <div class="flex items-center gap-3.5">
+            <div class="w-16 h-16 rounded-full mesh-1 ring-2 ring-[#CCFF00] flex items-center justify-center shrink-0">
+              <i data-lucide="zap" class="w-7 h-7 text-white"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-lg font-extrabold text-white">@You_HK</h2>
+                <span class="px-2 py-0.5 rounded-full bg-[#CCFF00]/20 text-[#CCFF00] text-[10px] font-bold">講圈品味家</span>
+              </div>
+              <p class="text-xs text-white/60 mt-1">鍾意發掘港九隱世小店同好戲，歡迎交換片單</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-white/10 text-center">
+            <div>
+              <div id="profile-post-count" class="text-base font-extrabold text-white">2</div>
+              <div class="text-[11px] text-white/50">我嘅推介</div>
+            </div>
+            <div>
+              <div class="text-base font-extrabold text-[#CCFF00]">3</div>
+              <div class="text-[11px] text-white/50">已加入圈子</div>
+            </div>
+            <div>
+              <div id="profile-saved-count" class="text-base font-extrabold text-[#00F0FF]">4</div>
+              <div class="text-[11px] text-white/50">已 Bookmark</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between px-1">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-white/50">最近發佈與收藏</h3>
+          <button onclick="openComposerModal('link')" class="text-xs font-bold text-[#CCFF00] flex items-center gap-1">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i> 新增推介
+          </button>
+        </div>
+
+        <div id="profile-cards-list" class="space-y-2.5">
+          <!-- 動態渲染個人紀錄 -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 底部磨砂導航列 + 懸浮電光青檸「+」發佈按鈕 (Bottom Glass Nav Bar) -->
+    <nav class="absolute bottom-0 inset-x-0 z-30 bg-[#0D0D0F]/85 backdrop-blur-2xl border-t border-white/[0.09] px-4 pt-2 pb-5 sm:pb-4 flex items-center justify-around">
+      <button onclick="switchTab('explore')" id="nav-explore" class="nav-btn flex flex-col items-center gap-1 text-[#CCFF00] transition">
+        <i data-lucide="compass" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">探索</span>
+      </button>
+
+      <button onclick="switchTab('circles')" id="nav-circles" class="nav-btn flex flex-col items-center gap-1 text-white/45 hover:text-white/80 transition">
+        <i data-lucide="users" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">圈子</span>
+      </button>
+
+      <!-- 中央懸浮發佈膠囊掣 -->
+      <button onclick="openComposerModal('link')" aria-label="發佈影片或貼連結推介" class="-mt-6 w-14 h-14 rounded-2xl bg-[#CCFF00] hover:bg-[#d8ff33] text-[#0D0D0F] shadow-[0_8px_28px_rgba(204,255,0,0.45)] flex items-center justify-center transition transform active:scale-90">
+        <i data-lucide="plus" class="w-7 h-7 stroke-[2.75]"></i>
+      </button>
+
+      <button onclick="switchTab('saved')" id="nav-saved" class="nav-btn flex flex-col items-center gap-1 text-white/45 hover:text-white/80 transition">
+        <i data-lucide="bookmark" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">收藏</span>
+      </button>
+
+      <button onclick="switchTab('profile')" id="nav-profile" class="nav-btn flex flex-col items-center gap-1 text-white/45 hover:text-white/80 transition">
+        <i data-lucide="user" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">我</span>
+      </button>
+    </nav>
+
+    <!-- ===================================================================== -->
+    <!-- 彈窗 1：「貼連結＋一句點評」與「上傳短片」發佈器 (Composer Sheet)       -->
+    <!-- ===================================================================== -->
+    <div id="composer-modal" class="hidden absolute inset-0 z-50 bg-black/75 backdrop-blur-md flex flex-col justify-end">
+      <div class="bg-[#121216] border-t border-white/15 rounded-t-[32px] max-h-[92%] flex flex-col animate-slide-up shadow-2xl">
+        <!-- 頂部拖曳條與標題 -->
+        <div class="px-5 pt-3 pb-3 border-b border-white/[0.08] flex items-center justify-between shrink-0">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#CCFF00]"></span>
+            <h3 class="text-sm font-extrabold text-white">分享好嘢畀朋友</h3>
+          </div>
+          <button onclick="closeComposerModal()" class="w-8 h-8 rounded-full bg-white/[0.07] hover:bg-white/15 flex items-center justify-center text-white/70">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- 模式切換器：貼連結推介 vs 上傳短片 -->
+        <div class="px-5 pt-3 shrink-0">
+          <div class="grid grid-cols-2 gap-1.5 p-1 rounded-2xl bg-white/[0.05] border border-white/10">
+            <button id="mode-btn-link" onclick="switchComposerMode('link')" class="py-2 rounded-xl bg-[#CCFF00] text-[#0D0D0F] text-xs font-extrabold flex items-center justify-center gap-1.5 transition">
+              <i data-lucide="link-2" class="w-3.5 h-3.5"></i>
+              <span>貼連結推介</span>
+            </button>
+            <button id="mode-btn-video" onclick="switchComposerMode('video')" class="py-2 rounded-xl text-white/65 hover:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition">
+              <i data-lucide="video" class="w-3.5 h-3.5"></i>
+              <span>上傳短片</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 表單滾動內容區 -->
+        <div class="p-5 overflow-y-auto no-scrollbar space-y-4">
+
+          <!-- 模式 A：貼連結一鍵推介 -->
+          <div id="composer-link-pane" class="space-y-4">
+            <!-- 網址輸入框 -->
+            <div>
+              <label class="block text-[11px] font-bold text-white/60 mb-1.5">貼上文章、食評、YouTube 或好物網址</label>
+              <div class="flex gap-2">
+                <input id="link-url-input" type="url" placeholder="https://www.openrice.com/..." class="flex-1 bg-white/[0.06] border border-white/15 rounded-2xl px-3.5 py-2.5 text-xs text-white placeholder-white/35 focus:outline-none focus:border-[#CCFF00]" />
+                <button onclick="triggerCustomUrlFetch()" class="px-3.5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 text-xs font-bold text-[#00F0FF] shrink-0 transition">
+                  AI 擷取
+                </button>
+              </div>
+            </div>
+
+            <!-- 一鍵試貼範例連結 (Quick Demo Link Chips) -->
+            <div>
+              <div class="flex items-center gap-1.5 mb-2">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#CCFF00]"></i>
+                <span class="text-[11px] font-bold text-white/70">一鍵試貼範例連結（即刻體驗 AI 懶人包）：</span>
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <button onclick="applyDemoLink(0)" class="text-left px-3 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 text-[11.5px] text-white/85 flex items-center justify-between group transition">
+                  <span class="flex items-center gap-2 truncate">
+                    <i data-lucide="utensils" class="w-3.5 h-3.5 text-[#CCFF00] shrink-0"></i>
+                    <span class="truncate">深水埗隱世濃湯沾麵食評 (openrice.com)</span>
+                  </span>
+                  <span class="text-[10px] text-[#00F0FF] font-bold shrink-0 ml-2 group-hover:translate-x-0.5 transition">試貼 →</span>
+                </button>
+
+                <button onclick="applyDemoLink(1)" class="text-left px-3 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 text-[11.5px] text-white/85 flex items-center justify-between group transition">
+                  <span class="flex items-center gap-2 truncate">
+                    <i data-lucide="film" class="w-3.5 h-3.5 text-[#00F0FF] shrink-0"></i>
+                    <span class="truncate">2026 香港獨立電影節必睇片單 (hkiff.org.hk)</span>
+                  </span>
+                  <span class="text-[10px] text-[#00F0FF] font-bold shrink-0 ml-2 group-hover:translate-x-0.5 transition">試貼 →</span>
+                </button>
+
+                <button onclick="applyDemoLink(2)" class="text-left px-3 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 text-[11.5px] text-white/85 flex items-center justify-between group transition">
+                  <span class="flex items-center gap-2 truncate">
+                    <i data-lucide="trophy" class="w-3.5 h-3.5 text-[#CCFF00] shrink-0"></i>
+                    <span class="truncate">實戰籃球鞋緩震深度評測 (youtube.com)</span>
+                  </span>
+                  <span class="text-[10px] text-[#00F0FF] font-bold shrink-0 ml-2 group-hover:translate-x-0.5 transition">試貼 →</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- AI 抓取中 Loading 狀態 -->
+            <div id="ai-fetching-state" class="hidden p-4 rounded-2xl bg-[#00F0FF]/[0.07] border border-[#00F0FF]/30 flex items-center gap-3">
+              <div class="w-5 h-5 border-2 border-[#00F0FF] border-t-transparent rounded-full animate-spin shrink-0"></div>
+              <p class="text-xs font-bold text-[#00F0FF]">AI 正在抓取封面並提煉廣東話 3 點精華...</p>
+            </div>
+
+            <!-- 即時生成 Smart Card 預覽 -->
+            <div id="smart-card-preview" class="hidden p-3.5 rounded-2xl bg-white/[0.05] border border-[#CCFF00]/40 space-y-2.5 animate-fade-in">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#CCFF00] flex items-center gap-1">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i> AI 智能推介卡預覽
+                </span>
+                <span id="preview-domain" class="px-2 py-0.5 rounded-full bg-black/50 border border-white/10 text-[10px] text-white/75 flex items-center gap-1">
+                  <i data-lucide="link-2" class="w-2.5 h-2.5 text-[#00F0FF]"></i> openrice.com
+                </span>
+              </div>
+
+              <div class="flex gap-3 items-center">
+                <img id="preview-cover" src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80" onerror="this.src='https://placehold.co/400x300/18181B/CCFF00?text=Ktalk+Preview'" alt="封面預覽" class="w-20 h-20 rounded-xl object-cover border border-white/10 shrink-0" />
+                <div class="min-w-0">
+                  <h4 id="preview-title" class="text-xs font-bold text-white line-clamp-2 leading-snug">深水埗隱世濃厚豚骨魚介沾麵｜每日限量 60 碗實測</h4>
+                  <p class="text-[10.5px] text-white/50 mt-1">已自動擷取高清 OG 封面及摘要</p>
+                </div>
+              </div>
+
+              <!-- AI 3 點廣東話精華 -->
+              <div class="p-2.5 rounded-xl bg-black/40 border border-white/[0.07] space-y-1.5">
+                <div class="text-[10px] font-bold text-[#00F0FF] flex items-center gap-1">
+                  <i data-lucide="bot" class="w-3 h-3"></i> AI 廣東話 3 點懶人包
+                </div>
+                <ul id="preview-bullets" class="text-[11px] text-white/80 space-y-1 list-disc pl-4">
+                  <!-- 由 JS 填充 -->
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 模式 B：上傳個人短片 -->
+          <div id="composer-video-pane" class="hidden space-y-3">
+            <div class="p-4 rounded-2xl border border-dashed border-white/25 bg-white/[0.03] text-center space-y-2">
+              <div class="w-10 h-10 rounded-2xl bg-[#CCFF00]/15 text-[#CCFF00] flex items-center justify-center mx-auto">
+                <i data-lucide="film" class="w-5 h-5"></i>
+              </div>
+              <p class="text-xs font-bold text-white">已載入預設實拍片段：西環海濱黃昏滑板.mp4</p>
+              <p class="text-[11px] text-white/45">支援最高 500MB 高清原片直出，自動生成時間軸留言軌</p>
+            </div>
+          </div>
+
+          <!-- 共用欄位：老友點評 (一句話推介原因) -->
+          <div>
+            <label class="block text-[11px] font-bold text-white/75 mb-1.5">
+              老友點評 <span class="text-[#CCFF00]">（一句話講出點解值得睇）</span>
+            </label>
+            <textarea id="curator-quote-input" rows="2" placeholder="例如：呢間湯底濃到黐線，週末打完波一齊去？" class="w-full bg-white/[0.06] border border-white/15 rounded-2xl px-3.5 py-2.5 text-xs text-white placeholder-white/35 focus:outline-none focus:border-[#CCFF00] resize-none"></textarea>
+          </div>
+
+          <!-- 圈子分類與可見範圍選擇器 -->
+          <div class="grid grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-[11px] font-bold text-white/60 mb-1.5">投入講圈分類</label>
+              <select id="composer-circle-select" class="w-full bg-[#1C1C22] border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#CCFF00]">
+                <option value="food">港九搵食</option>
+                <option value="hoops">波友私密圈</option>
+                <option value="cinema">週末戲單</option>
+                <option value="picks">好物推介</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-white/60 mb-1.5">誰可以睇到？</label>
+              <div class="grid grid-cols-2 gap-1 p-1 rounded-xl bg-white/[0.05] border border-white/10">
+                <button type="button" id="vis-public" onclick="setVisibility('public')" class="py-1.5 rounded-lg bg-white/15 text-white text-[11px] font-bold flex items-center justify-center gap-1">
+                  <i data-lucide="globe" class="w-3 h-3 text-[#00F0FF]"></i> 公開
+                </button>
+                <button type="button" id="vis-private" onclick="setVisibility('private')" class="py-1.5 rounded-lg text-white/50 text-[11px] font-bold flex items-center justify-center gap-1">
+                  <i data-lucide="lock" class="w-3 h-3 text-[#CCFF00]"></i> 私密圈
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 發佈主按鈕 -->
+          <button onclick="publishNewPost()" class="w-full py-3.5 rounded-2xl bg-[#CCFF00] hover:bg-[#d8ff33] text-[#0D0D0F] text-sm font-black tracking-wide shadow-[0_8px_25px_rgba(204,255,0,0.35)] flex items-center justify-center gap-2 transition active:scale-[0.98]">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>發佈到講圈</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 彈窗 2：卡片詳情與時間軸互動抽屜 (Detail Drawer)                        -->
+    <!-- ===================================================================== -->
+    <div id="detail-modal" class="hidden absolute inset-0 z-50 bg-black/80 backdrop-blur-md flex flex-col justify-end">
+      <div class="bg-[#111115] border-t border-white/15 rounded-t-[32px] h-[90%] flex flex-col animate-slide-up overflow-hidden">
+        <!-- 頂部發佈者資訊列 -->
+        <div class="px-4 py-3 border-b border-white/[0.08] flex items-center justify-between shrink-0">
+          <div class="flex items-center gap-2.5">
+            <div id="detail-avatar" class="w-9 h-9 rounded-full mesh-1 ring-1 ring-white/25 flex items-center justify-center">
+              <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span id="detail-author" class="text-xs font-extrabold text-white">@Eddie_HK</span>
+                <span id="detail-circle-badge" class="px-2 py-0.5 rounded-full bg-white/10 text-[10px] text-[#CCFF00] font-bold">港九搵食</span>
+              </div>
+              <span id="detail-time" class="text-[10.5px] text-white/45">24 分鐘前分享</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-1.5">
+            <button onclick="openShareFromDetail()" class="px-3 py-1.5 rounded-full bg-[#CCFF00] text-[#0D0D0F] text-xs font-extrabold flex items-center gap-1">
+              <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+              <span>分享畀老友</span>
+            </button>
+            <button onclick="closeDetailModal()" class="w-8 h-8 rounded-full bg-white/[0.08] flex items-center justify-center text-white/70">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 詳情滾動區 -->
+        <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-4">
+          <!-- 媒體封面 / 模擬影片播放器 -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-black">
+            <img id="detail-image" src="" onerror="this.src='https://placehold.co/600x400/18181B/CCFF00?text=Ktalk.hk'" alt="內容封面" class="w-full max-h-64 object-cover" />
+
+            <!-- 影片互動模擬控制列 (僅影片卡顯示) -->
+            <div id="detail-video-overlay" class="hidden absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-between p-3.5">
+              <div class="flex justify-end">
+                <span id="detail-duration" class="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[11px] font-bold text-white border border-white/15">0:24</span>
+              </div>
+              <div class="space-y-2">
+                <div class="flex items-center gap-2.5">
+                  <button onclick="toggleSimPlay(this)" class="w-9 h-9 rounded-full bg-[#CCFF00] text-[#0D0D0F] flex items-center justify-center shrink-0">
+                    <i data-lucide="play" class="w-4 h-4 fill-[#0D0D0F]"></i>
+                  </button>
+                  <div class="flex-1">
+                    <div class="h-1.5 rounded-full bg-white/25 overflow-hidden relative">
+                      <div id="sim-progress-bar" class="w-2/5 h-full bg-[#CCFF00] rounded-full transition-all duration-500"></div>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-white/60 mt-1">
+                      <span>點擊下方時間點標記跳轉重點</span>
+                      <span class="text-[#00F0FF]">HD 60fps</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 連結來源標籤 (僅連結推介卡顯示) -->
+            <div id="detail-link-bar" class="hidden p-2.5 bg-white/[0.07] backdrop-blur-md border-t border-white/10 flex items-center justify-between">
+              <span id="detail-domain" class="text-xs font-bold text-[#00F0FF] flex items-center gap-1.5">
+                <i data-lucide="link-2" class="w-3.5 h-3.5"></i> openrice.com
+              </span>
+              <span class="text-[11px] text-white/60 flex items-center gap-1">
+                原網頁已驗證 <i data-lucide="check-circle-2" class="w-3 h-3 text-[#CCFF00]"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- 老友點評高亮框 -->
+          <div class="p-3.5 rounded-2xl bg-gradient-to-r from-[#CCFF00]/15 to-transparent border-l-4 border-[#CCFF00]">
+            <div class="text-[10px] font-extrabold text-[#CCFF00] uppercase tracking-wider mb-1">老友點評</div>
+            <p id="detail-quote" class="text-sm font-bold text-white leading-relaxed"></p>
+          </div>
+
+          <!-- 標題 -->
+          <h2 id="detail-title" class="text-base font-extrabold text-white leading-snug"></h2>
+
+          <!-- AI 廣東話 3 點懶人包 -->
+          <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-[#00F0FF]/25 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold text-[#00F0FF] flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> AI 廣東話精華懶人包
+              </span>
+              <span class="text-[10px] text-white/40">30 秒睇晒重點</span>
+            </div>
+            <ul id="detail-ai-list" class="space-y-1.5 text-xs text-white/85">
+              <!-- 由 JS 渲染 -->
+            </ul>
+          </div>
+
+          <!-- 香港地道多維度互動反應按鈕 (Interactive Reactions) -->
+          <div>
+            <div class="text-[11px] font-bold text-white/50 mb-2">畀個反應話畀朋友知：</div>
+            <div id="detail-reactions-bar" class="grid grid-cols-4 gap-2">
+              <!-- 由 JS 動態渲染 -->
+            </div>
+          </div>
+
+          <!-- 朋友時間軸留言區 (Timestamp & Friend Comments) -->
+          <div class="pt-2 border-t border-white/10 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-extrabold text-white flex items-center gap-1.5">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5 text-[#CCFF00]"></i>
+                <span>朋友圈討論 (<span id="detail-comment-count">0</span>)</span>
+              </h4>
+              <span class="text-[10.5px] text-white/45">支援標記秒數或重點</span>
+            </div>
+
+            <div id="detail-comments-list" class="space-y-2.5">
+              <!-- 由 JS 渲染 -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 底部新增留言輸入列 -->
+        <div class="p-3 bg-[#0D0D0F] border-t border-white/10 flex items-center gap-2 shrink-0">
+          <button id="pin-time-toggle" onclick="toggleCommentTag()" class="px-2.5 py-2 rounded-xl bg-white/[0.07] border border-white/10 text-[11px] font-bold text-[#00F0FF] shrink-0 flex items-center gap-1">
+            <i data-lucide="clock" class="w-3 h-3"></i>
+            <span id="pin-tag-label">+0:14</span>
+          </button>
+          <input id="new-comment-input" type="text" placeholder="留句言 @老友 一齊傾..." class="flex-1 bg-white/[0.06] border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-white/40 focus:outline-none focus:border-[#CCFF00]" onkeydown="if(event.key==='Enter') submitComment()" />
+          <button onclick="submitComment()" class="w-9 h-9 rounded-xl bg-[#CCFF00] text-[#0D0D0F] flex items-center justify-center shrink-0 font-bold">
+            <i data-lucide="send" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 彈窗 3：香港社交專屬分享面板 (WhatsApp 動態預覽卡 / IG Story 雜誌卡)    -->
+    <!-- ===================================================================== -->
+    <div id="share-modal" class="hidden absolute inset-0 z-50 bg-black/80 backdrop-blur-md flex flex-col justify-end">
+      <div class="bg-[#121216] border-t border-white/15 rounded-t-[32px] p-5 space-y-4 animate-slide-up">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm font-extrabold text-white">分享畀朋友</h3>
+            <p class="text-[11px] text-white/50">告別老土 QR Code，直接生成高質感預覽卡</p>
+          </div>
+          <button onclick="closeShareModal()" class="w-8 h-8 rounded-full bg-white/[0.08] flex items-center justify-center text-white/70">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- 分享模式切換：WhatsApp 動態預覽卡 vs IG Story 9:16 雜誌卡 -->
+        <div class="grid grid-cols-2 gap-1.5 p-1 rounded-2xl bg-white/[0.05] border border-white/10">
+          <button id="share-tab-wa" onclick="switchShareTab('wa')" class="py-2 rounded-xl bg-[#CCFF00] text-[#0D0D0F] text-xs font-extrabold flex items-center justify-center gap-1.5 transition">
+            <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+            <span>WhatsApp 動態卡</span>
+          </button>
+          <button id="share-tab-ig" onclick="switchShareTab('ig')" class="py-2 rounded-xl text-white/65 hover:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition">
+            <i data-lucide="instagram" class="w-3.5 h-3.5"></i>
+            <span>IG Story 雜誌卡</span>
+          </button>
+        </div>
+
+        <!-- 預覽 A：WhatsApp 對話框動態 OpenGraph 預覽 -->
+        <div id="share-preview-wa" class="p-4 rounded-2xl bg-[#0B141A] border border-white/10 space-y-2">
+          <div class="text-[10px] text-white/40 text-center mb-1">WhatsApp 好友對話框預覽</div>
+          <div class="ml-auto max-w-[92%] rounded-2xl rounded-tr-sm bg-[#005C4B] p-2.5 shadow-lg space-y-2">
+            <!-- 內嵌 OpenGraph 卡片 -->
+            <div class="rounded-xl bg-[#025144] overflow-hidden border border-white/10">
+              <img id="wa-card-img" src="" onerror="this.src='https://placehold.co/400x200/18181B/CCFF00?text=Ktalk.hk'" alt="WhatsApp 預覽圖" class="w-full h-28 object-cover" />
+              <div class="p-2.5">
+                <div class="text-[10px] text-[#CCFF00] font-bold" id="wa-card-curator">@Eddie_HK 喺 Ktalk 講圈向你推介</div>
+                <div class="text-xs font-bold text-white line-clamp-1 mt-0.5" id="wa-card-title"></div>
+                <div class="text-[10.5px] text-white/70 line-clamp-1 mt-0.5" id="wa-card-quote"></div>
+                <div class="text-[10px] text-white/45 mt-1">ktalk.hk/c/8921</div>
+              </div>
+            </div>
+            <p class="text-xs text-white leading-snug px-1" id="wa-message-text">
+              喂睇下呢個！我喺講圈 Bookmark 咗，週末一齊去？
+            </p>
+          </div>
+        </div>
+
+        <!-- 預覽 B：IG Story 9:16 潮流雜誌打卡圖 -->
+        <div id="share-preview-ig" class="hidden flex justify-center">
+          <div class="w-52 aspect-[9/16] rounded-3xl p-3.5 relative overflow-hidden border border-white/20 flex flex-col justify-between shadow-2xl bg-[#16161D]">
+            <img id="ig-card-bg" src="" onerror="this.src='https://placehold.co/300x530/18181B/CCFF00?text=Ktalk'" alt="IG 背景" class="absolute inset-0 w-full h-full object-cover opacity-35 blur-sm scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/90"></div>
+
+            <!-- Top Brand Stamp -->
+            <div class="relative z-10 flex items-center justify-between">
+              <span class="text-xs font-black tracking-tight text-white">Ktalk <span class="text-[#CCFF00]">講圈</span></span>
+              <span class="px-2 py-0.5 rounded-full bg-white/15 backdrop-blur-md text-[9px] font-bold text-white">CURATED</span>
+            </div>
+
+            <!-- Center Art & Quote -->
+            <div class="relative z-10 space-y-2 my-auto">
+              <img id="ig-card-img" src="" onerror="this.src='https://placehold.co/300x300/18181B/CCFF00?text=Ktalk'" alt="IG 封面" class="w-full h-32 object-cover rounded-2xl border border-white/20 shadow-lg" />
+              <div class="p-2.5 rounded-xl bg-black/65 backdrop-blur-md border border-white/15">
+                <p id="ig-card-quote" class="text-[11px] font-bold text-[#CCFF00] leading-snug line-clamp-2"></p>
+                <p id="ig-card-title" class="text-[10px] text-white/85 mt-1 line-clamp-2"></p>
+              </div>
+            </div>
+
+            <!-- Bottom Link Sticker -->
+            <div class="relative z-10 text-center">
+              <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white text-[#0D0D0F] text-[10px] font-black shadow">
+                <i data-lucide="link-2" class="w-3 h-3 text-blue-600"></i> KTALK.HK
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 一鍵複製連結按鈕 -->
+        <button id="copy-link-btn" onclick="copyShareLink()" class="w-full py-3.5 rounded-2xl bg-[#CCFF00] hover:bg-[#d8ff33] text-[#0D0D0F] text-xs font-black flex items-center justify-center gap-2 transition active:scale-[0.98]">
+          <i data-lucide="copy" class="w-4 h-4"></i>
+          <span id="copy-link-label">複製專屬推介連結（貼去 WhatsApp / Signal）</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 全局輕提示 Toast (取代傳統 alert)                                       -->
+    <!-- ===================================================================== -->
+    <div id="toast-banner" class="hidden absolute top-16 left-1/2 -translate-x-1/2 z-[60] px-4 py-2.5 rounded-full bg-[#1A1A22]/95 backdrop-blur-xl border border-[#CCFF00]/50 shadow-[0_10px_30px_rgba(0,0,0,0.8)] flex items-center gap-2 whitespace-nowrap animate-fade-in">
+      <i data-lucide="check-circle-2" class="w-4 h-4 text-[#CCFF00] shrink-0"></i>
+      <span id="toast-message" class="text-xs font-bold text-white"></span>
+    </div>
+
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 互動邏輯腳本 (JavaScript)                                              -->
+  <!-- ===================================================================== -->
+  <script>
+    // 1. 講圈分類配置 (使用 Lucide 矢量圖標取代原生 Emoji)
+    const CIRCLES = [
+      { id: 'all', label: '全部探索', icon: 'flame' },
+      { id: 'hoops', label: '波友私密圈', icon: 'trophy' },
+      { id: 'food', label: '港九搵食', icon: 'utensils' },
+      { id: 'cinema', label: '週末戲單', icon: 'film' },
+      { id: 'picks', label: '好物推介', icon: 'sparkles' }
+    ];
+
+    // 2. 預設範例連結資料庫 (供「一鍵試貼範例連結」使用)
+    const DEMO_LINKS = [
+      {
+        url: 'https://www.openrice.com/zh/hongkong/r-sham-shui-po-tsukemen',
+        domain: 'openrice.com',
+        circle: 'food',
+        title: '深水埗隱世濃厚豚骨魚介沾麵｜每日限量 60 碗排隊實測',
+        quote: '呢間沾麵湯底濃到黐線，週末打完波一齊去？',
+        cover: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=600&q=80',
+        bullets: [
+          '湯底熬足 14 小時，掛麵度極高，食完仲可以加清湯飲晒',
+          '必點炙燒厚切叉燒同流心蛋，性價比喺深水埗算頂級',
+          '建議 12:15 前去到排隊，否則一點鐘左右就會沽清'
+        ]
+      },
+      {
+        url: 'https://www.hkiff.org.hk/film/2026-indie-selection',
+        domain: 'hkiff.org.hk',
+        circle: 'cinema',
+        title: '2026 香港獨立電影節閉幕片單深度導讀：霓虹褪色後的城市記憶',
+        quote: '今年最期待呢套！美術同配樂好有王家衛早期味道，約埋一齊睇？',
+        cover: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=600&q=80',
+        bullets: [
+          '全片以 16mm 菲林喺油麻地及土瓜灣實景拍攝，質感極強',
+          '探討千禧世代面對舊區重建嘅情感抽離，對白克制但後勁凌厲',
+          '週五晚 M+ 戲院場次設有導演映後談，門票剩餘少量'
+        ]
+      },
+      {
+        url: 'https://www.youtube.com/watch?v=hk-basketball-shoe-review',
+        domain: 'youtube.com',
+        circle: 'hoops',
+        title: '2026 實戰籃球鞋緩震與抓地力深度評測：街場水泥地實戰 20 小時報告',
+        quote: '打修頓室外場最怕滑，呢對前掌回饋同防側翻真係無得輸！',
+        cover: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
+        bullets: [
+          '雙密度全掌超臨界發泡中底，急停變向起動反應極快',
+          '高耐磨橡膠大底專為室外水泥街場設計，實戰 20 小時紋路依然清晰',
+          '鞋楦對亞洲人寬腳型極友好，唔使特登買大半碼'
+        ]
+      }
+    ];
+
+    // 3. 初始雙欄探索流數據 (融合「貼連結＋一句點評」推介卡與「個人原創短片卡」)
+    let feedPosts = [
+      {
+        id: 101,
+        type: 'link',
+        circle: 'food',
+        circleName: '港九搵食',
+        visibility: 'public',
+        author: '@Eddie_HK',
+        avatarClass: 'mesh-1',
+        avatarIcon: 'flame',
+        timeAgo: '18 分鐘前',
+        quote: '呢間拉麵湯底濃到黐線，週末打完波一齊去？',
+        title: '深水埗隱世濃厚豚骨魚介沾麵｜每日限量 60 碗實測',
+        domain: 'openrice.com',
+        cover: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=600&q=80',
+        aiBullets: [
+          '湯底熬足 14 小時，掛麵度極高，食完仲可以加清湯飲晒',
+          '必點炙燒厚切叉燒同流心蛋，性價比喺深水埗算頂級',
+          '建議 12:15 前去到排隊，否則一點鐘左右就會沽清'
+        ],
+        reactions: { fire: 42, love: 19, laugh: 3, saved: 28 },
+        userReacted: { fire: true, love: false, laugh: false, saved: true },
+        comments: [
+          { user: '@阿軒Ho', tag: '重點 #1', text: '上星期試過，個柚子醋加落湯底真係神來之筆！', time: '12分鐘前' },
+          { user: '@Marcus.L', tag: '', text: '星期六打完街場即刻去！', time: '5分鐘前' }
+        ]
+      },
+      {
+        id: 102,
+        type: 'video',
+        circle: 'hoops',
+        circleName: '波友私密圈',
+        visibility: 'private',
+        author: '@阿軒Ho',
+        avatarClass: 'mesh-2',
+        avatarIcon: 'trophy',
+        timeAgo: '42 分鐘前',
+        duration: '0:24',
+        aspectClass: 'aspect-[4/5]',
+        quote: '昨晚修頓街場絕殺三分球！@Eddie_HK 助攻傳得太到位',
+        title: '修頓夜場 3v3 決勝球第一視角精華',
+        cover: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&q=80',
+        aiBullets: [
+          '0:08 弧頂假動作晃開防守球員，製造切入空間',
+          '0:14 吸引雙人包夾後背後妙傳底角空位',
+          '0:21 壓哨零度角三分空心入網，全場歡呼'
+        ],
+        reactions: { fire: 89, love: 34, laugh: 7, saved: 15 },
+        userReacted: { fire: false, love: true, laugh: false, saved: false },
+        comments: [
+          { user: '@Eddie_HK', tag: '0:14', text: '呢下轉身傳波我自己睇返都覺得靚！', time: '28分鐘前' },
+          { user: '@Kelvin_99', tag: '0:21', text: '修頓 Curry 唔係浪得虛名', time: '19分鐘前' }
+        ]
+      },
+      {
+        id: 103,
+        type: 'link',
+        circle: 'cinema',
+        circleName: '週末戲單',
+        visibility: 'public',
+        author: '@Chloe.C',
+        avatarClass: 'mesh-3',
+        avatarIcon: 'film',
+        timeAgo: '1 小時前',
+        quote: '今年香港獨立電影節最期待呢套，美術同配樂好有王家衛早期味道',
+        title: '2026 香港獨立電影節閉幕片單深度導讀：霓虹褪色後的城市記憶',
+        domain: 'hkiff.org.hk',
+        cover: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=600&q=80',
+        aiBullets: [
+          '全片以 16mm 菲林喺油麻地及土瓜灣實景拍攝，質感極強',
+          '探討千禧世代面對舊區重建嘅情感抽離，對白克制但後勁凌厲',
+          '週五晚 M+ 戲院場次設有導演映後談，門票剩餘少量'
+        ],
+        reactions: { fire: 31, love: 64, laugh: 2, saved: 51 },
+        userReacted: { fire: false, love: false, laugh: false, saved: true },
+        comments: [
+          { user: '@Jason_Film', tag: '重點 #3', text: '已搶飛！週五晚 M+ 見', time: '35分鐘前' }
+        ]
+      },
+      {
+        id: 104,
+        type: 'video',
+        circle: 'food',
+        circleName: '港九搵食',
+        visibility: 'public',
+        author: '@Suki_Wong',
+        avatarClass: 'mesh-4',
+        avatarIcon: 'coffee',
+        timeAgo: '2 小時前',
+        duration: '0:38',
+        aspectClass: 'aspect-[3/4]',
+        quote: '上環太平山街新開手沖店，焙茶 Basque 芝士蛋糕流心到犯規',
+        title: '上環隱世焙茶流心芝士蛋糕實拍開箱',
+        cover: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80',
+        aiBullets: [
+          '使用京都宇治頂級焙茶粉，茶香微苦剛好中和芝士甜膩',
+          '店內採用水泥工業風配黑膠唱片背景音樂，極適合週末 Chill',
+          'Window seat 下午 3 點陽光斜射影相最靚'
+        ],
+        reactions: { fire: 56, love: 112, laugh: 4, saved: 78 },
+        userReacted: { fire: false, love: true, laugh: false, saved: true },
+        comments: [
+          { user: '@Chloe.C', tag: '0:19', text: '切開流心嗰下真係頂唔順，今個週末去！', time: '1小時前' }
+        ]
+      },
+      {
+        id: 105,
+        type: 'link',
+        circle: 'picks',
+        circleName: '好物推介',
+        visibility: 'public',
+        author: '@TechBoy_Leo',
+        avatarClass: 'mesh-5',
+        avatarIcon: 'headphones',
+        timeAgo: '3 小時前',
+        quote: '返工搭地鐵降噪終於唔使開最大聲，呢篇對比評測寫得好中肯',
+        title: '2026 旗艦降噪耳機橫向實測：港鐵觀塘線噪音環境通話表現大比拼',
+        domain: 'substack.com',
+        cover: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80',
+        aiBullets: [
+          '針對地鐵路軌高頻摩擦聲，新款自適應演算法比上代提升 35%',
+          '重量減輕至 245g，戴足 4 小時都唔會夾耳仔或壓頭頂',
+          '支援雙設備無縫切換，iPhone 聽歌同時接聽 MacBook 會議零延遲'
+        ],
+        reactions: { fire: 47, love: 23, laugh: 5, saved: 39 },
+        userReacted: { fire: true, love: false, laugh: false, saved: false },
+        comments: []
+      },
+      {
+        id: 106,
+        type: 'video',
+        circle: 'cinema',
+        circleName: '週末戲單',
+        visibility: 'public',
+        author: '@Jason_Film',
+        avatarClass: 'mesh-6',
+        avatarIcon: 'camera',
+        timeAgo: '4 小時前',
+        duration: '0:19',
+        aspectClass: 'aspect-[4/5]',
+        quote: '西九海濱日落 Magic Hour 航拍，香港個天色真係世界級',
+        title: '維港晚霞 Magic Hour 4K 實拍紀錄',
+        cover: 'https://images.unsplash.com/photo-1536599018102-9f803c140fc1?auto=format&fit=crop&w=600&q=80',
+        aiBullets: [
+          '傍晚 6:12 維港上空出現罕見紫粉色晚霞，倒映海面極震撼',
+          '建議帶備 24-70mm 鏡頭喺藝術公園草地低角度取景'
+        ],
+        reactions: { fire: 95, love: 140, laugh: 1, saved: 62 },
+        userReacted: { fire: true, love: true, laugh: false, saved: true },
+        comments: [
+          { user: '@Suki_Wong', tag: '0:11', text: '呢個色調可以直接做桌面 Wallpaper！', time: '2小時前' }
+        ]
+      }
+    ];
+
+    // 狀態管理
+    let activeCircle = 'all';
+    let activeTab = 'explore';
+    let searchQuery = '';
+    let currentComposerMode = 'link';
+    let currentVisibility = 'public';
+    let fetchedLinkData = null;
+    let activeDetailPostId = null;
+    let activeSharePostId = null;
+    let commentTagEnabled = false;
+
+    // 初始化渲染
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCircleFilterBar();
+      renderMasonryFeed();
+      lucide.createIcons();
+    });
+
+    // 渲染頂部講圈篩選膠囊
+    function renderCircleFilterBar() {
+      const container = document.getElementById('circle-filter-bar');
+      container.innerHTML = CIRCLES.map(c => {
+        const isActive = activeCircle === c.id;
+        return `
+          <button onclick="selectCircle('${c.id}')"
+            class="shrink-0 px-3 py-1.5 rounded-full text-xs font-extrabold flex items-center gap-1.5 transition active:scale-95 ${
+              isActive
+                ? 'bg-[#CCFF00] text-[#0D0D0F] shadow-[0_0_16px_rgba(204,255,0,0.3)]'
+                : 'bg-white/[0.06] hover:bg-white/[0.12] text-white/75 border border-white/10'
+            }">
+            <i data-lucide="${c.icon}" class="w-3.5 h-3.5"></i>
+            <span>${c.label}</span>
+          </button>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function selectCircle(circleId) {
+      activeCircle = circleId;
+      if (activeTab === 'circles' || activeTab === 'profile') {
+        switchTab('explore');
+      }
+      renderCircleFilterBar();
+      renderMasonryFeed();
+    }
+
+    function filterByCircleFromTab(circleId) {
+      selectCircle(circleId);
+    }
+
+    function resetToExplore() {
+      activeCircle = 'all';
+      searchQuery = '';
+      document.getElementById('search-input').value = '';
+      switchTab('explore');
+      renderCircleFilterBar();
+      renderMasonryFeed();
+    }
+
+    // 搜尋欄控制
+    function toggleSearchBar() {
+      const drawer = document.getElementById('search-drawer');
+      drawer.classList.toggle('hidden');
+      if (!drawer.classList.contains('hidden')) {
+        document.getElementById('search-input').focus();
+      }
+    }
+
+    function handleSearch(val) {
+      searchQuery = val.trim().toLowerCase();
+      renderMasonryFeed();
+    }
+
+    function clearSearch() {
+      searchQuery = '';
+      document.getElementById('search-input').value = '';
+      document.getElementById('search-drawer').classList.add('hidden');
+      renderMasonryFeed();
+    }
+
+    // 渲染雙欄探索流 (Dual-Column Masonry Feed)
+    function renderMasonryFeed() {
+      const feedEl = document.getElementById('masonry-feed');
+      const emptyEl = document.getElementById('empty-state');
+
+      let filtered = feedPosts.filter(post => {
+        if (activeTab === 'saved' && !post.userReacted.saved) return false;
+        if (activeCircle !== 'all' && post.circle !== activeCircle) return false;
+        if (searchQuery) {
+          const hay = `${post.title} ${post.quote} ${post.author} ${post.circleName}`.toLowerCase();
+          if (!hay.includes(searchQuery)) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        feedEl.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+
+      feedEl.innerHTML = filtered.map(post => {
+        if (post.type === 'link') {
+          // 渲染：Smart Link Curation Card (「貼連結＋一句點評」推介卡)
+          return `
+            <article onclick="openDetailModal(${post.id})" class="masonry-item rounded-[22px] bg-white/[0.055] backdrop-blur-xl border border-white/10 hover:border-[#CCFF00]/45 p-2.5 cursor-pointer transition-all duration-200 group">
+              <!-- 發佈者與講圈標籤 -->
+              <div class="flex items-center justify-between gap-1.5 mb-2">
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <div class="w-6 h-6 rounded-full ${post.avatarClass} ring-1 ring-white/25 flex items-center justify-center shrink-0">
+                    <i data-lucide="${post.avatarIcon}" class="w-3 h-3 text-white"></i>
+                  </div>
+                  <span class="text-[11px] font-bold text-white/90 truncate">${post.author}</span>
+                </div>
+                <span class="px-1.5 py-0.5 rounded-md bg-white/[0.08] text-[9.5px] font-bold text-[#CCFF00] shrink-0">
+                  ${post.circleName}
+                </span>
+              </div>
+
+              <!-- 老友點評 (One-Line Curator Quote) -->
+              <div class="mb-2 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-[#CCFF00]/[0.14] to-white/[0.03] border-l-2 border-[#CCFF00]">
+                <p class="text-[11.5px] font-bold text-white leading-snug">「${post.quote}」</p>
+              </div>
+
+              <!-- OpenGraph 封面圖與懸浮網域膠囊 -->
+              <div class="relative rounded-xl overflow-hidden mb-2 bg-black/50 aspect-[16/11]">
+                <img src="${post.cover}" onerror="this.src='https://placehold.co/400x280/18181B/CCFF00?text=Ktalk'" alt="${post.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                <span class="absolute bottom-1.5 left-1.5 px-2 py-0.5 rounded-full bg-black/65 backdrop-blur-md border border-white/15 text-[9.5px] font-bold text-white/90 flex items-center gap-1">
+                  <i data-lucide="link-2" class="w-2.5 h-2.5 text-[#00F0FF]"></i>
+                  ${post.domain}
+                </span>
+                <span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded-full bg-[#00F0FF]/20 backdrop-blur-md border border-[#00F0FF]/40 text-[9px] font-extrabold text-[#00F0FF] flex items-center gap-0.5">
+                  <i data-lucide="sparkles" class="w-2.5 h-2.5"></i> AI 懶人包
+                </span>
+              </div>
+
+              <!-- 兩行精華標題 -->
+              <h3 class="text-xs font-extrabold text-white/95 line-clamp-2 leading-snug mb-2.5">
+                ${post.title}
+              </h3>
+
+              <!-- 地道反應膠囊與快捷分享按鈕 -->
+              <div class="flex items-center justify-between pt-1.5 border-t border-white/[0.07]">
+                <button onclick="event.stopPropagation(); quickReact(${post.id}, 'fire')" class="px-2 py-1 rounded-full text-[10.5px] font-extrabold flex items-center gap-1 transition ${
+                  post.userReacted.fire
+                    ? 'bg-[#CCFF00]/20 text-[#CCFF00] border border-[#CCFF00]/40'
+                    : 'bg-white/[0.06] text-white/70 hover:bg-white/10'
+                }">
+                  <i data-lucide="flame" class="w-3 h-3"></i>
+                  <span>推爆 ${post.reactions.fire}</span>
+                </button>
+
+                <button onclick="event.stopPropagation(); openShareModal(${post.id})" aria-label="分享" class="w-7 h-7 rounded-full bg-white/[0.06] hover:bg-white/15 flex items-center justify-center text-white/75 transition">
+                  <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </article>
+          `;
+        } else {
+          // 渲染：Short Video Card (個人原創短片卡)
+          return `
+            <article onclick="openDetailModal(${post.id})" class="masonry-item rounded-[22px] bg-white/[0.055] backdrop-blur-xl border border-white/10 hover:border-[#00F0FF]/45 overflow-hidden cursor-pointer transition-all duration-200 group">
+              <!-- 豎屏高對比封面 + 磨砂播放掣 -->
+              <div class="relative ${post.aspectClass || 'aspect-[4/5]'} bg-black overflow-hidden">
+                <img src="${post.cover}" onerror="this.src='https://placehold.co/400x500/18181B/00F0FF?text=Video'" alt="${post.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0D0D0F] via-black/15 to-black/30"></div>
+
+                <!-- 頂部時長與音頻波形指示器 -->
+                <div class="absolute top-2 inset-x-2 flex items-center justify-between">
+                  <span class="px-2 py-0.5 rounded-full bg-black/55 backdrop-blur-md border border-white/15 text-[10px] font-bold text-white flex items-center gap-1">
+                    ${post.visibility === 'private' ? '<i data-lucide="lock" class="w-2.5 h-2.5 text-[#CCFF00]"></i>' : ''}
+                    ${post.duration}
+                  </span>
+                  <div class="px-2 py-1 rounded-full bg-black/55 backdrop-blur-md border border-white/15 flex items-end gap-[2px] h-5">
+                    <span class="w-[2px] bg-[#CCFF00] rounded-full wave-1"></span>
+                    <span class="w-[2px] bg-[#00F0FF] rounded-full wave-2"></span>
+                    <span class="w-[2px] bg-[#CCFF00] rounded-full wave-3"></span>
+                  </div>
+                </div>
+
+                <!-- 中央磨砂播放按鈕 -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover:bg-[#CCFF00] group-hover:text-[#0D0D0F] group-hover:border-[#CCFF00] transition">
+                    <i data-lucide="play" class="w-4 h-4 fill-current ml-0.5"></i>
+                  </div>
+                </div>
+
+                <!-- 底部創作者資訊疊層 -->
+                <div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between">
+                  <div class="flex items-center gap-1.5 min-w-0">
+                    <div class="w-5 h-5 rounded-full ${post.avatarClass} ring-1 ring-white/40 flex items-center justify-center shrink-0">
+                      <i data-lucide="${post.avatarIcon}" class="w-2.5 h-2.5 text-white"></i>
+                    </div>
+                    <span class="text-[10.5px] font-bold text-white truncate drop-shadow">${post.author}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 影片文案與地道互動列 -->
+              <div class="p-2.5">
+                <p class="text-xs font-extrabold text-white/95 line-clamp-2 leading-snug mb-2.5">
+                  ${post.quote}
+                </p>
+
+                <div class="flex items-center justify-between pt-1.5 border-t border-white/[0.07]">
+                  <button onclick="event.stopPropagation(); quickReact(${post.id}, 'love')" class="px-2 py-1 rounded-full text-[10.5px] font-extrabold flex items-center gap-1 transition ${
+                    post.userReacted.love
+                      ? 'bg-[#00F0FF]/20 text-[#00F0FF] border border-[#00F0FF]/40'
+                      : 'bg-white/[0.06] text-white/70 hover:bg-white/10'
+                  }">
+                    <i data-lucide="heart" class="w-3 h-3"></i>
+                    <span>正呀 ${post.reactions.love}</span>
+                  </button>
+
+                  <button onclick="event.stopPropagation(); openShareModal(${post.id})" aria-label="分享" class="w-7 h-7 rounded-full bg-white/[0.06] hover:bg-white/15 flex items-center justify-center text-white/75 transition">
+                    <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        }
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // 快速點讚切換
+    function quickReact(postId, key) {
+      const post = feedPosts.find(p => p.id === postId);
+      if (!post) return;
+      post.userReacted[key] = !post.userReacted[key];
+      post.reactions[key] += post.userReacted[key] ? 1 : -1;
+      renderMasonryFeed();
+    }
+
+    // 底部導航 Tab 切換
+    function switchTab(tab) {
+      activeTab = tab;
+
+      // 更新導航圖標顏色
+      ['explore', 'circles', 'saved', 'profile'].forEach(id => {
+        const btn = document.getElementById(`nav-${id}`);
+        if (id === tab) {
+          btn.classList.remove('text-white/45');
+          btn.classList.add('text-[#CCFF00]');
+        } else {
+          btn.classList.add('text-white/45');
+          btn.classList.remove('text-[#CCFF00]');
+        }
+      });
+
+      const exploreSec = document.getElementById('view-explore');
+      const circlesSec = document.getElementById('view-circles');
+      const profileSec = document.getElementById('view-profile');
+
+      exploreSec.classList.add('hidden');
+      circlesSec.classList.add('hidden');
+      profileSec.classList.add('hidden');
+
+      if (tab === 'explore' || tab === 'saved') {
+        exploreSec.classList.remove('hidden');
+        renderMasonryFeed();
+      } else if (tab === 'circles') {
+        circlesSec.classList.remove('hidden');
+      } else if (tab === 'profile') {
+        renderProfileView();
+        profileSec.classList.remove('hidden');
+      }
+      lucide.createIcons();
+    }
+
+    function renderProfileView() {
+      const myPosts = feedPosts.filter(p => p.author === '@You_HK' || p.userReacted.saved);
+      document.getElementById('profile-saved-count').textContent = feedPosts.filter(p => p.userReacted.saved).length;
+      document.getElementById('profile-post-count').textContent = feedPosts.filter(p => p.author === '@You_HK').length || 1;
+
+      const listEl = document.getElementById('profile-cards-list');
+      listEl.innerHTML = myPosts.slice(0, 4).map(p => `
+        <div onclick="openDetailModal(${p.id})" class="p-3 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center gap-3 cursor-pointer hover:border-white/25 transition">
+          <img src="${p.cover}" onerror="this.src='https://placehold.co/120x120/18181B/CCFF00?text=Ktalk'" class="w-12 h-12 rounded-xl object-cover shrink-0" />
+          <div class="min-w-0 flex-1">
+            <div class="text-xs font-bold text-white truncate">${p.title}</div>
+            <div class="text-[11px] text-[#CCFF00] truncate mt-0.5">「${p.quote}」</div>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-white/40 shrink-0"></i>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // =========================================================================
+    // 「貼連結＋一句點評」發佈器邏輯
+    // =========================================================================
+    function openComposerModal(mode = 'link') {
+      document.getElementById('composer-modal').classList.remove('hidden');
+      switchComposerMode(mode);
+      lucide.createIcons();
+    }
+
+    function closeComposerModal() {
+      document.getElementById('composer-modal').classList.add('hidden');
+    }
+
+    function switchComposerMode(mode) {
+      currentComposerMode = mode;
+      const linkBtn = document.getElementById('mode-btn-link');
+      const videoBtn = document.getElementById('mode-btn-video');
+      const linkPane = document.getElementById('composer-link-pane');
+      const videoPane = document.getElementById('composer-video-pane');
+
+      if (mode === 'link') {
+        linkBtn.className = 'py-2 rounded-xl bg-[#CCFF00] text-[#0D0D0F] text-xs font-extrabold flex items-center justify-center gap-1.5 transition';
+        videoBtn.className = 'py-2 rounded-xl text-white/65 hover:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition';
+        linkPane.classList.remove('hidden');
+        videoPane.classList.add('hidden');
+      } else {
+        videoBtn.className = 'py-2 rounded-xl bg-[#CCFF00] text-[#0D0D0F] text-xs font-extrabold flex items-center justify-center gap-1.5 transition';
+        linkBtn.className = 'py-2 rounded-xl text-white/65 hover:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition';
+        videoPane.classList.remove('hidden');
+        linkPane.classList.add('hidden');
+      }
+      lucide.createIcons();
+    }
+
+    function setVisibility(vis) {
+      currentVisibility = vis;
+      const pubBtn = document.getElementById('vis-public');
+      const priBtn = document.getElementById('vis-private');
+      if (vis === 'public') {
+        pubBtn.className = 'py-1.5 rounded-lg bg-white/15 text-white text-[11px] font-bold flex items-center justify-center gap-1';
+        priBtn.className = 'py-1.5 rounded-lg text-white/50 text-[11px] font-bold flex items-center justify-center gap-1';
+      } else {
+        priBtn.className = 'py-1.5 rounded-lg bg-white/15 text-white text-[11px] font-bold flex items-center justify-center gap-1';
+        pubBtn.className = 'py-1.5 rounded-lg text-white/50 text-[11px] font-bold flex items-center justify-center gap-1';
+      }
+    }
+
+    // 點擊「一鍵試貼範例連結」
+    function applyDemoLink(index) {
+      const demo = DEMO_LINKS[index];
+      if (!demo) return;
+      document.getElementById('link-url-input').value = demo.url;
+      document.getElementById('composer-circle-select').value = demo.circle;
+      simulateAiFetch(demo);
+    }
+
+    // 用戶自行輸入網址後點擊「AI 擷取」
+    function triggerCustomUrlFetch() {
+      const rawUrl = document.getElementById('link-url-input').value.trim();
+      if (!rawUrl) {
+        applyDemoLink(0);
+        return;
+      }
+      let domain = 'web.hk';
+      try {
+        domain = new URL(rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`).hostname.replace('www.', '');
+      } catch (e) {
+        domain = 'ktalk.hk';
+      }
+
+      const customData = {
+        url: rawUrl,
+        domain: domain,
+        circle: document.getElementById('composer-circle-select').value,
+        title: `來自 ${domain} 嘅精選深度文章與好物推薦`,
+        quote: '睇完呢篇好有啟發，轉發入圈畀大家參考！',
+        cover: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80',
+        bullets: [
+          '系統已自動解析網頁核心段落並去除廣告雜訊',
+          '重點整理三大實用建議，適合週末約埋朋友實測',
+          '支持一鍵轉發至 WhatsApp 並生成高質感預覽卡'
+        ]
+      };
+      simulateAiFetch(customData);
+    }
+
+    // 模擬 AI 抓取封面與提煉廣東話 3 點精華動畫
+    function simulateAiFetch(data) {
+      const loadingEl = document.getElementById('ai-fetching-state');
+      const previewEl = document.getElementById('smart-card-preview');
+
+      previewEl.classList.add('hidden');
+      loadingEl.classList.remove('hidden');
+
+      setTimeout(() => {
+        loadingEl.classList.add('hidden');
+        fetchedLinkData = data;
+
+        document.getElementById('preview-domain').innerHTML = `<i data-lucide="link-2" class="w-2.5 h-2.5 text-[#00F0FF]"></i> ${data.domain}`;
+        document.getElementById('preview-cover').src = data.cover;
+        document.getElementById('preview-title').textContent = data.title;
+        document.getElementById('preview-bullets').innerHTML = data.bullets.map(b => `<li>${b}</li>`).join('');
+        document.getElementById('curator-quote-input').value = data.quote;
+
+        previewEl.classList.remove('hidden');
+        lucide.createIcons();
+      }, 650);
+    }
+
+    // 發佈新卡片並即時插入雙欄探索流頂部
+    function publishNewPost() {
+      const quoteText = document.getElementById('curator-quote-input').value.trim() || '呢個真係好正，強烈推介畀大家！';
+      const circleVal = document.getElementById('composer-circle-select').value;
+      const circleObj = CIRCLES.find(c => c.id === circleVal) || CIRCLES[2];
+
+      let newPost;
+      if (currentComposerMode === 'link') {
+        const base = fetchedLinkData || DEMO_LINKS[0];
+        newPost = {
+          id: Date.now(),
+          type: 'link',
+          circle: circleVal,
+          circleName: circleObj.label,
+          visibility: currentVisibility,
+          author: '@You_HK',
+          avatarClass: 'mesh-1',
+          avatarIcon: 'zap',
+          timeAgo: '剛剛',
+          quote: quoteText,
+          title: base.title,
+          domain: base.domain,
+          cover: base.cover,
+          aiBullets: base.bullets,
+          reactions: { fire: 1, love: 0, laugh: 0, saved: 1 },
+          userReacted: { fire: true, love: false, laugh: false, saved: true },
+          comments: []
+        };
+      } else {
+        newPost = {
+          id: Date.now(),
+          type: 'video',
+          circle: circleVal,
+          circleName: circleObj.label,
+          visibility: currentVisibility,
+          author: '@You_HK',
+          avatarClass: 'mesh-1',
+          avatarIcon: 'zap',
+          timeAgo: '剛剛',
+          duration: '0:27',
+          aspectClass: 'aspect-[4/5]',
+          quote: quoteText,
+          title: '西環海濱黃昏滑板實拍紀錄',
+          cover: 'https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=600&q=80',
+          aiBullets: [
+            '日落金光灑落西環貨櫃碼頭海濱，畫面極具電影感',
+            '0:15 完美落地 Kickflip，配搭 Lo-fi 節拍超治癒'
+          ],
+          reactions: { fire: 1, love: 1, laugh: 0, saved: 0 },
+          userReacted: { fire: true, love: true, laugh: false, saved: false },
+          comments: []
+        };
+      }
+
+      feedPosts.unshift(newPost);
+      closeComposerModal();
+
+      // 重置表單狀態
+      fetchedLinkData = null;
+      document.getElementById('link-url-input').value = '';
+      document.getElementById('curator-quote-input').value = '';
+      document.getElementById('smart-card-preview').classList.add('hidden');
+
+      activeCircle = 'all';
+      switchTab('explore');
+      renderCircleFilterBar();
+      renderMasonryFeed();
+
+      document.getElementById('main-scroll').scrollTo({ top: 0, behavior: 'smooth' });
+      showToast(currentVisibility === 'private' ? '已發佈至私密圈子！老友即時收到通知' : '已發佈到講圈探索流！');
+    }
+
+    // =========================================================================
+    // 卡片詳情抽屜與時間軸留言 (Detail Drawer)
+    // =========================================================================
+    function openDetailModal(postId) {
+      const post = feedPosts.find(p => p.id === postId);
+      if (!post) return;
+      activeDetailPostId = postId;
+
+      const avatarEl = document.getElementById('detail-avatar');
+      avatarEl.className = `w-9 h-9 rounded-full ${post.avatarClass} ring-1 ring-white/25 flex items-center justify-center`;
+      avatarEl.innerHTML = `<i data-lucide="${post.avatarIcon}" class="w-4 h-4 text-white"></i>`;
+
+      document.getElementById('detail-author').textContent = post.author;
+      document.getElementById('detail-circle-badge').textContent = post.circleName;
+      document.getElementById('detail-time').textContent = `${post.timeAgo} · ${post.visibility === 'private' ? '私密圈可見' : '公開講圈'}`;
+      document.getElementById('detail-image').src = post.cover;
+      document.getElementById('detail-quote').textContent = `「${post.quote}」`;
+      document.getElementById('detail-title').textContent = post.title;
+
+      // 影片 vs 連結覆蓋層切換
+      const vidOverlay = document.getElementById('detail-video-overlay');
+      const linkBar = document.getElementById('detail-link-bar');
+      if (post.type === 'video') {
+        vidOverlay.classList.remove('hidden');
+        linkBar.classList.add('hidden');
+        document.getElementById('detail-duration').textContent = post.duration;
+        document.getElementById('pin-tag-label').textContent = '+0:14';
+      } else {
+        vidOverlay.classList.add('hidden');
+        linkBar.classList.remove('hidden');
+        document.getElementById('detail-domain').innerHTML = `<i data-lucide="link-2" class="w-3.5 h-3.5"></i> ${post.domain}`;
+        document.getElementById('pin-tag-label').textContent = '+重點';
+      }
+
+      // 渲染 AI 3 點精華
+      document.getElementById('detail-ai-list').innerHTML = post.aiBullets.map(item => `
+        <li class="flex items-start gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#00F0FF] mt-1.5 shrink-0"></span>
+          <span>${item}</span>
+        </li>
+      `).join('');
+
+      renderDetailReactions(post);
+      renderDetailComments(post);
+
+      document.getElementById('detail-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeDetailModal() {
+      document.getElementById('detail-modal').classList.add('hidden');
+      activeDetailPostId = null;
+    }
+
+    function toggleSimPlay(btn) {
+      const bar = document.getElementById('sim-progress-bar');
+      const isPlaying = btn.dataset.playing === 'true';
+      if (!isPlaying) {
+        btn.dataset.playing = 'true';
+        btn.innerHTML = '<i data-lucide="pause" class="w-4 h-4 fill-[#0D0D0F]"></i>';
+        bar.style.width = '82%';
+        showToast('正在播放高清原片...');
+      } else {
+        btn.dataset.playing = 'false';
+        btn.innerHTML = '<i data-lucide="play" class="w-4 h-4 fill-[#0D0D0F]"></i>';
+        bar.style.width = '40%';
+      }
+      lucide.createIcons();
+    }
+
+    function renderDetailReactions(post) {
+      const items = [
+        { key: 'fire', label: '推爆', icon: 'flame', activeClass: 'bg-[#CCFF00]/20 border-[#CCFF00] text-[#CCFF00]' },
+        { key: 'love', label: '正呀', icon: 'heart', activeClass: 'bg-[#00F0FF]/20 border-[#00F0FF] text-[#00F0FF]' },
+        { key: 'laugh', label: '笑死', icon: 'laugh', activeClass: 'bg-amber-400/20 border-amber-400 text-amber-300' },
+        { key: 'saved', label: '收藏', icon: 'bookmark', activeClass: 'bg-purple-400/20 border-purple-400 text-purple-300' }
+      ];
+
+      document.getElementById('detail-reactions-bar').innerHTML = items.map(item => {
+        const active = post.userReacted[item.key];
+        return `
+          <button onclick="toggleDetailReaction('${item.key}')" class="py-2 px-1.5 rounded-xl border text-center flex flex-col items-center justify-center gap-1 transition active:scale-95 ${
+            active ? item.activeClass : 'bg-white/[0.04] border-white/10 text-white/70 hover:bg-white/[0.08]'
+          }">
+            <i data-lucide="${item.icon}" class="w-4 h-4"></i>
+            <span class="text-[10.5px] font-extrabold">${item.label} ${post.reactions[item.key]}</span>
+          </button>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function toggleDetailReaction(key) {
+      const post = feedPosts.find(p => p.id === activeDetailPostId);
+      if (!post) return;
+      post.userReacted[key] = !post.userReacted[key];
+      post.reactions[key] += post.userReacted[key] ? 1 : -1;
+      renderDetailReactions(post);
+      renderMasonryFeed();
+    }
+
+    function renderDetailComments(post) {
+      document.getElementById('detail-comment-count').textContent = post.comments.length;
+      const listEl = document.getElementById('detail-comments-list');
+
+      if (post.comments.length === 0) {
+        listEl.innerHTML = `<p class="text-xs text-white/40 py-2">暫時未有朋友留言，留低第一句點評或標記老友！</p>`;
+        return;
+      }
+
+      listEl.innerHTML = post.comments.map(c => `
+        <div class="p-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.07] space-y-1">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[11px] font-extrabold text-white">${c.user}</span>
+              ${c.tag ? `<span class="px-1.5 py-0.5 rounded bg-[#00F0FF]/20 text-[#00F0FF] text-[9.5px] font-bold">${c.tag}</span>` : ''}
+            </div>
+            <span class="text-[10px] text-white/40">${c.time}</span>
+          </div>
+          <p class="text-xs text-white/85 leading-relaxed">${c.text}</p>
+        </div>
+      `).join('');
+    }
+
+    function toggleCommentTag() {
+      commentTagEnabled = !commentTagEnabled;
+      const btn = document.getElementById('pin-time-toggle');
+      if (commentTagEnabled) {
+        btn.className = 'px-2.5 py-2 rounded-xl bg-[#00F0FF] text-[#0D0D0F] text-[11px] font-extrabold shrink-0 flex items-center gap-1';
+      } else {
+        btn.className = 'px-2.5 py-2 rounded-xl bg-white/[0.07] border border-white/10 text-[11px] font-bold text-[#00F0FF] shrink-0 flex items-center gap-1';
+      }
+    }
+
+    function submitComment() {
+      const input = document.getElementById('new-comment-input');
+      const text = input.value.trim();
+      if (!text || !activeDetailPostId) return;
+
+      const post = feedPosts.find(p => p.id === activeDetailPostId);
+      if (!post) return;
+
+      const tagValue = commentTagEnabled ? (post.type === 'video' ? '0:14' : '重點推介') : '';
+      post.comments.push({
+        user: '@You_HK',
+        tag: tagValue,
+        text: text,
+        time: '剛剛'
+      });
+
+      input.value = '';
+      renderDetailComments(post);
+      showToast('留言已發佈並通知圈內好友');
+    }
+
+    // =========================================================================
+    // 香港社交專屬分享面板 (WhatsApp 動態卡 & IG Story 雜誌卡)
+    // =========================================================================
+    function openShareModal(postId) {
+      const post = feedPosts.find(p => p.id === postId);
+      if (!post) return;
+      activeSharePostId = postId;
+
+      // 填充 WhatsApp 預覽卡數據
+      document.getElementById('wa-card-img').src = post.cover;
+      document.getElementById('wa-card-curator').textContent = `${post.author} 喺 Ktalk 講圈向你推介`;
+      document.getElementById('wa-card-title').textContent = post.title;
+      document.getElementById('wa-card-quote').textContent = `「${post.quote}」`;
+      document.getElementById('wa-message-text').textContent = `喂睇下呢個！「${post.quote}」👉 https://ktalk.hk/c/${post.id}`;
+
+      // 填充 IG Story 雜誌卡數據
+      document.getElementById('ig-card-bg').src = post.cover;
+      document.getElementById('ig-card-img').src = post.cover;
+      document.getElementById('ig-card-quote').textContent = `「${post.quote}」`;
+      document.getElementById('ig-card-title').textContent = post.title;
+
+      // 重置複製按鈕文字
+      document.getElementById('copy-link-label').textContent = '複製專屬推介連結（貼去 WhatsApp / Signal）';
+
+      switchShareTab('wa');
+      document.getElementById('share-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function openShareFromDetail() {
+      if (activeDetailPostId) {
+        openShareModal(activeDetailPostId);
+      }
+    }
+
+    function closeShareModal() {
+      document.getElementById('share-modal').classList.add('hidden');
+    }
+
+    function switchShareTab(tab) {
+      const waBtn = document.getElementById('share-tab-wa');
+      const igBtn = document.getElementById('share-tab-ig');
+      const waPreview = document.getElementById('share-preview-wa');
+      const igPreview = document.getElementById('share-preview-ig');
+
+      if (tab === 'wa') {
+        waBtn.className = 'py-2 rounded-xl bg-[#CCFF00] text-[#0D0D0F] text-xs font-extrabold flex items-center justify-center gap-1.5 transition';
+        igBtn.className = 'py-2 rounded-xl text-white/65 hover:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition';
+        waPreview.classList.remove('hidden');
+        igPreview.classList.add('hidden');
+      } else {
+        igBtn.className = 'py-2 rounded-xl bg-[#CCFF00] text-[#0D0D0F] text-xs font-extrabold flex items-center justify-center gap-1.5 transition';
+        waBtn.className = 'py-2 rounded-xl text-white/65 hover:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition';
+        igPreview.classList.remove('hidden');
+        waPreview.classList.add('hidden');
+      }
+    }
+
+    // 複製連結 (兼容 iFrame 環境)
+    function copyShareLink() {
+      const post = feedPosts.find(p => p.id === activeSharePostId);
+      const shareText = post
+        ? `${post.author} 喺 Ktalk 講圈推介：「${post.quote}」https://ktalk.hk/c/${post.id}`
+        : 'https://ktalk.hk';
+
+      const tempInput = document.createElement('textarea');
+      tempInput.value = shareText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        // 忽略複製異常
+      }
+      document.body.removeChild(tempInput);
+
+      document.getElementById('copy-link-label').textContent = '已複製！可直接貼去 WhatsApp / Signal';
+      showToast('已複製動態預覽連結，快啲貼去朋友群組！');
+    }
+
+    // 全局輕提示控制
+    let toastTimer = null;
+    function showToast(msg) {
+      const banner = document.getElementById('toast-banner');
+      document.getElementById('toast-message').textContent = msg;
+      banner.classList.remove('hidden');
+      lucide.createIcons();
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        banner.classList.add('hidden');
+      }, 2800);
+    }
+  </script>
+</body>
+</html>
