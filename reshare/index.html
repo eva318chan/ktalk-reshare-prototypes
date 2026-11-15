@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Re:Share｜分享感受與生活影片嘅跨代社交平台</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Vector Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"PingFang HK"', '"Noto Sans TC"', 'sans-serif'],
+          },
+          colors: {
+            brandOrange: '#FF5E1A',
+            brandOrangeDark: '#E04808',
+            charcoalWall: '#24262B',
+            charcoalCard: '#2E3137',
+            warmCream: '#F6F5F0',
+          },
+          animation: {
+            'slide-up': 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            'fade-in': 'fadeIn 0.22s ease-out forwards',
+          },
+          keyframes: {
+            slideUp: {
+              '0%': { transform: 'translateY(100%)', opacity: '0.5' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'scale(0.98)' },
+              '100%': { opacity: '1', transform: 'scale(1)' },
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* =====================================================================
+       Re:Share 雙主題視覺變數 (暖白日光 Warm Daylight vs 炭灰質感 Charcoal)
+       ===================================================================== */
+    :root {
+      --bg-outer: #EAE8E1;
+      --bg-app: #F6F5F0;
+      --bg-header: rgba(246, 245, 240, 0.92);
+      --bg-card: #FFFFFF;
+      --bg-subtle: #EFECE6;
+      --bg-input: #F3F1EC;
+      --text-main: #24262B;
+      --text-secondary: #585C65;
+      --text-muted: #7C818D;
+      --border-color: rgba(36, 38, 43, 0.09);
+      --shadow-card: 0 8px 24px rgba(36, 38, 43, 0.06);
+      --wordmark-share: #24262B;
+    }
+
+    body.theme-charcoal {
+      --bg-outer: #16171A;
+      --bg-app: #24262B;
+      --bg-header: rgba(36, 38, 43, 0.92);
+      --bg-card: #2E3137;
+      --bg-subtle: #383C44;
+      --bg-input: #1E2024;
+      --text-main: #FFFFFF;
+      --text-secondary: #D0D3DA;
+      --text-muted: #9BA0AC;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --shadow-card: 0 10px 28px rgba(0, 0, 0, 0.35);
+      --wordmark-share: #FFFFFF;
+    }
+
+    body {
+      font-family: "Plus Jakarta Sans", "PingFang HK", "Noto Sans TC", -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-outer);
+      color: var(--text-main);
+      transition: background-color 0.25s ease, color 0.25s ease;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+
+    .app-surface {
+      background-color: var(--bg-app);
+      color: var(--text-main);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .header-surface {
+      background-color: var(--bg-header);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-surface {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-card);
+      transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+    }
+
+    .subtle-surface {
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+    }
+
+    .input-surface {
+      background-color: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .text-main { color: var(--text-main); }
+    .text-sec { color: var(--text-secondary); }
+    .text-muted { color: var(--text-muted); }
+    .border-theme { border-color: var(--border-color); }
+    .wordmark-share { fill: var(--wordmark-share); transition: fill 0.25s ease; }
+
+    /* 隱藏滾動條但保留流暢滾動 */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* 溫暖漸變頭像 (跨代親切風格) */
+    .avatar-warm-1 { background: linear-gradient(135deg, #FF5E1A 0%, #FF9E44 100%); }
+    .avatar-warm-2 { background: linear-gradient(135deg, #2B8A7E 0%, #52B788 100%); }
+    .avatar-warm-3 { background: linear-gradient(135deg, #3B66F5 0%, #7091FF 100%); }
+    .avatar-warm-4 { background: linear-gradient(135deg, #D946EF 0%, #F472B6 100%); }
+    .avatar-warm-5 { background: linear-gradient(135deg, #EAB308 0%, #F97316 100%); }
+  </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center">
+
+  <!-- 桌面端背景柔和光暈 -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden hidden sm:block">
+    <div class="absolute -top-24 left-1/4 w-[480px] h-[480px] rounded-full bg-[#FF5E1A]/[0.08] blur-[130px]"></div>
+    <div class="absolute -bottom-24 right-1/4 w-[480px] h-[480px] rounded-full bg-[#FF5E1A]/[0.06] blur-[130px]"></div>
+  </div>
+
+  <!-- 主應用程式框架 (Mobile-First 460px 寬屏大字易讀設計，桌面端居中展示) -->
+  <div class="app-surface w-full max-w-[460px] h-[100dvh] sm:h-[880px] sm:my-4 sm:rounded-[40px] sm:border border-theme sm:shadow-2xl relative flex flex-col overflow-hidden">
+
+    <!-- ===================================================================== -->
+    <!-- 頂部品牌導航欄：Re:Share 專屬矢量標誌 + 暖白/炭灰主題一鍵切換           -->
+    <!-- ===================================================================== -->
+    <header class="header-surface backdrop-blur-xl sticky top-0 z-30 px-4 pt-3.5 pb-3 shrink-0">
+      <div class="flex items-center justify-between gap-2 mb-3">
+        <!-- Re:Share 品牌標誌 (還原上傳圖片：對話氣泡 + 鏡頭取景框 + Re:▶Share) -->
+        <button onclick="resetToHome()" class="flex items-center gap-2.5 text-left focus:outline-none group min-h-[44px]" aria-label="返回 Re:Share 首頁">
+          <!-- 標誌圖標：圓角對話泡泡融合相機取景框 -->
+          <svg width="38" height="34" viewBox="0 0 64 56" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0 transition-transform group-hover:scale-105">
+            <!-- 對話氣泡主體 -->
+            <path d="M12 10C12 6.68629 14.6863 4 18 4H36C39.3137 4 42 6.68629 42 10V15.5M12 10V32C12 35.3137 14.6863 38 18 38H21L17 47L28.5 38H36C39.3137 38 42 35.3137 42 32V28.5" stroke="#FF5E1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- 氣泡內兩條文字線 -->
+            <line x1="20" y1="16" x2="31" y2="16" stroke="#FF5E1A" stroke-width="4" stroke-linecap="round"/>
+            <line x1="20" y1="25" x2="28" y2="25" stroke="#FF5E1A" stroke-width="4" stroke-linecap="round"/>
+            <!-- 鏡頭圓環 -->
+            <circle cx="43" cy="22" r="7.5" stroke="#FF5E1A" stroke-width="4.2"/>
+            <!-- 右側取景框 -->
+            <path d="M51 9H55C57.2091 9 59 10.7909 59 13V31C59 33.2091 57.2091 35 55 35H51" stroke="#FF5E1A" stroke-width="4.2" stroke-linecap="round"/>
+          </svg>
+
+          <!-- 字標 Re:Share (冒號下方為播放三角形 ▶) -->
+          <svg width="126" height="30" viewBox="0 0 168 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- "Re" 活力橙 -->
+            <text x="0" y="30" fill="#FF5E1A" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="31" letter-spacing="-0.8">Re</text>
+            <!-- 冒號上圓點 -->
+            <circle cx="45.5" cy="13.5" r="3.6" fill="#FF5E1A"/>
+            <!-- 冒號下播放鍵三角形 ▶ -->
+            <path d="M42.2 21.5L50.8 26.5L42.2 31.5V21.5Z" fill="#FF5E1A"/>
+            <!-- "Share" 隨主題自動切換炭灰或純白 -->
+            <text x="55" y="30" class="wordmark-share" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="31" letter-spacing="-0.8">Share</text>
+          </svg>
+        </button>
+
+        <!-- 右側功能掣：主題切換（「暖白日光」/「炭灰質感」）+ 搜尋 -->
+        <div class="flex items-center gap-2">
+          <button id="theme-toggle-btn" onclick="toggleTheme()" class="min-h-[42px] px-3 rounded-full subtle-surface flex items-center gap-1.5 text-xs font-extrabold text-main hover:border-[#FF5E1A] transition active:scale-95" title="切換暖白日光或炭灰質感主題">
+            <i id="theme-icon" data-lucide="moon" class="w-4 h-4 text-[#FF5E1A]"></i>
+            <span id="theme-label">炭灰質感</span>
+          </button>
+
+          <button onclick="toggleSearch()" aria-label="搜尋影片或文章" class="w-[42px] h-[42px] rounded-full subtle-surface flex items-center justify-center text-main hover:border-[#FF5E1A] transition active:scale-95">
+            <i data-lucide="search" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 可展開大字搜尋框 -->
+      <div id="search-panel" class="hidden mb-2.5 animate-fade-in">
+        <div class="relative flex items-center">
+          <i data-lucide="search" class="w-4 h-4 text-muted absolute left-3.5"></i>
+          <input id="search-input" type="text" oninput="onSearchInput(this.value)" placeholder="搜尋家人朋友分享、西貢行山、茶餐廳..." class="w-full input-surface rounded-2xl pl-10 pr-10 py-2.5 text-[15px] focus:outline-none focus:border-[#FF5E1A]" />
+          <button onclick="clearSearch()" aria-label="清除搜尋" class="w-8 h-8 flex items-center justify-center text-muted hover:text-main absolute right-1.5">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 心情與內容分類膠囊列 (大字高對比、易點按) -->
+      <div id="mood-filter-bar" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5">
+        <!-- 由 JS 動態生成 -->
+      </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- 主視窗滾動區 (Main Scrollable Viewport)                                -->
+    <!-- ===================================================================== -->
+    <main id="main-viewport" class="flex-1 overflow-y-auto no-scrollbar px-4 pt-3.5 pb-28">
+
+      <!-- 視圖 1：探索廣場 (Home Feed) -->
+      <section id="view-home" class="space-y-4">
+        <!-- 跨代暖心引導橫幅 (Warm Quick-Share Prompt Card) -->
+        <div class="card-surface rounded-3xl p-4 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <!-- 標誌性橙色 Re: App 徽章 -->
+            <div class="w-12 h-12 rounded-2xl bg-[#FF5E1A] flex items-center justify-center shrink-0 shadow-[0_6px_16px_rgba(255,94,26,0.32)]">
+              <span class="text-white font-black text-lg tracking-tight">Re:</span>
+            </div>
+            <div class="min-w-0">
+              <p class="text-[15px] font-extrabold text-main leading-snug">今日有咩好嘢想同屋企人或朋友講？</p>
+              <p class="text-xs text-sec mt-0.5">拍條短片、貼篇好文，或者記低此刻心情</p>
+            </div>
+          </div>
+          <button onclick="openCreateModal('video')" class="shrink-0 min-h-[44px] px-3.5 rounded-2xl bg-[#FF5E1A]/12 hover:bg-[#FF5E1A]/20 text-[#FF5E1A] text-xs font-extrabold transition active:scale-95">
+            即刻分享
+          </button>
+        </div>
+
+        <!-- 資訊流卡片列表 (寬敞大卡片，字體清晰不擁擠) -->
+        <div id="feed-list" class="space-y-4">
+          <!-- 由 JS 動態渲染 -->
+        </div>
+
+        <!-- 無搜尋結果空狀態 -->
+        <div id="empty-feed" class="hidden py-14 text-center space-y-2">
+          <div class="w-14 h-14 rounded-3xl subtle-surface flex items-center justify-center mx-auto text-[#FF5E1A]">
+            <i data-lucide="sparkles" class="w-7 h-7"></i>
+          </div>
+          <p class="text-base font-extrabold text-main">暫時未搵到相關分享</p>
+          <p class="text-sm text-sec">試下轉第二個心情標籤，或者按下方「＋ 分享」發佈第一則！</p>
+        </div>
+      </section>
+
+      <!-- 視圖 2：我的圈子與創作者數據 (My Circles, Saved & Creator Stats) -->
+      <section id="view-circles" class="hidden space-y-4 animate-fade-in">
+        <!-- 個人名片與後台數據升級版 (保留 Ktalk.hk 數據統計優勢，介面現代化) -->
+        <div class="card-surface rounded-3xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3.5">
+              <div class="w-14 h-14 rounded-2xl bg-[#FF5E1A] flex items-center justify-center text-white font-black text-xl shadow-md">
+                Re:
+              </div>
+              <div>
+                <h2 class="text-lg font-extrabold text-main">陳家明 (@Ming_HK)</h2>
+                <p class="text-xs text-sec mt-0.5">用影片同文字記錄生活，連接三代人</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 簡潔明了的創作與互動數據 (升級自原平台數據統計) -->
+          <div class="grid grid-cols-3 gap-2.5 pt-3 border-t border-theme text-center">
+            <div class="subtle-surface rounded-2xl py-2.5 px-2">
+              <div class="text-lg font-black text-[#FF5E1A]" id="stat-views">1,284</div>
+              <div class="text-xs font-bold text-sec mt-0.5">總播放次數</div>
+            </div>
+            <div class="subtle-surface rounded-2xl py-2.5 px-2">
+              <div class="text-lg font-black text-main" id="stat-saved">36</div>
+              <div class="text-xs font-bold text-sec mt-0.5">朋友收藏</div>
+            </div>
+            <div class="subtle-surface rounded-2xl py-2.5 px-2">
+              <div class="text-lg font-black text-main" id="stat-shares">52</div>
+              <div class="text-xs font-bold text-sec mt-0.5">轉發分享</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 我的專屬親友圈子 -->
+        <div class="space-y-2.5">
+          <div class="flex items-center justify-between px-1">
+            <h3 class="text-base font-extrabold text-main">我加入嘅圈子</h3>
+            <span class="text-xs font-bold text-[#FF5E1A]">點擊篩選圈內動態</span>
+          </div>
+
+          <button onclick="filterCircleFromProfile('屋企人圈')" class="w-full card-surface rounded-3xl p-4 flex items-center justify-between text-left hover:border-[#FF5E1A] transition">
+            <div class="flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-2xl avatar-warm-1 text-white flex items-center justify-center shrink-0">
+                <i data-lucide="home" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[15px] font-extrabold text-main">屋企人幸福圈</span>
+                  <span class="px-2 py-0.5 rounded-full bg-[#FF5E1A]/15 text-[#FF5E1A] text-[11px] font-extrabold">6 位家人</span>
+                </div>
+                <p class="text-xs text-sec mt-1">爺爺嫲嫲睇孫仔近況、週末飲茶相片集</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-5 h-5 text-muted shrink-0"></i>
+          </button>
+
+          <button onclick="filterCircleFromProfile('親友圈')" class="w-full card-surface rounded-3xl p-4 flex items-center justify-between text-left hover:border-[#FF5E1A] transition">
+            <div class="flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-2xl avatar-warm-2 text-white flex items-center justify-center shrink-0">
+                <i data-lucide="users" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[15px] font-extrabold text-main">週末行山 & 波友群</span>
+                  <span class="px-2 py-0.5 rounded-full subtle-surface text-sec text-[11px] font-extrabold">14 位好友</span>
+                </div>
+                <p class="text-xs text-sec mt-1">行山路線推介、打波精華片、街坊搵食</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-5 h-5 text-muted shrink-0"></i>
+          </button>
+        </div>
+
+        <!-- 已收藏內容清單 -->
+        <div class="space-y-2.5 pt-1">
+          <h3 class="text-base font-extrabold text-main px-1">我收藏嘅影片與好文</h3>
+          <div id="saved-posts-list" class="space-y-2.5">
+            <!-- 由 JS 渲染 -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===================================================================== -->
+    <!-- 底部極簡 3 鍵導航列 (全齡零學習成本：探索廣場 | ＋ 分享 | 我的圈子)       -->
+    <!-- ===================================================================== -->
+    <nav class="header-surface backdrop-blur-2xl absolute bottom-0 inset-x-0 z-30 px-5 pt-2 pb-5 sm:pb-4 flex items-center justify-between">
+      <!-- 鍵 1：探索廣場 -->
+      <button id="tab-home" onclick="switchBottomTab('home')" class="flex-1 min-h-[48px] flex flex-col items-center justify-center gap-1 text-[#FF5E1A] transition active:scale-95">
+        <i data-lucide="compass" class="w-6 h-6"></i>
+        <span class="text-xs font-extrabold">探索廣場</span>
+      </button>
+
+      <!-- 鍵 2：中央懸浮大橙掣「＋ 分享」 -->
+      <button onclick="openCreateModal('video')" class="mx-2 -mt-6 min-h-[56px] px-7 rounded-full bg-[#FF5E1A] hover:bg-[#E04808] text-white shadow-[0_10px_26px_rgba(255,94,26,0.42)] flex items-center justify-center gap-2 transition transform active:scale-95">
+        <i data-lucide="plus" class="w-6 h-6 stroke-[3]"></i>
+        <span class="text-base font-black tracking-wide">分享</span>
+      </button>
+
+      <!-- 鍵 3：我的圈子 -->
+      <button id="tab-circles" onclick="switchBottomTab('circles')" class="flex-1 min-h-[48px] flex flex-col items-center justify-center gap-1 text-sec hover:text-main transition active:scale-95">
+        <i data-lucide="users" class="w-6 h-6"></i>
+        <span class="text-xs font-extrabold">我的圈子</span>
+      </button>
+    </nav>
+
+    <!-- ===================================================================== -->
+    <!-- 彈窗 1：「＋ 分享」創作抽屜（拍片上傳 / 貼好文 AI 摘要 / 寫低此刻感受）  -->
+    <!-- ===================================================================== -->
+    <div id="create-modal" class="hidden absolute inset-0 z-50 bg-black/65 backdrop-blur-sm flex flex-col justify-end">
+      <div class="card-surface rounded-t-[32px] max-h-[92%] flex flex-col animate-slide-up overflow-hidden">
+        <!-- 頂部標題與關閉掣 -->
+        <div class="px-5 py-4 border-b border-theme flex items-center justify-between shrink-0">
+          <div class="flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-lg bg-[#FF5E1A] text-white font-black text-xs flex items-center justify-center">Re:</span>
+            <h3 class="text-base font-extrabold text-main">分享新內容</h3>
+          </div>
+          <button onclick="closeCreateModal()" aria-label="關閉視窗" class="w-10 h-10 rounded-full subtle-surface flex items-center justify-center text-main">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- 三大分享模式切換鍵 -->
+        <div class="px-5 pt-3.5 shrink-0">
+          <div class="grid grid-cols-3 gap-1.5 p-1.5 rounded-2xl subtle-surface">
+            <button id="cmode-video" onclick="setCreateMode('video')" class="min-h-[42px] rounded-xl bg-[#FF5E1A] text-white text-xs font-extrabold flex items-center justify-center gap-1.5 transition">
+              <i data-lucide="video" class="w-4 h-4"></i>
+              <span>上傳影片</span>
+            </button>
+            <button id="cmode-link" onclick="setCreateMode('link')" class="min-h-[42px] rounded-xl text-sec hover:text-main text-xs font-extrabold flex items-center justify-center gap-1.5 transition">
+              <i data-lucide="link-2" class="w-4 h-4"></i>
+              <span>貼好文連結</span>
+            </button>
+            <button id="cmode-feeling" onclick="setCreateMode('feeling')" class="min-h-[42px] rounded-xl text-sec hover:text-main text-xs font-extrabold flex items-center justify-center gap-1.5 transition">
+              <i data-lucide="message-square-heart" class="w-4 h-4"></i>
+              <span>此刻感受</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 表單滾動區 -->
+        <div class="p-5 overflow-y-auto no-scrollbar space-y-4">
+
+          <!-- 分頁 A：拍片 / 上傳影片 (保留原平台 500MB 高清大檔優勢) -->
+          <div id="pane-video" class="space-y-3">
+            <div onclick="loadSampleVideo()" class="p-5 rounded-3xl border-2 border-dashed border-[#FF5E1A]/45 bg-[#FF5E1A]/[0.05] hover:bg-[#FF5E1A]/[0.1] text-center cursor-pointer transition space-y-2">
+              <div class="w-12 h-12 rounded-2xl bg-[#FF5E1A] text-white flex items-center justify-center mx-auto shadow-md">
+                <i data-lucide="upload-cloud" class="w-6 h-6"></i>
+              </div>
+              <p id="video-upload-title" class="text-[15px] font-extrabold text-main">點擊選擇手機影片（支援最高 500MB 高清片）</p>
+              <p id="video-upload-sub" class="text-xs text-sec">免剪輯直接上傳，長輩同小朋友都可以輕鬆睇到</p>
+            </div>
+            <button type="button" onclick="loadSampleVideo()" class="w-full min-h-[42px] rounded-2xl subtle-surface text-xs font-extrabold text-[#FF5E1A] flex items-center justify-center gap-1.5">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              <span>一鍵載入範例實拍片：西貢海濱親子單車遊.mp4</span>
+            </button>
+          </div>
+
+          <!-- 分頁 B：貼好文連結 (AI 自動生成 3 點廣東話摘要) -->
+          <div id="pane-link" class="hidden space-y-3.5">
+            <div>
+              <label class="block text-xs font-extrabold text-sec mb-1.5">貼上你想推介嘅文章、食評或教學網址</label>
+              <div class="flex gap-2">
+                <input id="url-input" type="url" placeholder="https://..." class="flex-1 input-surface rounded-2xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-[#FF5E1A]" />
+                <button type="button" onclick="fetchCustomLink()" class="min-h-[44px] px-4 rounded-2xl bg-[#FF5E1A] text-white text-xs font-extrabold shrink-0">
+                  AI 摘要
+                </button>
+              </div>
+            </div>
+
+            <!-- 3 個一鍵試貼範例連結 -->
+            <div class="space-y-1.5">
+              <div class="text-xs font-bold text-sec">一鍵試貼範例好文（自動產生懶人包）：</div>
+              <button type="button" onclick="applySampleLink(0)" class="w-full text-left p-3 rounded-2xl subtle-surface hover:border-[#FF5E1A] text-xs font-bold text-main flex items-center justify-between">
+                <span class="truncate">1. 港式老字號茶餐廳文化故事 (hkculture.hk)</span>
+                <span class="text-[#FF5E1A] shrink-0 ml-2">試貼 →</span>
+              </button>
+              <button type="button" onclick="applySampleLink(1)" class="w-full text-left p-3 rounded-2xl subtle-surface hover:border-[#FF5E1A] text-xs font-bold text-main flex items-center justify-between">
+                <span class="truncate">2. 長者智能手機防騙 5 大實用貼士 (digitalcare.hk)</span>
+                <span class="text-[#FF5E1A] shrink-0 ml-2">試貼 →</span>
+              </button>
+              <button type="button" onclick="applySampleLink(2)" class="w-full text-left p-3 rounded-2xl subtle-surface hover:border-[#FF5E1A] text-xs font-bold text-main flex items-center justify-between">
+                <span class="truncate">3. 週末親子手工摺紙恐龍圖解教學 (kidscraft.hk)</span>
+                <span class="text-[#FF5E1A] shrink-0 ml-2">試貼 →</span>
+              </button>
+            </div>
+
+            <!-- AI 生成預覽盒 -->
+            <div id="ai-link-preview" class="hidden p-3.5 rounded-2xl subtle-surface border border-[#FF5E1A]/40 space-y-2 animate-fade-in">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-extrabold text-[#FF5E1A] flex items-center gap-1">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> AI 廣東話懶人包已準備好
+                </span>
+                <span id="ai-preview-domain" class="text-[11px] font-bold text-sec">hkculture.hk</span>
+              </div>
+              <div id="ai-preview-title" class="text-sm font-extrabold text-main"></div>
+              <ul id="ai-preview-bullets" class="text-xs text-sec space-y-1 list-disc pl-4"></ul>
+            </div>
+          </div>
+
+          <!-- 分頁 C：寫低此刻感受 -->
+          <div id="pane-feeling" class="hidden space-y-2">
+            <div class="p-3.5 rounded-2xl subtle-surface flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#FF5E1A]/15 text-[#FF5E1A] flex items-center justify-center shrink-0">
+                <i data-lucide="sun" class="w-5 h-5"></i>
+              </div>
+              <p class="text-xs font-bold text-sec leading-relaxed">唔一定要拍片，寫低兩句今日發生嘅開心事或小感悟，一樣可以傳遞溫暖畀朋友。</p>
+            </div>
+          </div>
+
+          <!-- 共用輸入欄：此刻感受 / 推介原因 -->
+          <div>
+            <label class="block text-xs font-extrabold text-main mb-1.5">講低你嘅感受（會顯示喺卡片最當眼位置）</label>
+            <textarea id="feeling-textarea" rows="2" placeholder="例如：今日天氣超好，帶埋屋企人出去行下心情都靚晒！" class="w-full input-surface rounded-2xl p-3.5 text-[15px] focus:outline-none focus:border-[#FF5E1A] resize-none"></textarea>
+          </div>
+
+          <!-- 心情標籤選擇 -->
+          <div>
+            <label class="block text-xs font-extrabold text-sec mb-1.5">揀個心情標籤</label>
+            <div id="create-mood-pills" class="flex flex-wrap gap-2">
+              <!-- 由 JS 渲染 -->
+            </div>
+          </div>
+
+          <!-- 分享對象選擇 (公開廣場 vs 只限親友圈) -->
+          <div>
+            <label class="block text-xs font-extrabold text-sec mb-1.5">邊個可以睇到？</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" id="aud-public" onclick="setAudience('公開廣場')" class="min-h-[44px] rounded-2xl bg-[#FF5E1A] text-white text-xs font-extrabold flex items-center justify-center gap-1.5">
+                <i data-lucide="globe" class="w-4 h-4"></i>
+                <span>公開廣場</span>
+              </button>
+              <button type="button" id="aud-family" onclick="setAudience('屋企人圈')" class="min-h-[44px] rounded-2xl subtle-surface text-main text-xs font-extrabold flex items-center justify-center gap-1.5">
+                <i data-lucide="lock" class="w-4 h-4 text-[#FF5E1A]"></i>
+                <span>只限屋企人 / 親友圈</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 確認發佈按鈕 -->
+          <button type="button" onclick="submitNewPost()" class="w-full min-h-[52px] rounded-2xl bg-[#FF5E1A] hover:bg-[#E04808] text-white text-base font-black shadow-[0_8px_22px_rgba(255,94,26,0.35)] flex items-center justify-center gap-2 transition active:scale-[0.98]">
+            <i data-lucide="send" class="w-5 h-5"></i>
+            <span>立即發佈到 Re:Share</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 彈窗 2：卡片詳情與「一按暖心回覆」互動抽屜                              -->
+    <!-- ===================================================================== -->
+    <div id="detail-modal" class="hidden absolute inset-0 z-50 bg-black/70 backdrop-blur-sm flex flex-col justify-end">
+      <div class="card-surface rounded-t-[32px] h-[90%] flex flex-col animate-slide-up overflow-hidden">
+        <!-- 頂部作者與分享列 -->
+        <div class="px-4 py-3.5 border-b border-theme flex items-center justify-between shrink-0">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div id="dt-avatar" class="w-10 h-10 rounded-2xl avatar-warm-1 text-white font-black text-sm flex items-center justify-center shrink-0">明</div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <span id="dt-author" class="text-sm font-extrabold text-main truncate"></span>
+                <span id="dt-scope" class="px-2 py-0.5 rounded-full subtle-surface text-[11px] font-bold text-sec shrink-0"></span>
+              </div>
+              <span id="dt-time" class="text-xs text-muted"></span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="openShareFromDetail()" class="min-h-[40px] px-3.5 rounded-full bg-[#FF5E1A] text-white text-xs font-extrabold flex items-center gap-1.5">
+              <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+              <span>轉發</span>
+            </button>
+            <button onclick="closeDetailModal()" aria-label="關閉詳情" class="w-10 h-10 rounded-full subtle-surface flex items-center justify-center text-main">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 詳情內容滾動區 -->
+        <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-4">
+          <!-- 封面或模擬高清影片播放器 -->
+          <div id="dt-media-wrapper" class="relative rounded-3xl overflow-hidden bg-black border border-theme">
+            <img id="dt-cover" src="" onerror="this.src='https://placehold.co/600x380/24262B/FF5E1A?text=Re:Share'" alt="內容預覽" class="w-full max-h-64 object-cover" />
+
+            <!-- 影片模擬播放控制列 -->
+            <div id="dt-video-controls" class="hidden absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent flex flex-col justify-between p-4">
+              <div class="flex justify-end">
+                <span id="dt-duration" class="px-3 py-1 rounded-full bg-black/65 text-white text-xs font-bold">0:45</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <button id="dt-play-btn" onclick="toggleVideoPlayback()" class="w-11 h-11 rounded-full bg-[#FF5E1A] text-white flex items-center justify-center shrink-0 shadow-lg">
+                  <i data-lucide="play" class="w-5 h-5 fill-white ml-0.5"></i>
+                </button>
+                <div class="flex-1">
+                  <div class="h-2 rounded-full bg-white/30 overflow-hidden">
+                    <div id="dt-progress" class="w-1/3 h-full bg-[#FF5E1A] rounded-full transition-all duration-500"></div>
+                  </div>
+                  <div class="flex justify-between text-[11px] text-white/80 mt-1 font-bold">
+                    <span id="dt-play-status">點擊播放高清原片</span>
+                    <span>1080P HD</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 分享者感受引述框 -->
+          <div class="p-4 rounded-3xl bg-[#FF5E1A]/[0.09] border-l-4 border-[#FF5E1A]">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-extrabold text-[#FF5E1A]">分享者感受</span>
+              <span id="dt-mood-pill" class="text-xs font-extrabold text-main"></span>
+            </div>
+            <p id="dt-feeling" class="text-base font-extrabold text-main leading-relaxed"></p>
+          </div>
+
+          <!-- 標題 -->
+          <h2 id="dt-title" class="text-lg font-extrabold text-main leading-snug"></h2>
+
+          <!-- AI 廣東話 3 點精華 (僅好文連結卡顯示) -->
+          <div id="dt-ai-box" class="hidden p-4 rounded-3xl subtle-surface space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold text-[#FF5E1A] flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-4 h-4"></i> AI 廣東話重點摘要
+              </span>
+              <span id="dt-domain" class="text-xs font-bold text-sec"></span>
+            </div>
+            <ul id="dt-ai-bullets" class="space-y-1.5 text-sm text-main leading-relaxed list-disc pl-5"></ul>
+          </div>
+
+          <!-- 四大暖心互動反應掣 -->
+          <div id="dt-reactions" class="grid grid-cols-4 gap-2">
+            <!-- 由 JS 渲染 -->
+          </div>
+
+          <!-- 親友留言區 -->
+          <div class="pt-3 border-t border-theme space-y-3">
+            <h4 class="text-sm font-extrabold text-main">親友留言 (<span id="dt-comment-count">0</span>)</h4>
+
+            <!-- 一按暖心回覆快捷膠囊 (專為長輩及小朋友設計，唔使打字都覆到) -->
+            <div class="space-y-1.5">
+              <div class="text-xs font-bold text-sec">一按暖心回覆：</div>
+              <div class="flex flex-wrap gap-1.5">
+                <button type="button" onclick="quickReply('多謝分享！🧡')" class="min-h-[38px] px-3 rounded-full subtle-surface hover:border-[#FF5E1A] text-xs font-extrabold text-main transition active:scale-95">多謝分享！🧡</button>
+                <button type="button" onclick="quickReply('好有同感 👏')" class="min-h-[38px] px-3 rounded-full subtle-surface hover:border-[#FF5E1A] text-xs font-extrabold text-main transition active:scale-95">好有同感 👏</button>
+                <button type="button" onclick="quickReply('真係好正！')" class="min-h-[38px] px-3 rounded-full subtle-surface hover:border-[#FF5E1A] text-xs font-extrabold text-main transition active:scale-95">真係好正！</button>
+                <button type="button" onclick="quickReply('下次一齊去！')" class="min-h-[38px] px-3 rounded-full subtle-surface hover:border-[#FF5E1A] text-xs font-extrabold text-main transition active:scale-95">下次一齊去！</button>
+              </div>
+            </div>
+
+            <div id="dt-comments-list" class="space-y-2.5">
+              <!-- 由 JS 渲染 -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 底部自訂留言輸入列 -->
+        <div class="p-3.5 header-surface border-t border-theme flex items-center gap-2 shrink-0">
+          <input id="dt-comment-input" type="text" placeholder="寫句暖心留言畀朋友..." class="flex-1 input-surface rounded-2xl px-4 py-2.5 text-[15px] focus:outline-none focus:border-[#FF5E1A]" onkeydown="if(event.key==='Enter') postCustomComment()" />
+          <button onclick="postCustomComment()" aria-label="發送留言" class="w-11 h-11 rounded-2xl bg-[#FF5E1A] text-white flex items-center justify-center shrink-0">
+            <i data-lucide="send" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 彈窗 3：WhatsApp 一鍵分享預覽卡 (附橙色 Re: 徽章與複製連結)             -->
+    <!-- ===================================================================== -->
+    <div id="share-modal" class="hidden absolute inset-0 z-50 bg-black/70 backdrop-blur-sm flex flex-col justify-end">
+      <div class="card-surface rounded-t-[32px] p-5 space-y-4 animate-slide-up">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-extrabold text-main">轉發畀屋企人或朋友</h3>
+            <p class="text-xs text-sec">貼去 WhatsApp 群組會自動顯示靚靚預覽卡</p>
+          </div>
+          <button onclick="closeShareModal()" aria-label="關閉分享" class="w-10 h-10 rounded-full subtle-surface flex items-center justify-center text-main">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- WhatsApp 對話預覽模擬框 -->
+        <div class="p-4 rounded-3xl bg-[#0B141A] space-y-2">
+          <div class="text-[11px] text-white/50 text-center">WhatsApp 訊息預覽效果</div>
+          <div class="ml-auto max-w-[92%] rounded-2xl rounded-tr-sm bg-[#005C4B] p-3 space-y-2 shadow-md">
+            <div class="rounded-xl bg-[#025144] overflow-hidden border border-white/10">
+              <div class="relative">
+                <img id="wa-img" src="" onerror="this.src='https://placehold.co/400x200/24262B/FF5E1A?text=Re:Share'" alt="分享縮圖" class="w-full h-32 object-cover" />
+                <span class="absolute top-2 left-2 px-2 py-0.5 rounded-lg bg-[#FF5E1A] text-white font-black text-xs shadow">Re:</span>
+              </div>
+              <div class="p-2.5">
+                <div id="wa-author" class="text-[11px] font-bold text-[#FF9E44]"></div>
+                <div id="wa-title" class="text-xs font-extrabold text-white line-clamp-1 mt-0.5"></div>
+                <div id="wa-feeling" class="text-[11px] text-white/80 line-clamp-1 mt-0.5"></div>
+                <div class="text-[10px] text-white/50 mt-1">reshare.hk/s/2026</div>
+              </div>
+            </div>
+            <p id="wa-msg" class="text-xs text-white leading-relaxed"></p>
+          </div>
+        </div>
+
+        <!-- 一鍵複製連結按鈕 -->
+        <button onclick="copyShareUrl()" class="w-full min-h-[52px] rounded-2xl bg-[#FF5E1A] hover:bg-[#E04808] text-white text-sm font-black flex items-center justify-center gap-2 shadow-lg transition active:scale-[0.98]">
+          <i data-lucide="copy" class="w-5 h-5"></i>
+          <span id="copy-btn-text">一鍵複製分享連結（貼去 WhatsApp）</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 全局輕提示 Toast (取代傳統 alert)                                       -->
+    <!-- ===================================================================== -->
+    <div id="toast-box" class="hidden absolute top-20 left-1/2 -translate-x-1/2 z-[60] px-4 py-3 rounded-full bg-[#24262B] text-white border border-[#FF5E1A] shadow-xl flex items-center gap-2 whitespace-nowrap animate-fade-in">
+      <span class="w-5 h-5 rounded-full bg-[#FF5E1A] text-white flex items-center justify-center text-xs font-black">✓</span>
+      <span id="toast-text" class="text-xs font-extrabold"></span>
+    </div>
+
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 互動邏輯腳本 (JavaScript)                                              -->
+  <!-- ===================================================================== -->
+  <script>
+    // 1. 心情與分類配置
+    const MOOD_FILTERS = [
+      { id: 'all', label: '全部精選' },
+      { id: '好治癒', label: '🧡 好治癒' },
+      { id: '笑到碌地', label: '😂 笑到碌地' },
+      { id: '生活隨拍', label: '🌿 生活隨拍' },
+      { id: '好文推介', label: '💡 好文推介' },
+      { id: '親友圈', label: '👨‍👩‍👧‍👦 親友圈' }
+    ];
+
+    const CREATE_MOODS = ['🧡 好治癒', '😂 笑到碌地', '🌿 生活隨拍', '💡 好文推介'];
+
+    // 2. 範例好文連結資料庫 (供一鍵試貼 AI 摘要使用)
+    const SAMPLE_LINKS = [
+      {
+        url: 'https://hkculture.hk/cha-chaan-teng-memories',
+        domain: 'hkculture.hk',
+        mood: '💡 好文推介',
+        title: '香港老字號茶餐廳文化：點解「茶走」同「公司三文治」係跨代共同回憶？',
+        feeling: '睇完好有感觸，週末約埋爸媽去舊式冰室飲杯熱奶茶先！',
+        cover: 'https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=700&q=80',
+        bullets: [
+          '「茶走」用煉奶代替砂糖同淡奶，係老一輩茶客最講究嘅順滑秘方',
+          '港式冰室卡位設計見證咗幾代香港人由拍拖到三代同堂嘅生活變遷',
+          '文末附全港 6 間仍保留手寫水牌同自家製蛋撻嘅老字號名單'
+        ]
+      },
+      {
+        url: 'https://digitalcare.hk/senior-smartphone-safety',
+        domain: 'digitalcare.hk',
+        mood: '💡 好文推介',
+        title: '長者智能手機防騙 5 大實用貼士：一分鐘幫屋企人設定安全防護',
+        feeling: '寫得好清楚又易明，即刻轉發入屋企人群組畀爸爸媽媽睇！',
+        cover: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=700&q=80',
+        bullets: [
+          '教長輩認清「+852」開頭陌生來電，切勿隨便透露銀行驗證碼',
+          '示範點樣放大手機字體同開啟「未知來電靜音」功能，步驟圖文並茂',
+          '遇上可疑連結先喺 Re:Share 問下仔女，唔好急住撳入去'
+        ]
+      },
+      {
+        url: 'https://kidscraft.hk/origami-dinosaur-weekend',
+        domain: 'kidscraft.hk',
+        mood: '🧡 好治癒',
+        title: '週末親子手工摺紙恐龍圖解教學：一張正方形色紙就做到！',
+        feeling: '落雨天留喺屋企同小朋友一齊摺，玩足成個下晝超開心！',
+        cover: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=700&q=80',
+        bullets: [
+          '只需一張 15cm 雙面色紙，唔使鉸剪同膠水都做到立體暴龍',
+          '訓練小朋友手眼協調同耐性，完成後仲可以畫上表情做書籤',
+          '適合 5 歲以上小朋友同家長一齊親子互動'
+        ]
+      }
+    ];
+
+    // 3. 跨代共融真實感香港範例貼文 (涵蓋長輩、年輕人、親子與親友圈)
+    let posts = [
+      {
+        id: 1,
+        type: 'video',
+        author: '陳家明',
+        avatarText: '明',
+        avatarClass: 'avatar-warm-1',
+        scope: '屋企人圈',
+        mood: '🧡 好治癒',
+        timeAgo: '15 分鐘前',
+        duration: '0:45',
+        feeling: '今日教爺爺用手機影西九日落，佢學識咗調光暗之後影得仲靚過我！',
+        title: '祖孫西九海濱影相實錄｜爺爺第一張日落大片誕生',
+        cover: 'https://images.unsplash.com/photo-1536599018102-9f803c140fc1?auto=format&fit=crop&w=700&q=80',
+        reactions: { great: 48, warm: 35, laugh: 4, saved: 19 },
+        userReacted: { great: true, warm: true, laugh: false, saved: true },
+        comments: [
+          { author: '嫲嫲', text: '爺爺笑得好開心呀！下星期一齊再去海濱散步🧡', time: '8 分鐘前' },
+          { author: '表妹 Chloe', text: '好有愛呀！爺爺構圖好有天份👏', time: '3 分鐘前' }
+        ]
+      },
+      {
+        id: 2,
+        type: 'link',
+        author: '林太 May',
+        avatarText: '林',
+        avatarClass: 'avatar-warm-2',
+        scope: '公開廣場',
+        mood: '💡 好文推介',
+        timeAgo: '45 分鐘前',
+        domain: 'hkculture.hk',
+        feeling: '睇完好有感觸，週末約埋爸媽去舊式冰室飲杯熱奶茶先！',
+        title: '香港老字號茶餐廳文化：點解「茶走」同「公司三文治」係跨代共同回憶？',
+        cover: 'https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=700&q=80',
+        aiBullets: [
+          '「茶走」用煉奶代替砂糖同淡奶，係老一輩茶客最講究嘅順滑秘方',
+          '港式冰室卡位設計見證咗幾代香港人由拍拖到三代同堂嘅生活變遷',
+          '文末附全港 6 間仍保留手寫水牌同自家製蛋撻嘅老字號名單'
+        ],
+        reactions: { great: 62, warm: 28, laugh: 2, saved: 41 },
+        userReacted: { great: false, warm: false, laugh: false, saved: true },
+        comments: [
+          { author: '街坊張伯', text: '多謝分享！深水埗嗰間我飲咗三十年啦', time: '20 分鐘前' }
+        ]
+      },
+      {
+        id: 3,
+        type: 'video',
+        author: '山系阿爸 Ken',
+        avatarText: 'Ken',
+        avatarClass: 'avatar-warm-3',
+        scope: '公開廣場',
+        mood: '🌿 生活隨拍',
+        timeAgo: '2 小時前',
+        duration: '1:18',
+        feeling: '萬宜水庫東壩全程平路好易行，推 BB 車定陪老人家行都完全無難度！',
+        title: '西貢萬宜水庫東壩週末行山隨拍｜一家大細輕鬆路線',
+        cover: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=700&q=80',
+        reactions: { great: 84, warm: 41, laugh: 3, saved: 57 },
+        userReacted: { great: true, warm: false, laugh: false, saved: false },
+        comments: [
+          { author: 'Ceci媽咪', text: '下次一齊去！個海景真係好靚', time: '1 小時前' }
+        ]
+      },
+      {
+        id: 4,
+        type: 'video',
+        author: '阿軒 Ho',
+        avatarText: '軒',
+        avatarClass: 'avatar-warm-5',
+        scope: '親友圈',
+        mood: '😂 笑到碌地',
+        timeAgo: '3 小時前',
+        duration: '0:24',
+        feeling: '昨晚修頓街場壓哨三分入網，班波友興奮到差啲跳起撞親個籃板！',
+        title: '修頓夜場 3x3 絕殺三分球！同班波友熱血時刻',
+        cover: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=700&q=80',
+        reactions: { great: 93, warm: 12, laugh: 46, saved: 15 },
+        userReacted: { great: false, warm: false, laugh: true, saved: false },
+        comments: [
+          { author: 'Marcus', text: '呢球夠我哋吹足成個禮拜😂', time: '2 小時前' }
+        ]
+      },
+      {
+        id: 5,
+        type: 'video',
+        author: 'Ceci 媽咪',
+        avatarText: 'Ceci',
+        avatarClass: 'avatar-warm-4',
+        scope: '公開廣場',
+        mood: '🧡 好治癒',
+        timeAgo: '5 小時前',
+        duration: '0:36',
+        feeling: '8歲囡囡第一次自己跟住教學摺出立體恐龍，最後嗰個得意笑容融化晒！',
+        title: '親子週末手作縮時紀錄｜8歲小女孩挑戰立體摺紙恐龍',
+        cover: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=700&q=80',
+        reactions: { great: 71, warm: 65, laugh: 9, saved: 33 },
+        userReacted: { great: false, warm: true, laugh: false, saved: false },
+        comments: []
+      }
+    ];
+
+    // 狀態變數
+    let isCharcoalTheme = false;
+    let activeMoodFilter = 'all';
+    let searchKeyword = '';
+    let activeBottomTab = 'home';
+    let createMode = 'video';
+    let selectedCreateMood = '🧡 好治癒';
+    let selectedAudience = '公開廣場';
+    let stagedLinkData = null;
+    let activeDetailId = null;
+    let activeShareId = null;
+
+    // 初始化
+    window.addEventListener('DOMContentLoaded', () => {
+      renderMoodFilterBar();
+      renderCreateMoodPills();
+      renderFeed();
+      lucide.createIcons();
+    });
+
+    // 主題一鍵切換：「暖白日光」 vs 「炭灰質感」
+    function toggleTheme() {
+      isCharcoalTheme = !isCharcoalTheme;
+      const body = document.body;
+      const label = document.getElementById('theme-label');
+      const icon = document.getElementById('theme-icon');
+
+      if (isCharcoalTheme) {
+        body.classList.add('theme-charcoal');
+        label.textContent = '暖白日光';
+        icon.setAttribute('data-lucide', 'sun');
+        showToast('已切換至「炭灰質感」主題');
+      } else {
+        body.classList.remove('theme-charcoal');
+        label.textContent = '暖白日光';
+        icon.setAttribute('data-lucide', 'moon');
+        showToast('已切換至「暖白日光」主題');
+      }
+      lucide.createIcons();
+    }
+
+    // 渲染頂部心情篩選膠囊
+    function renderMoodFilterBar() {
+      const bar = document.getElementById('mood-filter-bar');
+      bar.innerHTML = MOOD_FILTERS.map(item => {
+        const active = activeMoodFilter === item.id;
+        return `
+          <button onclick="selectMoodFilter('${item.id}')"
+            class="shrink-0 min-h-[38px] px-3.5 rounded-full text-xs font-extrabold transition active:scale-95 ${
+              active
+                ? 'bg-[#FF5E1A] text-white shadow-[0_4px_12px_rgba(255,94,26,0.35)]'
+                : 'subtle-surface text-main hover:border-[#FF5E1A]'
+            }">
+            ${item.label}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectMoodFilter(id) {
+      activeMoodFilter = id;
+      if (activeBottomTab !== 'home') {
+        switchBottomTab('home');
+      }
+      renderMoodFilterBar();
+      renderFeed();
+    }
+
+    function resetToHome() {
+      activeMoodFilter = 'all';
+      searchKeyword = '';
+      document.getElementById('search-input').value = '';
+      switchBottomTab('home');
+      renderMoodFilterBar();
+      renderFeed();
+    }
+
+    // 搜尋控制
+    function toggleSearch() {
+      const panel = document.getElementById('search-panel');
+      panel.classList.toggle('hidden');
+      if (!panel.classList.contains('hidden')) {
+        document.getElementById('search-input').focus();
+      }
+    }
+
+    function onSearchInput(val) {
+      searchKeyword = val.trim().toLowerCase();
+      renderFeed();
+    }
+
+    function clearSearch() {
+      searchKeyword = '';
+      document.getElementById('search-input').value = '';
+      document.getElementById('search-panel').classList.add('hidden');
+      renderFeed();
+    }
+
+    // 渲染主探索廣場卡片流 (大字高對比、影片與好文AI摘要完美融合)
+    function renderFeed() {
+      const listEl = document.getElementById('feed-list');
+      const emptyEl = document.getElementById('empty-feed');
+
+      const filtered = posts.filter(post => {
+        if (activeMoodFilter === '親友圈') {
+          if (post.scope !== '屋企人圈' && post.scope !== '親友圈') return false;
+        } else if (activeMoodFilter !== 'all') {
+          if (post.mood !== activeMoodFilter) return false;
+        }
+
+        if (searchKeyword) {
+          const text = `${post.author} ${post.feeling} ${post.title} ${post.mood} ${post.scope}`.toLowerCase();
+          if (!text.includes(searchKeyword)) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+
+      listEl.innerHTML = filtered.map(post => {
+        const isPrivate = post.scope === '屋企人圈' || post.scope === '親友圈';
+
+        return `
+          <article onclick="openDetailModal(${post.id})" class="card-surface rounded-[28px] overflow-hidden cursor-pointer hover:border-[#FF5E1A]/50 transition">
+            <!-- 卡片頂部：作者頭像 + 名字 + 可見圈子標籤 + 心情膠囊 -->
+            <div class="p-4 pb-3 flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <div class="w-10 h-10 rounded-2xl ${post.avatarClass} text-white font-black text-sm flex items-center justify-center shrink-0">
+                  ${post.avatarText}
+                </div>
+                <div class="min-w-0">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-[15px] font-extrabold text-main truncate">${post.author}</span>
+                    <span class="px-2 py-0.5 rounded-full text-[11px] font-extrabold shrink-0 ${
+                      isPrivate
+                        ? 'bg-[#FF5E1A]/15 text-[#FF5E1A]'
+                        : 'subtle-surface text-sec'
+                    }">
+                      ${isPrivate ? '🔒 ' : ''}${post.scope}
+                    </span>
+                  </div>
+                  <span class="text-xs text-muted">${post.timeAgo}</span>
+                </div>
+              </div>
+
+              <span class="px-2.5 py-1 rounded-full subtle-surface text-xs font-extrabold text-main shrink-0">
+                ${post.mood}
+              </span>
+            </div>
+
+            <!-- 分享者感受引述 (突出個人溫度，呼應對話氣泡 Logo) -->
+            <div class="px-4 pb-3">
+              <div class="p-3 rounded-2xl bg-[#FF5E1A]/[0.08] border-l-4 border-[#FF5E1A]">
+                <p class="text-[15px] font-extrabold text-main leading-relaxed">「${post.feeling}」</p>
+              </div>
+            </div>
+
+            <!-- 媒體區：高清影片預覽 或 好文連結封面 -->
+            <div class="px-4">
+              <div class="relative rounded-2xl overflow-hidden bg-black aspect-[16/10]">
+                <img src="${post.cover}" onerror="this.src='https://placehold.co/600x380/24262B/FF5E1A?text=Re:Share'" alt="${post.title}" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/15"></div>
+
+                ${post.type === 'video' ? `
+                  <!-- 影片中央大橙播放掣 + 右上角時長 -->
+                  <span class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded-full bg-black/70 text-white text-xs font-extrabold">
+                    ${post.duration}
+                  </span>
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-14 h-14 rounded-full bg-[#FF5E1A] text-white flex items-center justify-center shadow-[0_6px_20px_rgba(255,94,26,0.5)]">
+                      <i data-lucide="play" class="w-6 h-6 fill-white ml-0.5"></i>
+                    </div>
+                  </div>
+                ` : `
+                  <!-- 好文連結來源與 AI 懶人包標記 -->
+                  <span class="absolute bottom-2.5 left-2.5 px-3 py-1 rounded-full bg-black/75 text-white text-xs font-bold flex items-center gap-1.5">
+                    <i data-lucide="link-2" class="w-3.5 h-3.5 text-[#FF5E1A]"></i>
+                    ${post.domain}
+                  </span>
+                  <span class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded-full bg-[#FF5E1A] text-white text-xs font-extrabold flex items-center gap-1">
+                    <i data-lucide="sparkles" class="w-3 h-3"></i> AI 3點摘要
+                  </span>
+                `}
+              </div>
+            </div>
+
+            <!-- 標題與 AI 摘要預覽 (若為好文連結) -->
+            <div class="p-4 pt-3 space-y-2.5">
+              <h3 class="text-[16px] font-extrabold text-main leading-snug">
+                ${post.title}
+              </h3>
+
+              ${post.type === 'link' && post.aiBullets ? `
+                <div class="p-3 rounded-2xl subtle-surface space-y-1">
+                  <div class="text-[11px] font-extrabold text-[#FF5E1A]">AI 廣東話重點提煉：</div>
+                  <p class="text-xs text-sec line-clamp-2 leading-relaxed">• ${post.aiBullets[0]}</p>
+                </div>
+              ` : ''}
+
+              <!-- 底部大按鈕互動列 (好正 / 留言 / 轉發WhatsApp) -->
+              <div class="pt-2 border-t border-theme flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <button onclick="event.stopPropagation(); toggleCardLike(${post.id})" class="min-h-[40px] px-3.5 rounded-full text-xs font-extrabold flex items-center gap-1.5 transition active:scale-95 ${
+                    post.userReacted.great
+                      ? 'bg-[#FF5E1A] text-white'
+                      : 'subtle-surface text-main hover:border-[#FF5E1A]'
+                  }">
+                    <span>🧡 好正</span>
+                    <span>${post.reactions.great}</span>
+                  </button>
+
+                  <button onclick="event.stopPropagation(); openDetailModal(${post.id})" class="min-h-[40px] px-3 rounded-full subtle-surface text-xs font-extrabold text-main flex items-center gap-1.5 hover:border-[#FF5E1A] transition">
+                    <i data-lucide="message-circle" class="w-4 h-4 text-[#FF5E1A]"></i>
+                    <span>${post.comments.length}</span>
+                  </button>
+                </div>
+
+                <button onclick="event.stopPropagation(); openShareModal(${post.id})" class="min-h-[40px] px-3.5 rounded-full subtle-surface hover:border-[#FF5E1A] text-xs font-extrabold text-main flex items-center gap-1.5 transition active:scale-95">
+                  <i data-lucide="share-2" class="w-4 h-4 text-[#FF5E1A]"></i>
+                  <span>轉發</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    function toggleCardLike(postId) {
+      const p = posts.find(item => item.id === postId);
+      if (!p) return;
+      p.userReacted.great = !p.userReacted.great;
+      p.reactions.great += p.userReacted.great ? 1 : -1;
+      renderFeed();
+    }
+
+    // 底部 3 鍵導航切換
+    function switchBottomTab(tab) {
+      activeBottomTab = tab;
+      const homeView = document.getElementById('view-home');
+      const circlesView = document.getElementById('view-circles');
+      const tabHome = document.getElementById('tab-home');
+      const tabCircles = document.getElementById('tab-circles');
+
+      if (tab === 'home') {
+        homeView.classList.remove('hidden');
+        circlesView.classList.add('hidden');
+        tabHome.className = 'flex-1 min-h-[48px] flex flex-col items-center justify-center gap-1 text-[#FF5E1A] transition active:scale-95';
+        tabCircles.className = 'flex-1 min-h-[48px] flex flex-col items-center justify-center gap-1 text-sec hover:text-main transition active:scale-95';
+        renderFeed();
+      } else {
+        homeView.classList.add('hidden');
+        circlesView.classList.remove('hidden');
+        tabCircles.className = 'flex-1 min-h-[48px] flex flex-col items-center justify-center gap-1 text-[#FF5E1A] transition active:scale-95';
+        tabHome.className = 'flex-1 min-h-[48px] flex flex-col items-center justify-center gap-1 text-sec hover:text-main transition active:scale-95';
+        renderSavedPosts();
+      }
+      lucide.createIcons();
+    }
+
+    function filterCircleFromProfile(scopeName) {
+      activeMoodFilter = '親友圈';
+      switchBottomTab('home');
+      renderMoodFilterBar();
+      renderFeed();
+      showToast(`已篩選「${scopeName}」專屬動態`);
+    }
+
+    function renderSavedPosts() {
+      const saved = posts.filter(p => p.userReacted.saved);
+      document.getElementById('stat-saved').textContent = 35 + saved.length;
+      const container = document.getElementById('saved-posts-list');
+
+      if (saved.length === 0) {
+        container.innerHTML = `<div class="card-surface rounded-2xl p-4 text-xs text-sec text-center">你仲未收藏任何內容，見到鍾意嘅影片或文章撳「收藏 🔖」就會出現喺度！</div>`;
+        return;
+      }
+
+      container.innerHTML = saved.map(p => `
+        <div onclick="openDetailModal(${p.id})" class="card-surface rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-[#FF5E1A] transition">
+          <img src="${p.cover}" onerror="this.src='https://placehold.co/120x120/24262B/FF5E1A?text=Re:'" alt="${p.title}" class="w-14 h-14 rounded-xl object-cover shrink-0" />
+          <div class="min-w-0 flex-1">
+            <div class="text-sm font-extrabold text-main truncate">${p.title}</div>
+            <div class="text-xs text-[#FF5E1A] font-bold truncate mt-0.5">「${p.feeling}」</div>
+          </div>
+          <i data-lucide="chevron-right" class="w-5 h-5 text-muted shrink-0"></i>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // =========================================================================
+    // 「＋ 分享」創作抽屜邏輯
+    // =========================================================================
+    function openCreateModal(defaultMode = 'video') {
+      document.getElementById('create-modal').classList.remove('hidden');
+      setCreateMode(defaultMode);
+      lucide.createIcons();
+    }
+
+    function closeCreateModal() {
+      document.getElementById('create-modal').classList.add('hidden');
+    }
+
+    function setCreateMode(mode) {
+      createMode = mode;
+      ['video', 'link', 'feeling'].forEach(m => {
+        const btn = document.getElementById(`cmode-${m}`);
+        const pane = document.getElementById(`pane-${m}`);
+        if (m === mode) {
+          btn.className = 'min-h-[42px] rounded-xl bg-[#FF5E1A] text-white text-xs font-extrabold flex items-center justify-center gap-1.5 transition';
+          pane.classList.remove('hidden');
+        } else {
+          btn.className = 'min-h-[42px] rounded-xl text-sec hover:text-main text-xs font-extrabold flex items-center justify-center gap-1.5 transition';
+          pane.classList.add('hidden');
+        }
+      });
+    }
+
+    function loadSampleVideo() {
+      document.getElementById('video-upload-title').textContent = '已載入：西貢海濱親子單車遊.mp4 (42MB 高清)';
+      document.getElementById('video-upload-sub').textContent = '轉碼準備就緒！寫低兩句感受就可以發佈';
+      if (!document.getElementById('feeling-textarea').value.trim()) {
+        document.getElementById('feeling-textarea').value = '週末一家大細去海濱踩單車吹海風，小朋友放電放到唔願走！';
+      }
+      showToast('已載入範例高清影片');
+    }
+
+    function applySampleLink(idx) {
+      const item = SAMPLE_LINKS[idx];
+      if (!item) return;
+      stagedLinkData = item;
+      document.getElementById('url-input').value = item.url;
+      document.getElementById('feeling-textarea').value = item.feeling;
+      selectedCreateMood = item.mood;
+      renderCreateMoodPills();
+
+      document.getElementById('ai-preview-domain').textContent = item.domain;
+      document.getElementById('ai-preview-title').textContent = item.title;
+      document.getElementById('ai-preview-bullets').innerHTML = item.bullets.map(b => `<li>${b}</li>`).join('');
+      document.getElementById('ai-link-preview').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function fetchCustomLink() {
+      const val = document.getElementById('url-input').value.trim();
+      if (!val) {
+        applySampleLink(0);
+        return;
+      }
+      let domain = 'reshare.hk';
+      try {
+        domain = new URL(val.startsWith('http') ? val : `https://${val}`).hostname.replace('www.', '');
+      } catch (e) {}
+
+      stagedLinkData = {
+        url: val,
+        domain: domain,
+        mood: '💡 好文推介',
+        title: `來自 ${domain} 嘅精選文章與生活分享`,
+        feeling: document.getElementById('feeling-textarea').value.trim() || '呢篇內容好實用，推薦大家得閒睇下！',
+        cover: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=700&q=80',
+        bullets: [
+          'AI 已自動提煉文章核心重點，方便朋友 30 秒睇明',
+          '支援一鍵轉發至 WhatsApp 屋企人或朋友群組',
+          '大字排版清晰易讀，隨時隨地重溫重點'
+        ]
+      };
+      document.getElementById('ai-preview-domain').textContent = stagedLinkData.domain;
+      document.getElementById('ai-preview-title').textContent = stagedLinkData.title;
+      document.getElementById('ai-preview-bullets').innerHTML = stagedLinkData.bullets.map(b => `<li>${b}</li>`).join('');
+      document.getElementById('ai-link-preview').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function renderCreateMoodPills() {
+      const box = document.getElementById('create-mood-pills');
+      box.innerHTML = CREATE_MOODS.map(m => {
+        const active = selectedCreateMood === m;
+        return `
+          <button type="button" onclick="selectCreateMood('${m}')"
+            class="min-h-[38px] px-3.5 rounded-full text-xs font-extrabold transition ${
+              active ? 'bg-[#FF5E1A] text-white' : 'subtle-surface text-main hover:border-[#FF5E1A]'
+            }">
+            ${m}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectCreateMood(m) {
+      selectedCreateMood = m;
+      renderCreateMoodPills();
+    }
+
+    function setAudience(aud) {
+      selectedAudience = aud;
+      const pubBtn = document.getElementById('aud-public');
+      const famBtn = document.getElementById('aud-family');
+      if (aud === '公開廣場') {
+        pubBtn.className = 'min-h-[44px] rounded-2xl bg-[#FF5E1A] text-white text-xs font-extrabold flex items-center justify-center gap-1.5';
+        famBtn.className = 'min-h-[44px] rounded-2xl subtle-surface text-main text-xs font-extrabold flex items-center justify-center gap-1.5';
+      } else {
+        famBtn.className = 'min-h-[44px] rounded-2xl bg-[#FF5E1A] text-white text-xs font-extrabold flex items-center justify-center gap-1.5';
+        pubBtn.className = 'min-h-[44px] rounded-2xl subtle-surface text-main text-xs font-extrabold flex items-center justify-center gap-1.5';
+      }
+      lucide.createIcons();
+    }
+
+    function submitNewPost() {
+      const feelingText = document.getElementById('feeling-textarea').value.trim() || '今日份嘅好心情，想第一時間同大家分享！';
+      let newPost;
+
+      if (createMode === 'link') {
+        const linkBase = stagedLinkData || SAMPLE_LINKS[0];
+        newPost = {
+          id: Date.now(),
+          type: 'link',
+          author: '陳家明',
+          avatarText: '明',
+          avatarClass: 'avatar-warm-1',
+          scope: selectedAudience,
+          mood: selectedCreateMood,
+          timeAgo: '剛剛',
+          domain: linkBase.domain,
+          feeling: feelingText,
+          title: linkBase.title,
+          cover: linkBase.cover,
+          aiBullets: linkBase.bullets,
+          reactions: { great: 1, warm: 0, laugh: 0, saved: 1 },
+          userReacted: { great: true, warm: false, laugh: false, saved: true },
+          comments: []
+        };
+      } else if (createMode === 'video') {
+        newPost = {
+          id: Date.now(),
+          type: 'video',
+          author: '陳家明',
+          avatarText: '明',
+          avatarClass: 'avatar-warm-1',
+          scope: selectedAudience,
+          mood: selectedCreateMood,
+          timeAgo: '剛剛',
+          duration: '0:52',
+          feeling: feelingText,
+          title: '西貢海濱親子單車遊實拍精華',
+          cover: 'https://images.unsplash.com/photo-1541625602330-2277a4c46182?auto=format&fit=crop&w=700&q=80',
+          reactions: { great: 1, warm: 1, laugh: 0, saved: 0 },
+          userReacted: { great: true, warm: true, laugh: false, saved: false },
+          comments: []
+        };
+      } else {
+        newPost = {
+          id: Date.now(),
+          type: 'video',
+          author: '陳家明',
+          avatarText: '明',
+          avatarClass: 'avatar-warm-1',
+          scope: selectedAudience,
+          mood: selectedCreateMood,
+          timeAgo: '剛剛',
+          duration: '心情隨拍',
+          feeling: feelingText,
+          title: '今日份嘅生活小確幸紀錄',
+          cover: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=700&q=80',
+          reactions: { great: 1, warm: 1, laugh: 0, saved: 0 },
+          userReacted: { great: true, warm: true, laugh: false, saved: false },
+          comments: []
+        };
+      }
+
+      posts.unshift(newPost);
+      closeCreateModal();
+
+      // 重置表單
+      stagedLinkData = null;
+      document.getElementById('url-input').value = '';
+      document.getElementById('feeling-textarea').value = '';
+      document.getElementById('ai-link-preview').classList.add('hidden');
+
+      activeMoodFilter = 'all';
+      switchBottomTab('home');
+      renderMoodFilterBar();
+      renderFeed();
+      document.getElementById('main-viewport').scrollTo({ top: 0, behavior: 'smooth' });
+      showToast(`已成功發佈到「${selectedAudience}」！`);
+    }
+
+    // =========================================================================
+    // 詳情抽屜與「一按暖心回覆」邏輯
+    // =========================================================================
+    function openDetailModal(postId) {
+      const post = posts.find(p => p.id === postId);
+      if (!post) return;
+      activeDetailId = postId;
+
+      const av = document.getElementById('dt-avatar');
+      av.className = `w-10 h-10 rounded-2xl ${post.avatarClass} text-white font-black text-sm flex items-center justify-center shrink-0`;
+      av.textContent = post.avatarText;
+
+      document.getElementById('dt-author').textContent = post.author;
+      document.getElementById('dt-scope').textContent = post.scope;
+      document.getElementById('dt-time').textContent = post.timeAgo;
+      document.getElementById('dt-cover').src = post.cover;
+      document.getElementById('dt-mood-pill').textContent = post.mood;
+      document.getElementById('dt-feeling').textContent = `「${post.feeling}」`;
+      document.getElementById('dt-title').textContent = post.title;
+
+      const vidCtrl = document.getElementById('dt-video-controls');
+      const aiBox = document.getElementById('dt-ai-box');
+
+      if (post.type === 'video') {
+        vidCtrl.classList.remove('hidden');
+        aiBox.classList.add('hidden');
+        document.getElementById('dt-duration').textContent = post.duration;
+        document.getElementById('dt-progress').style.width = '33%';
+        document.getElementById('dt-play-status').textContent = '點擊播放高清原片';
+      } else {
+        vidCtrl.classList.add('hidden');
+        aiBox.classList.remove('hidden');
+        document.getElementById('dt-domain').textContent = post.domain;
+        document.getElementById('dt-ai-bullets').innerHTML = (post.aiBullets || []).map(b => `<li>${b}</li>`).join('');
+      }
+
+      renderDetailReactions(post);
+      renderDetailComments(post);
+
+      document.getElementById('detail-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeDetailModal() {
+      document.getElementById('detail-modal').classList.add('hidden');
+      activeDetailId = null;
+    }
+
+    function toggleVideoPlayback() {
+      const btn = document.getElementById('dt-play-btn');
+      const bar = document.getElementById('dt-progress');
+      const status = document.getElementById('dt-play-status');
+      const playing = btn.dataset.playing === 'true';
+
+      if (!playing) {
+        btn.dataset.playing = 'true';
+        btn.innerHTML = '<i data-lucide="pause" class="w-5 h-5 fill-white"></i>';
+        bar.style.width = '85%';
+        status.textContent = '正在流暢播放中...';
+      } else {
+        btn.dataset.playing = 'false';
+        btn.innerHTML = '<i data-lucide="play" class="w-5 h-5 fill-white ml-0.5"></i>';
+        bar.style.width = '33%';
+        status.textContent = '已暫停播放';
+      }
+      lucide.createIcons();
+    }
+
+    function renderDetailReactions(post) {
+      const configs = [
+        { key: 'great', label: '好正 🧡' },
+        { key: 'warm', label: '好治癒 ✨' },
+        { key: 'laugh', label: '笑死 😆' },
+        { key: 'saved', label: '收藏 🔖' }
+      ];
+
+      document.getElementById('dt-reactions').innerHTML = configs.map(c => {
+        const active = post.userReacted[c.key];
+        return `
+          <button onclick="toggleDetailReaction('${c.key}')"
+            class="min-h-[48px] px-2 rounded-2xl text-xs font-extrabold flex flex-col items-center justify-center gap-0.5 transition active:scale-95 ${
+              active
+                ? 'bg-[#FF5E1A] text-white shadow-md'
+                : 'subtle-surface text-main hover:border-[#FF5E1A]'
+            }">
+            <span>${c.label}</span>
+            <span>${post.reactions[c.key]}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function toggleDetailReaction(key) {
+      const post = posts.find(p => p.id === activeDetailId);
+      if (!post) return;
+      post.userReacted[key] = !post.userReacted[key];
+      post.reactions[key] += post.userReacted[key] ? 1 : -1;
+      renderDetailReactions(post);
+      renderFeed();
+    }
+
+    function renderDetailComments(post) {
+      document.getElementById('dt-comment-count').textContent = post.comments.length;
+      const list = document.getElementById('dt-comments-list');
+
+      if (post.comments.length === 0) {
+        list.innerHTML = `<p class="text-xs text-sec py-2">暫時未有留言，撳上面「一按暖心回覆」做第一個回應嘅朋友！</p>`;
+        return;
+      }
+
+      list.innerHTML = post.comments.map(c => `
+        <div class="p-3 rounded-2xl subtle-surface space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-extrabold text-main">${c.author}</span>
+            <span class="text-[11px] text-muted">${c.time}</span>
+          </div>
+          <p class="text-sm text-main leading-relaxed">${c.text}</p>
+        </div>
+      `).join('');
+    }
+
+    function quickReply(text) {
+      if (!activeDetailId) return;
+      const post = posts.find(p => p.id === activeDetailId);
+      if (!post) return;
+      post.comments.push({ author: '陳家明 (我)', text: text, time: '剛剛' });
+      renderDetailComments(post);
+      renderFeed();
+      showToast('已發送暖心回覆！');
+    }
+
+    function postCustomComment() {
+      const input = document.getElementById('dt-comment-input');
+      const val = input.value.trim();
+      if (!val || !activeDetailId) return;
+      quickReply(val);
+      input.value = '';
+    }
+
+    // =========================================================================
+    // WhatsApp 一鍵轉發預覽卡邏輯
+    // =========================================================================
+    function openShareModal(postId) {
+      const post = posts.find(p => p.id === postId);
+      if (!post) return;
+      activeShareId = postId;
+
+      document.getElementById('wa-img').src = post.cover;
+      document.getElementById('wa-author').textContent = `${post.author} 喺 Re:Share 分享咗`;
+      document.getElementById('wa-title').textContent = post.title;
+      document.getElementById('wa-feeling').textContent = `「${post.feeling}」`;
+      document.getElementById('wa-msg').textContent = `快啲睇下！${post.author} 話：「${post.feeling}」👉 https://reshare.hk/s/${post.id}`;
+      document.getElementById('copy-btn-text').textContent = '一鍵複製分享連結（貼去 WhatsApp）';
+
+      document.getElementById('share-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function openShareFromDetail() {
+      if (activeDetailId) openShareModal(activeDetailId);
+    }
+
+    function closeShareModal() {
+      document.getElementById('share-modal').classList.add('hidden');
+    }
+
+    function copyShareUrl() {
+      const post = posts.find(p => p.id === activeShareId);
+      const urlText = post
+        ? `${post.author} 喺 Re:Share 分享：「${post.feeling}」https://reshare.hk/s/${post.id}`
+        : 'https://reshare.hk';
+
+      const ta = document.createElement('textarea');
+      ta.value = urlText;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+      } catch (e) {}
+      document.body.removeChild(ta);
+
+      document.getElementById('copy-btn-text').textContent = '已複製！可直接貼去 WhatsApp 群組';
+      showToast('已複製 Re:Share 分享連結！');
+    }
+
+    // 全局輕提示
+    let toastTimer = null;
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      document.getElementById('toast-text').textContent = msg;
+      box.classList.remove('hidden');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => box.classList.add('hidden'), 2600);
+    }
+  </script>
+</body>
+</html>
